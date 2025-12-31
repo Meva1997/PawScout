@@ -44,8 +44,8 @@ export default function NewArrivals() {
   return (
     <section className="my-20 px-4 max-w-6xl mx-auto">
       <article>
-        <h4 className="text-3xl font-bold text-black">Esperando un hogar</h4>
-        <div className="flex justify-between">
+        <h4 className="text-3xl font-black text-black">Esperando un hogar</h4>
+        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 justify-between">
           <p className="text-gray-500 mt-2">
             Descubre las nuevas mascotas que buscan un hogar amoroso.
           </p>
@@ -54,7 +54,7 @@ export default function NewArrivals() {
           </Link>
         </div>
       </article>
-      <article className="grid grid-cols-4 max-w-6xl mx-auto justify-evenly gap-6 my-10">
+      <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto justify-evenly gap-10 lg:gap-6 my-10">
         {defaultDogs.map((dog) => (
           <WaitingHomeDogCards
             key={dog.name}

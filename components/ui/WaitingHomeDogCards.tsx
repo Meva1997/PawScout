@@ -17,13 +17,13 @@ export default function WaitingHomeDogCards({
 }: WaitingHomeDogCardsProps) {
   return (
     <>
-      <div>
+      <div className="w-full max-w-xs bg-white rounded-2xl shadow-md overflow-hidden mx-auto">
         <Image
           src={src}
           alt={`Image of ${name}, a dog waiting for a home`}
           width={300}
           height={300}
-          className="rounded-t-2xl"
+          className="rounded-t-2xl object-cover w-full"
         />
         <div className=" bg-gray-100 p-4 rounded-b-2xl">
           <h5 className="text-xl font-bold text-black">{name}</h5>
