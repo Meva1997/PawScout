@@ -19,7 +19,7 @@ export default function HeroSection() {
               </span>{" "}
               hoy
             </h2>
-            <p className="text-gray-400 mt-6 max-w-md">
+            <p className="text-gray-500 mt-6 max-w-md">
               En PawScout, conectamos mascotas adorables con hogares amorosos.
               Explora perfiles detallados, fotos encantadoras y encuentra la
               compañía perfecta para ti.
@@ -28,7 +28,7 @@ export default function HeroSection() {
               <button className="bg-emerald-400 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-500 transition">
                 Explorar Mascotas
               </button>
-              <button className="border border-gray-600 text-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition">
+              <button className="border border-gray-600 text-gray-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition">
                 Aprende Más
               </button>
             </div>

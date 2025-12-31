@@ -20,8 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <HomeHeader />
       <body className={`${googleSansFlex.variable} antialiased`}>
+        <HomeHeader />
         {children}
       </body>
     </html>
