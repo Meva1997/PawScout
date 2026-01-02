@@ -43,6 +43,33 @@ export default function HomeFooter() {
           &copy; {new Date().getFullYear()} PawScout. Todos los derechos
           reservados.
         </section>
+        <section className="bg-gray-50 px-8 py-6 text-gray-600 text-sm">
+          <h3 className="font-semibold text-black mb-2">Aviso legal</h3>
+          <p>
+            Las imágenes mostradas en este sitio han sido generadas con
+            tecnologías de inteligencia artificial con fines de demostración y
+            prototipado. Algunos perfiles o descripciones pueden ser ficticios o
+            simplificados y no representan animales reales disponibles para
+            adopción.
+          </p>
+          <p className="mt-2">
+            PawScout es actualmente un proyecto personal y no una organización
+            oficial. Para consultas o reportes, contacta a
+            <a
+              href="mailto:mevadev97@gmail.com"
+              className="text-emerald-400 underline"
+            >
+              {" "}
+              mevadev97@gmail.com
+            </a>
+            .
+          </p>
+          <p className="mt-2 text-xs text-gray-400">
+            Si utilizas el contenido de este sitio, hazlo bajo tu propia
+            responsabilidad. Estamos abiertos a corregir cualquier información
+            incorrecta; por favor contáctanos.
+          </p>
+        </section>
       </footer>
     </>
   );
