@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -25,10 +26,13 @@ export default function HeroSection() {
               compañía perfecta para ti.
             </p>
             <div className="mt-8 flex gap-4">
-              <button className="bg-emerald-400 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-500 transition">
+              <Link
+                href="/adopt"
+                className="bg-emerald-400 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-600 transition-all cursor-pointer"
+              >
                 Explorar Mascotas
-              </button>
-              <button className="border border-gray-600 text-gray-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition">
+              </Link>
+              <button className="border border-gray-600 text-gray-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-all cursor-pointer">
                 Aprende Más
               </button>
             </div>

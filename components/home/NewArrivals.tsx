@@ -49,7 +49,7 @@ export default function NewArrivals() {
           <p className="text-gray-500 mt-2">
             Descubre las nuevas mascotas que buscan un hogar amoroso.
           </p>
-          <Link href="/dogs" className="font-bold text-emerald-400">
+          <Link href="/adopt" className="font-bold text-emerald-400">
             Ver más →
           </Link>
         </div>

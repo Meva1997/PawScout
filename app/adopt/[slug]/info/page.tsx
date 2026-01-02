@@ -12,7 +12,6 @@ export default function Page() {
   const dog: DogsDataType | undefined = dogsData.find(
     (d) => d.id === Number(slug)
   );
-  console.log(dog);
 
   return (
     <>
