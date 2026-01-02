@@ -30,7 +30,7 @@ export default function Testimonials() {
     <>
       <section className="bg-gray-100 max-w-6xl mx-auto p-6 py-16 text-center">
         <article>
-          <h5 className="text-3xl font-black">Testimoniales</h5>
+          <h5 className="text-3xl font-black">Nuestros Testimonios</h5>
           <p className="text-gray-500 py-4">
             Historias de personas que han encontrado un nuevo amigo peludo a
             través de nuestra plataforma.

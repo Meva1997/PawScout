@@ -1,7 +1,9 @@
+import ApplyHeader from "@/components/adopt/ApplyHeader";
+
 export default function page() {
   return (
     <>
-      <div>page</div>
+      <ApplyHeader />
     </>
   );
 }

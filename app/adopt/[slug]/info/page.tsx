@@ -112,7 +112,9 @@ export default function Page() {
               </p>
             </div>
             <div className="mt-6 bg-emerald-400 p-4 rounded-lg text-center font-black hover:bg-emerald-600 transition-colors cursor-pointer">
-              <Link href="/adopt">Aplica para adoptar -&gt; </Link>
+              <Link href={`/adopt/${dog?.id}/adopt-form`}>
+                Aplica para adoptar -&gt;{" "}
+              </Link>
             </div>
           </div>
         </article>
