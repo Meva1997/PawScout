@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function HomeHeader() {
@@ -6,9 +7,11 @@ export default function HomeHeader() {
 
   return (
     <header className="flex items-center justify-between p-4 bg-white shadow-md max-w-6xl mx-auto">
-      <h1 className="font-bold text-2xl">
-        <span className="md:pr-4 lg:pr-0">🐾</span> PawScout
-      </h1>
+      <Link href="/">
+        <h1 className="font-bold text-2xl">
+          <span className="md:pr-4 lg:pr-0">🐾</span> PawScout
+        </h1>
+      </Link>
 
       <nav className="relative">
         <button
@@ -53,9 +56,12 @@ export default function HomeHeader() {
 
         {/*Desktop Menu*/}
         <ul className="hidden md:flex space-x-6 font-medium">
-          <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
+          <Link
+            href="/adopt"
+            className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+          >
             Adopta
-          </li>
+          </Link>
           <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
             Donaciones
           </li>
@@ -71,9 +77,12 @@ export default function HomeHeader() {
         {open && (
           <div className="md:hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20">
             <ul className="flex flex-col space-y-2 p-4 font-medium">
-              <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
+              <Link
+                href="/adopt"
+                className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+              >
                 Adopta
-              </li>
+              </Link>
               <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
                 Donaciones
               </li>
