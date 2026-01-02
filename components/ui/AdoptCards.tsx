@@ -4,6 +4,7 @@ import Image from "next/image";
 import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
 import AdoptListFilter from "../adopt/AdoptListFilter";
+import Link from "next/link";
 
 export default function AdoptCards() {
   const [filteredDogs, setFilteredDogs] = useState<DogsDataType[]>(dogsData);
@@ -11,12 +12,12 @@ export default function AdoptCards() {
   return (
     <>
       <AdoptListFilter dogs={dogsData} onFilterChange={setFilteredDogs} />
-      <section className="my-16">
+      <section className=" bg-gray-100 py-16">
         <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
           {filteredDogs.map((dog) => (
             <div
               key={dog.id}
-              className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
+              className="border border-gray-200 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
               <Image
                 src={dog.imageUrl}
@@ -29,7 +30,7 @@ export default function AdoptCards() {
                 <h3 className="text-lg font-semibold text-gray-900">
                   {dog.name}
                 </h3>
-                <p className="text-sm text-gray-600">{dog.description}</p>
+                <p className="text-sm text-gray-600">{dog.shortDescription}</p>
                 <p className="mt-2 text-sm text-gray-500">🎂: {dog.age}</p>
                 <p className="mt-2 text-sm text-gray-500">Tamaño: {dog.size}</p>
                 <p className="mt-2 text-sm text-gray-500">
@@ -37,9 +38,12 @@ export default function AdoptCards() {
                 </p>
               </div>
               <div className="p-4 border-t border-gray-200 text-center">
-                <button className="bg-emerald-400 text-black px-4 py-2 rounded hover:bg-emerald-600 transition-colors duration-300 font-bold cursor-pointer">
+                <Link
+                  href={`/adopt/${dog.id}/info`}
+                  className="bg-emerald-400 text-black px-4 py-2 rounded hover:bg-emerald-600 transition-colors duration-300 font-bold cursor-pointer"
+                >
                   Conoce a {dog.name}
-                </button>
+                </Link>
               </div>
             </div>
           ))}
