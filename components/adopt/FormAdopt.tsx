@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type FormAdoptProps = {
   slug: number;
 };
@@ -133,9 +135,15 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
               privacidad.
             </p>
           </div>
-          <button className="mt-6 bg-emerald-400 p-4 rounded-lg text-center font-black hover:bg-emerald-600 transition-colors cursor-pointer w-full">
-            Enviar Solicitud de Adopción
-          </button>
+          {/* TODO: Implement form submission logic. Change Link to button and handle form submission */}
+          <div className="mt-10">
+            <Link
+              href={`/adopt/${slug}/adopt-form/success`}
+              className="mt-6 bg-emerald-400 p-4 rounded-lg text-center font-black hover:bg-emerald-600 transition-colors cursor-pointer w-full  "
+            >
+              Enviar Solicitud de Adopción
+            </Link>
+          </div>
         </section>
       </form>
     </section>
