@@ -62,9 +62,12 @@ export default function HomeHeader() {
           >
             Adopta
           </Link>
-          <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
+          <Link
+            href="/donate"
+            className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+          >
             Donaciones
-          </li>
+          </Link>
           <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
             Voluntariado
           </li>
@@ -83,9 +86,12 @@ export default function HomeHeader() {
               >
                 Adopta
               </Link>
-              <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
+              <Link
+                href="/donate"
+                className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+              >
                 Donaciones
-              </li>
+              </Link>
               <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
                 Voluntariado
               </li>
