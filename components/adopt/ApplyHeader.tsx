@@ -35,10 +35,10 @@ export default function ApplyHeader() {
               alt={dog?.name ?? "Imagen de perro"}
               width={300}
               height={300}
-              className="w-100 h-55 object-cover rounded-t-lg"
+              className="w-md md:w-100 h-55 object-cover rounded-t-lg"
             />
           ) : (
-            <div className="w-100 h-55 bg-gray-200 flex items-center justify-center text-gray-500">
+            <div className="w-md md:w-100 h-55 bg-gray-200 flex items-center justify-center text-gray-500">
               Sin imagen
             </div>
           )}

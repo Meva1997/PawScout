@@ -127,16 +127,19 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
           />
         </section>
         <section className="pt-10">
-          <div className="flex items-center gap-4 ">
+          <div className="flex items-center gap-4 justify-center">
             <input type="checkbox" />
-            <p>
-              Acepto los términos y condiciones. Estoy de acuerdo en que los
-              datos proporcionados serán utilizados conforme a la política de
-              privacidad.
+            <p className="text-gray-400">
+              Acepto los{" "}
+              <span className="underline text-emerald-400 font-bold">
+                términos y condiciones
+              </span>
+              . Estoy de acuerdo en que los datos proporcionados serán
+              utilizados conforme a la política de privacidad.
             </p>
           </div>
           {/* TODO: Implement form submission logic. Change Link to button and handle form submission */}
-          <div className="mt-10">
+          <div className="mt-10 justify-center flex w-2/3 mx-auto">
             <Link
               href={`/adopt/${slug}/adopt-form/success`}
               className="mt-6 bg-emerald-400 p-4 rounded-lg text-center font-black hover:bg-emerald-600 transition-colors cursor-pointer w-full  "
