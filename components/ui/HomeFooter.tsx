@@ -1,4 +1,7 @@
 "use client";
+
+import Link from "next/link";
+
 export default function HomeFooter() {
   return (
     <>
@@ -12,30 +15,56 @@ export default function HomeFooter() {
               necesitadas.
             </p>
           </article>
-          <article className="space-y-4">
+          <article className="space-y-4 flex flex-col ">
             <h2 className="font-bold text-black text-xl">Adopta</h2>
-            <p className="text-gray-500 text-sm">Busca mascotas</p>
-            <p className="text-gray-500 text-sm">Como adoptar</p>
-            <p className="text-gray-500 text-sm">Costos de adopción</p>
-            <p className="text-gray-500 text-sm">Preguntas frecuentes</p>
+            <Link
+              href="/adopt"
+              className="text-gray-500 text-sm hover:underline hover:text-emerald-600"
+            >
+              Busca mascotas
+            </Link>
+            <Link
+              href="/"
+              className="text-gray-500 text-sm hover:underline hover:text-emerald-600"
+            >
+              Como adoptar
+            </Link>
           </article>
-          <article className="space-y-4">
+          <article className="space-y-4 flex flex-col ">
             <h2 className="font-bold text-black text-xl">Apoyanos</h2>
-            <p className="text-gray-500 text-sm">Donaciones</p>
-            <p className="text-gray-500 text-sm">Voluntariado</p>
-            <p className="text-gray-500 text-sm">Programa de adopción</p>
-            <p className="text-gray-500 text-sm">Eventos</p>
+            <Link
+              href="/donate"
+              className="text-gray-500 text-sm hover:underline hover:text-emerald-600"
+            >
+              Donaciones
+            </Link>
+            <Link
+              href="/volunteer"
+              className="text-gray-500 text-sm hover:underline hover:text-emerald-600"
+            >
+              Voluntariado
+            </Link>
           </article>
-          <article className="space-y-4">
+          <article className="space-y-4 flex flex-col">
             <h2 className="font-bold text-black text-xl">Contacto</h2>
             <p className="text-gray-500 text-sm">mevadev97@gmail.com</p>
             <p className="text-gray-500 text-sm"> +1 (956) 502-7164</p>
-            <p className="text-gray-500 text-sm">
+            <a
+              href="https://github.com/Meva1997"
+              className="text-gray-500 text-sm hover:underline hover:text-emerald-600"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               GitHub: https://github.com/Meva1997
-            </p>
-            <p className="text-gray-500 text-sm">
+            </a>
+            <a
+              href="https://www.linkedin.com/in/alex-fullstack-developer/"
+              className="text-gray-500 text-sm hover:underline hover:text-emerald-600"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               Linkedin: https://www.linkedin.com/in/alex-fullstack-developer/
-            </p>
+            </a>
           </article>
         </section>
         <hr />

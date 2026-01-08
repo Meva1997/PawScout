@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroVolunteer() {
   return (
@@ -16,9 +17,12 @@ export default function HeroVolunteer() {
             Unete a nuestra comunidad de voluntarios y marca la diferencia hoy
             mismo.
           </p>
-          <button className="mt-6 bg-emerald-500 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-colors">
+          <Link
+            href="/volunteer/form"
+            className="mt-6 bg-emerald-400 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-colors font-bold cursor-pointer"
+          >
             Quiero ser voluntario
-          </button>
+          </Link>
         </section>
         <section className="flex justify-center items-center md:mr-10 ">
           <Image
