@@ -6,7 +6,7 @@ import Testimonials from "@/components/home/Testimonials";
 
 export default function page() {
   return (
-    <main className="bg-white">
+    <main className="bg-gray-100 py-10">
       <HeroSection />
       <HowWorks />
       <NewArrivals />

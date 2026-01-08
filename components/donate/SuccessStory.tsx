@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function SuccessStory() {
   return (
     <>
-      <article className="grid md:grid-cols-2 bg-white max-w-5xl mx-auto my-30 shadow-lg rounded-lg overflow-hidden p-10 gap-10 items-center">
+      <article className="grid md:grid-cols-2 bg-white max-w-6xl mx-auto my-20 shadow-lg rounded-lg overflow-hidden p-10 gap-10 items-center">
         <section>
           <p className="text-orange-500 pb-2 font-medium">Historia de éxito</p>
           <h4 className="font-bold text-xl">&quot;La historia de Luna&quot;</h4>

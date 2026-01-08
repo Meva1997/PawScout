@@ -28,7 +28,7 @@ const testimonials: Testimonial[] = [
 export default function Testimonials() {
   return (
     <>
-      <section className="bg-gray-100 max-w-6xl mx-auto p-6 py-16 text-center">
+      <section className="bg-white max-w-6xl mx-auto p-6 my-20 text-center rounded-3xl shadow-xl">
         <article>
           <h5 className="text-3xl font-black">Nuestros Testimonios</h5>
           <p className="text-gray-500 py-4">
@@ -41,7 +41,7 @@ export default function Testimonials() {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-lg shadow-md flex flex-col justify-between"
+                className="bg-gray-100 p-6 rounded-lg shadow-md flex flex-col justify-between"
               >
                 <p className="text-black mb-4">
                   &quot;{testimonial.comment}&quot;

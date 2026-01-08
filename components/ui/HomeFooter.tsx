@@ -67,12 +67,12 @@ export default function HomeFooter() {
             </a>
           </article>
         </section>
-        <hr />
+        <hr className="max-w-6xl mx-auto my-10" />
         <section className="py-6 px-8 text-center text-gray-500 text-sm">
           &copy; {new Date().getFullYear()} PawScout. Todos los derechos
           reservados.
         </section>
-        <section className="bg-gray-50 px-8 py-6 text-gray-600 text-sm">
+        <section className="bg-gray-50 px-8 py-6 text-gray-600 text-sm max-w-6xl mx-auto my-10 rounded-3xl shadow-xl">
           <h3 className="font-semibold text-black mb-2">Aviso legal</h3>
           <p>
             Las imágenes mostradas en este sitio han sido generadas con

@@ -12,12 +12,12 @@ export default function AdoptCards() {
   return (
     <>
       <AdoptListFilter dogs={dogsData} onFilterChange={setFilteredDogs} />
-      <section className=" bg-gray-100 py-16">
+      <section className=" bg-white py-16 max-w-6xl mx-auto rounded-3xl my-20 shadow-xl">
         <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
           {filteredDogs.map((dog) => (
             <div
               key={dog.id}
-              className="border border-gray-200 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
+              className="border border-gray-200 bg-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
               <Image
                 src={dog.imageUrl}
@@ -49,8 +49,6 @@ export default function AdoptCards() {
           ))}
         </article>
       </section>
-
-      <hr />
     </>
   );
 }
