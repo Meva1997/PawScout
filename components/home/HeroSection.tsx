@@ -32,9 +32,12 @@ export default function HeroSection() {
               >
                 Explorar Mascotas
               </Link>
-              <button className="border border-gray-600 text-gray-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-all cursor-pointer">
-                Aprende Más
-              </button>
+              <Link
+                href="#"
+                className="bg-gray-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-all cursor-pointer"
+              >
+                Inicia Sesión
+              </Link>
             </div>
           </article>
           <article className="relative mx-auto">

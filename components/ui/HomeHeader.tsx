@@ -57,6 +57,12 @@ export default function HomeHeader() {
         {/*Desktop Menu*/}
         <ul className="hidden md:flex space-x-6 font-medium">
           <Link
+            href="/"
+            className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+          >
+            Inicio
+          </Link>
+          <Link
             href="/adopt"
             className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
           >
@@ -74,15 +80,24 @@ export default function HomeHeader() {
           >
             Voluntariado
           </Link>
-          <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
+          <Link
+            href="/contact"
+            className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+          >
             Contacto
-          </li>
+          </Link>
         </ul>
 
         {/*Mobile Menu*/}
         {open && (
           <div className="md:hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20">
             <ul className="flex flex-col space-y-2 p-4 font-medium">
+              <Link
+                href="/"
+                className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+              >
+                Inicio
+              </Link>
               <Link
                 href="/adopt"
                 className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
@@ -101,9 +116,12 @@ export default function HomeHeader() {
               >
                 Voluntariado
               </Link>
-              <li className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all">
+              <Link
+                href="/contact"
+                className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+              >
                 Contacto
-              </li>
+              </Link>
             </ul>
           </div>
         )}
