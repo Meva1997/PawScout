@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# PawScout Frontend
 
-First, run the development server:
+Modern web experience that connects future pet parents, donors, and volunteers with PawScout's rescue initiatives.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+</div>
+
+## 🌟 Project Overview
+
+PawScout centralizes the organization's public-facing touchpoints into a single, responsive Next.js application. Visitors can browse adoptable dogs, learn how to donate, submit volunteer applications, and follow success stories. The UI emphasizes high visual polish, bilingual messaging, and clear calls-to-action to increase conversions across adoption, donation, and volunteering funnels.
+
+### Objectives
+
+- Showcase adoptable dogs with rich media and contextual info.
+- Guide donors through transparent, story-driven contribution flows.
+- Capture volunteer intent with structured forms and status feedback.
+- Maintain a cohesive brand experience while enabling route-specific layouts (e.g., login, volunteer success, etc.).
+
+## 🔗 Live Demo
+
+Experience the latest build at [https://paw-scout.vercel.app/](https://paw-scout.vercel.app/).
+
+## 🧰 Tech Stack
+
+| Layer        | Tools                                                            |
+| ------------ | ---------------------------------------------------------------- |
+| Framework    | Next.js 16 (App Router, Server Components)                       |
+| Language     | TypeScript 5 + React 19                                          |
+| Styling      | Tailwind CSS 4, custom utility classes, CSS Modules where needed |
+| Tooling      | pnpm, ESLint 9 with `eslint-config-next`, PostCSS                |
+| Content/Data | Local mock data (`db/dogs.ts`), public assets in `/public`       |
+
+## 🗂️ Project Structure
+
+```
+frontend/
+├── app/
+│   ├── layout.tsx            # Root layout with global providers/styles
+│   ├── globals.css           # Tailwind base + design tokens
+│   ├── page.tsx              # Home landing page
+│   ├── adopt/                # Adoption listing + detail flows
+│   ├── donate/               # Donation hero, tiers, stories
+│   └── volunteer/            # Volunteer info, forms, success screens
+├── components/
+│   ├── adopt/                # Feature-specific UI blocks
+│   ├── donate/
+│   ├── volunteer/
+│   └── ui/                   # Shared cards, header/footer, etc.
+├── db/dogs.ts                # Mock dataset for adoptable dogs
+├── public/                   # Static assets (images, icons, etc.)
+├── eslint.config.mjs
+├── next.config.ts
+├── package.json
+├── pnpm-lock.yaml
+└── tailwind/postcss configs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Adoption Library** – Filterable cards, detailed profiles, and application entry points for every dog.
+- **Donation Experience** – Tiered amount selector, donor stories, and progress highlights to drive trust.
+- **Volunteer Journey** – Requirements overview, role descriptions, rich application form, and success confirmation screen.
+- **Composable UI Kit** – Reusable headers, footers, CTA blocks, and cards to keep visuals consistent.
+- **Dark-Mode Ready** – Tailwind utility strategy already accounts for light/dark surfaces on key screens.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js 20+
+- pnpm 8+ (recommended package manager)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm install
+```
 
-## Deploy on Vercel
+### Local Development
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm dev
+# Visit http://localhost:3000
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Linting & Type-Checking
+
+```bash
+pnpm lint
+```
+
+### Production Build
+
+```bash
+pnpm build
+pnpm start  # Serves .next/ output
+```
+
+## 🧭 Architectural Notes
+
+- **App Router First**: Every route segment (e.g., `adopt`, `donate`, `volunteer/form`) can declare its own layout for bespoke storytelling and UX.
+- **Tailwind v4**: Utility-first styling with design tokens allows rapid iteration while staying on brand.
+- **Component Domains**: UI is grouped by feature domains (`adopt`, `donate`, `volunteer`) plus a `ui` folder for primitives to encourage reuse.
+- **Mock Data Layer**: `db/dogs.ts` feeds adoption pages until a real API is wired in, keeping the UI decoupled from backend delivery.
+- **Accessibility**: Focus states, semantic headings, and responsive typography baked into components to ensure inclusive design.
+
+## 🧪 Testing & Quality
+
+- Run `pnpm lint` before every commit to catch accessibility and best-practice issues early.
+- Component-level props are strongly typed via TypeScript; favor explicit interfaces when adding new shared components.
+
+## 📦 Deployment
+
+1. Ensure a fresh `pnpm build` succeeds locally.
+2. Deploy through Vercel (recommended) or any platform that supports Next.js standalone output.
+3. Configure environment variables (if/when backend integration is added) via the chosen host's dashboard.
+
+## 🤝 Contributing
+
+1. Fork or branch off `main`.
+2. Create feature-specific components under the relevant domain folder to keep the UI scalable.
+3. Submit PRs with screenshots/GIFs for UI changes to speed up reviews.
+
+---
+
+Questions or suggestions? Open an issue or start a discussion so we can keep improving the PawScout experience.
