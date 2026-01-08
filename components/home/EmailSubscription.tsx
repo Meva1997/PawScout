@@ -1,7 +1,7 @@
 export default function EmailSubscription() {
   return (
     <>
-      <section className="bg-emerald-400 py-16 max-w-6xl mx-auto">
+      <section className="bg-emerald-400 py-16 max-w-6xl mx-auto rounded-3xl my-20 shadow-lg shadow-emerald-200/40">
         <article className="text-center px-4">
           <h6 className="text-3xl font-black text-black mb-4">
             Suscribete a nuestro boletin de noticias
@@ -12,12 +12,12 @@ export default function EmailSubscription() {
           </p>
         </article>
         <article>
-          <form className="mt-8 flex flex-col md:flex-row justify-center max-w-md mx-auto gap-6">
+          <form className="mt-8 flex flex-col md:flex-row justify-center max-w-lg mx-auto gap-6">
             <input
               type="email"
               inputMode="email"
               placeholder="Ingresa tu correo electronico"
-              className=" w-2/3 mx-auto md:w-full px-4 py-2 rounded-md focus:outline-none bg-white text-center"
+              className="mx-auto w-2/3 md:w-full px-4 py-2 rounded-md focus:outline-none bg-white text-center"
             />
             <button
               type="submit"

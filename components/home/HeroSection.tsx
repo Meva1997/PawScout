@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function HeroSection() {
   return (
     <>
-      <section className="bg-gray-100 ">
+      <section className="bg-white max-w-6xl mx-auto my-20 rounded-3xl shadow-xl">
         <div className="grid md:grid-cols-1 lg:grid-cols-2 max-w-6xl mx-auto gap-8 py-16 px-4">
           <article className="mx-auto">
             <div className="rounded-xl px-2 border border-emerald-400 bg-gray-200/20 inline-block mb-4">
@@ -33,7 +33,7 @@ export default function HeroSection() {
                 Explorar Mascotas
               </Link>
               <Link
-                href="#"
+                href="/login"
                 className="bg-gray-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-all cursor-pointer"
               >
                 Inicia Sesión
@@ -56,7 +56,7 @@ export default function HeroSection() {
           </article>
         </div>
       </section>
-      <section>
+      <section className="bg-white rounded-3xl max-w-6xl shadow-xl mx-auto">
         <article className="md:flex grid grid-cols-2 gap-6 md:gap-0 justify-evenly max-w-6xl mx-auto py-12 px-4 text-center text-gray-600">
           <div>
             <p className="font-bold text-emerald-400 text-2xl">1,240</p>

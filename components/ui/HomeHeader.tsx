@@ -2,11 +2,24 @@
 import Link from "next/link";
 import { useState } from "react";
 
+type NavItem = {
+  href: string;
+  label: string;
+};
+
+const navItems: NavItem[] = [
+  { href: "/", label: "Inicio" },
+  { href: "/adopt", label: "Adopta" },
+  { href: "/donate", label: "Donaciones" },
+  { href: "/volunteer", label: "Voluntariado" },
+  { href: "/contact", label: "Contacto" },
+];
+
 export default function HomeHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="flex items-center justify-between p-4 bg-white shadow-md max-w-6xl mx-auto">
+    <header className="flex items-center justify-between p-4 bg-white max-w-6xl mx-auto">
       <Link href="/">
         <h1 className="font-bold text-2xl">
           <span className="md:pr-4 lg:pr-0">🐾</span> PawScout
@@ -56,72 +69,31 @@ export default function HomeHeader() {
 
         {/*Desktop Menu*/}
         <ul className="hidden md:flex space-x-6 font-medium">
-          <Link
-            href="/"
-            className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-          >
-            Inicio
-          </Link>
-          <Link
-            href="/adopt"
-            className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-          >
-            Adopta
-          </Link>
-          <Link
-            href="/donate"
-            className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-          >
-            Donaciones
-          </Link>
-          <Link
-            href="/volunteer"
-            className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-          >
-            Voluntariado
-          </Link>
-          <Link
-            href="/contact"
-            className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-          >
-            Contacto
-          </Link>
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+            >
+              {item.label}
+            </Link>
+          ))}
         </ul>
 
         {/*Mobile Menu*/}
         {open && (
           <div className="md:hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20">
             <ul className="flex flex-col space-y-2 p-4 font-medium">
-              <Link
-                href="/"
-                className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-              >
-                Inicio
-              </Link>
-              <Link
-                href="/adopt"
-                className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-              >
-                Adopta
-              </Link>
-              <Link
-                href="/donate"
-                className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-              >
-                Donaciones
-              </Link>
-              <Link
-                href="/volunteer"
-                className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-              >
-                Voluntariado
-              </Link>
-              <Link
-                href="/contact"
-                className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
-              >
-                Contacto
-              </Link>
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="hover:bg-emerald-400 rounded-lg p-2 cursor-pointer transition-all"
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </ul>
           </div>
         )}

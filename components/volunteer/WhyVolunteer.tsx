@@ -29,7 +29,7 @@ const volunteerBenefits: Benefit[] = [
 export default function WhyVolunteer() {
   return (
     <>
-      <article className="grid md:grid-cols-3 max-w-7xl justify-center items-center mx-auto gap-18 bg-white p-10 rounded-lg shadow-lg my-16">
+      <article className="grid md:grid-cols-3 max-w-6xl justify-center items-center mx-auto gap-18 bg-white p-10 rounded-lg shadow-lg my-16">
         <section className="space-y-4 col-span-1">
           <p className="font-bold text-emerald-400 text-md">Beneficios</p>
           <h3 className="text-3xl font-black">¿Por qué ser voluntario?</h3>
