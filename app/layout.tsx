@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Google_Sans_Flex } from "next/font/google";
-import HomeHeader from "@/components/ui/HomeHeader";
-import HomeFooter from "@/components/ui/HomeFooter";
 import "./globals.css";
 
 const googleSansFlex = Google_Sans_Flex({
@@ -22,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${googleSansFlex.variable} antialiased`}>
-        <HomeHeader />
         {children}
-        <HomeFooter />
       </body>
     </html>
   );
