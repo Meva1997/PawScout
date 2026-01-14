@@ -1,0 +1,127 @@
+import Link from "next/link";
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="min-h-screen w-full bg-[#0c1412] text-white">
+      <div className="flex h-screen w-full overflow-hidden rounded-3xl bg-[#111f1c] shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+        <aside className="hidden w-72 flex-col border-r border-white/5 bg-[#0f1a18] px-6 py-8 lg:flex">
+          <div className="flex items-center gap-3">
+            <div className="flex size-11 items-center justify-center rounded-2xl bg-[#19e6b3]/15 text-[#19e6b3]">
+              <span aria-hidden className="text-lg font-bold">
+                PS
+              </span>
+            </div>
+            <div>
+              <p className="text-sm uppercase tracking-[0.35em] text-white/40">
+                Admin
+              </p>
+              <p className="text-xl font-semibold tracking-tight text-white">
+                PawScout
+              </p>
+            </div>
+          </div>
+          <div className="mt-10 space-y-8">
+            <div className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/35">
+                Overview
+              </p>
+              <nav className="space-y-1">
+                <a
+                  className="flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
+                  href="/admin/dashboard"
+                >
+                  <span>Panel</span>
+                  <div className="size-6 rounded-full bg-[#19e6b3]/20 text-center text-xs leading-6 text-[#19e6b3]">
+                    ●
+                  </div>
+                </a>
+                <a
+                  className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+                  href="#"
+                >
+                  <span>Animales</span>
+                  <span aria-hidden>›</span>
+                </a>
+                <a
+                  className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+                  href="#"
+                >
+                  <span>Adopciones</span>
+                  <span aria-hidden>›</span>
+                </a>
+                <a
+                  className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+                  href="#"
+                >
+                  <span>Donaciones</span>
+                  <span aria-hidden>›</span>
+                </a>
+                <a
+                  className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+                  href="#"
+                >
+                  <span>Configuracion</span>
+                  <span aria-hidden>›</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+          {/* <div className="mt-auto rounded-2xl border border-white/5 bg-white/5 p-4 backdrop-blur">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/40">
+              Status
+            </p>
+            <p className="mt-2 text-sm font-semibold text-white">
+              Shelter Capacity
+            </p>
+            <div className="mt-3 h-2 rounded-full bg-white/10">
+              <div className="h-full w-3/4 rounded-full bg-[#19e6b3]"></div>
+            </div>
+            <p className="mt-2 text-xs text-white/60">75% occupied</p>
+          </div> */}
+        </aside>
+
+        <div className="flex flex-1 flex-col">
+          <header className="flex items-center justify-between border-b border-white/5 bg-[#111f1c]/80 px-6 py-4 backdrop-blur">
+            <div className="flex items-center gap-4">
+              <button className="flex size-11 items-center justify-center rounded-2xl border border-white/10 text-white/70 transition hover:border-white/40 hover:text-white lg:hidden">
+                ☰ {/* Menu icon for mobile */}
+              </button>
+            </div>
+            <div className="flex items-center gap-5">
+              <Link
+                href="/home"
+                className="text-lg font-semibold text-white hover:underline hover:text-emerald-400 transition-all"
+              >
+                Home
+              </Link>
+              <button className="relative rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-widest text-white/80">
+                ES
+              </button>
+              {/* Notification Button */}
+              {/* <button className="relative size-11 rounded-2xl border border-white/10 bg-white/5 text-white/80">
+                ●
+                <span className="absolute -right-0.5 -top-0.5 size-3 rounded-full border border-[#111f1c] bg-[#19e6b3]"></span>
+              </button> */}
+
+              {/* User Profile */}
+              <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
+                <div className="flex flex-col text-right text-xs leading-tight">
+                  <span className="font-semibold text-white">Alex Medina</span>
+                  <span className="text-white/50">Shelter Lead</span>
+                </div>
+                <div className="size-10 rounded-2xl bg-linear-to-br from-[#19e6b3] to-[#0a8d67]"></div>
+              </div>
+            </div>
+          </header>
+          <main className="flex-1 overflow-y-auto bg-[#0c1412] px-6 py-8 text-white/80">
+            {children}
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+}

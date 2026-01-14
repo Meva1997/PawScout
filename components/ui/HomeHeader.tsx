@@ -8,7 +8,7 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { href: "/", label: "Inicio" },
+  { href: "/home", label: "Inicio" },
   { href: "/adopt", label: "Adopta" },
   { href: "/donate", label: "Donaciones" },
   { href: "/volunteer", label: "Voluntariado" },
@@ -20,7 +20,7 @@ export default function HomeHeader() {
 
   return (
     <header className="flex items-center justify-between p-4 bg-white max-w-6xl mx-auto">
-      <Link href="/">
+      <Link href="/home">
         <h1 className="font-bold text-2xl">
           <span className="md:pr-4 lg:pr-0">🐾</span> PawScout
         </h1>
