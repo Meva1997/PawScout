@@ -2,9 +2,9 @@ export default function FormSettings() {
   return (
     <>
       <form action="">
-        <section className="bg-green-600/10 my-10 p-6 rounded-2xl max-w-6xl mx-auto">
+        <section className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] max-w-6xl mx-auto">
           <div className="border-b border-gray-200 pb-4">
-            <h2 className="text-white text-lg font-medium">
+            <h2 className="text-white text-xl font-semibold">
               Detalles del refugio
             </h2>
           </div>
@@ -13,8 +13,8 @@ export default function FormSettings() {
             <div>
               <p>Image logo</p>
             </div>
-            <div>
-              <p>Logo del Refugio</p>
+            <div className="space-y-2">
+              <p className="text-white text-lg font-medium">Logo del Refugio</p>
               <span>Este logo representa la identidad visual del refugio.</span>
             </div>
           </div>
@@ -31,6 +31,7 @@ export default function FormSettings() {
                 <input
                   type="text"
                   id="shelter-name"
+                  inputMode="text"
                   className="mt-1 block w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                   placeholder="Nombre del Refugio"
                 />
@@ -47,6 +48,7 @@ export default function FormSettings() {
                   rows={4}
                   className="mt-1 block w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                   placeholder="Descripción del Refugio"
+                  inputMode="text"
                 ></textarea>
               </div>
             </div>
@@ -54,7 +56,7 @@ export default function FormSettings() {
         </section>
 
         {/*Location & contact Settings */}
-        <section className="my-10 p-6 bg-green-600/10 rounded-2xl max-w-6xl mx-auto">
+        <section className="my-10 rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] max-w-6xl mx-auto">
           <div className="border-b border-gray-200 pb-4">
             <h2 className="text-white text-lg font-medium">
               Ubicación y contacto
@@ -66,6 +68,7 @@ export default function FormSettings() {
               <input
                 type="email"
                 id="email"
+                inputMode="email"
                 className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                 placeholder="Correo electrónico de contacto"
               />
@@ -75,6 +78,7 @@ export default function FormSettings() {
               <input
                 type="tel"
                 id="phoneNumber"
+                inputMode="tel"
                 className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                 placeholder="Número de teléfono de contacto"
               />
@@ -85,6 +89,7 @@ export default function FormSettings() {
             <input
               type="text"
               id="address"
+              inputMode="text"
               className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
               placeholder="Dirección"
             />
@@ -95,6 +100,7 @@ export default function FormSettings() {
               <input
                 type="text"
                 id="city"
+                inputMode="text"
                 className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                 placeholder="Ciudad"
               />
@@ -105,6 +111,7 @@ export default function FormSettings() {
                 <input
                   type="text"
                   id="state"
+                  inputMode="text"
                   className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                   placeholder="Estado"
                 />
@@ -114,6 +121,7 @@ export default function FormSettings() {
                 <input
                   type="text"
                   id="zipCode"
+                  inputMode="numeric"
                   className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                   placeholder="Código Postal"
                 />

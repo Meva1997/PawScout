@@ -67,7 +67,7 @@ export default function page() {
             Administra la información de los animales en el refugio.
           </p>
         </article>
-        <article>
+        <article className="flex flex-col items-center w-full space-y-4 md:flex-row md:space-y-0 md:justify-end md:w-auto">
           <button className="rounded-2xl bg-[#19e6b3] px-3 py-3 text-sm font-semibold text-[#0c1412] transition hover:bg-[#16caa0]">
             + Agregar Nuevo Animal
           </button>
@@ -76,47 +76,92 @@ export default function page() {
           </button>
         </article>
       </section>
-      <section>
-        <table className="w-full table-auto border-collapse">
-          <thead>
-            <tr className="border-b border-white/10 text-left text-sm text-white/60">
-              {tableHeaders.map((header, index) => (
-                <th key={index} className="py-3 px-4">
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {/* Ejemplo de fila */}
-            {animalInfo.map((animal, index) => (
-              <tr
-                key={index}
-                className="border-b border-white/10 hover:bg-white/5"
-              >
-                <td className="py-3 px-4">
-                  <div className="size-12 rounded-lg bg-white/10"></div>
-                </td>
-                <td className="py-3 px-4">{animal.name}</td>
-                <td className="py-3 px-4">
-                  {animal.species} / {animal.age}
-                </td>
-                <td className="py-3 px-4">{animal.location}</td>
-                <td className={`py-3 px-4 ${getStatusClass(animal.status)}`}>
-                  {animal.status}
-                </td>
-                <td className="py-3 px-4 flex flex-col">
-                  <button className="text-sm text-[#19e6b3] hover:underline hover:cursor-pointer">
-                    Editar
-                  </button>
-                  <button className="text-sm text-red-500 hover:underline hover:cursor-pointer">
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <section className="space-y-6">
+        {/* Mobile-friendly cards */}
+        <div className="space-y-4 md:hidden">
+          {animalInfo.map((animal, index) => (
+            <article
+              key={`${animal.name}-${index}`}
+              className="rounded-2xl border border-white/10 bg-white/5/20 p-4 text-white/80"
+            >
+              <div className="flex items-center gap-3">
+                <div className="size-14 rounded-xl bg-white/10"></div>
+                <div>
+                  <p className="text-lg font-semibold text-white">
+                    {animal.name}
+                  </p>
+                  <p className="text-sm text-white/60">
+                    {animal.species} · {animal.age}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 space-y-2 text-sm">
+                <p>
+                  <span className="text-white/50">Ubicación:</span>{" "}
+                  {animal.location}
+                </p>
+                <p className={getStatusClass(animal.status)}>{animal.status}</p>
+              </div>
+              <div className="mt-4 flex items-center gap-4 text-sm">
+                <button className="text-[#19e6b3] hover:underline hover:cursor-pointer">
+                  Editar
+                </button>
+                <button className="text-red-500 hover:underline hover:cursor-pointer">
+                  Eliminar
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Desktop table */}
+        <div className="hidden rounded-2xl border border-white/10 bg-white/5/10 p-2 md:block">
+          <div className="w-full overflow-x-auto">
+            <table className="min-w-180 w-full table-auto border-collapse">
+              <thead>
+                <tr className="border-b border-white/10 text-left text-sm text-white/60">
+                  {tableHeaders.map((header, index) => (
+                    <th key={index} className="py-3 px-4">
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {animalInfo.map((animal, index) => (
+                  <tr
+                    key={`${animal.name}-desktop-${index}`}
+                    className="border-b border-white/10 hover:bg-white/5"
+                  >
+                    <td className="py-3 px-4">
+                      <div className="size-12 rounded-lg bg-white/10"></div>
+                    </td>
+                    <td className="py-3 px-4">{animal.name}</td>
+                    <td className="py-3 px-4">
+                      {animal.species} / {animal.age}
+                    </td>
+                    <td className="py-3 px-4">{animal.location}</td>
+                    <td
+                      className={`py-3 px-4 ${getStatusClass(animal.status)}`}
+                    >
+                      {animal.status}
+                    </td>
+                    <td className="py-3 px-4">
+                      <div className="flex flex-col gap-1">
+                        <button className="text-sm text-[#19e6b3] hover:underline hover:cursor-pointer">
+                          Editar
+                        </button>
+                        <button className="text-sm text-red-500 hover:underline hover:cursor-pointer">
+                          Eliminar
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
         {/*TODO: Pagination */}
       </section>
     </>
