@@ -1,7 +1,7 @@
-import HeroVolunteer from "@/components/volunteer/HeroVolunteer";
-import VolunteerRequirements from "@/components/volunteer/VolunteerRequirements";
-import VolunteerRoles from "@/components/volunteer/VolunteerRoles";
-import WhyVolunteer from "@/components/volunteer/WhyVolunteer";
+import HeroVolunteer from "@/components/public/volunteer/HeroVolunteer";
+import VolunteerRequirements from "@/components/public/volunteer/VolunteerRequirements";
+import VolunteerRoles from "@/components/public/volunteer/VolunteerRoles";
+import WhyVolunteer from "@/components/public/volunteer/WhyVolunteer";
 
 export default function page() {
   return (

@@ -1,5 +1,5 @@
+import WaitingHomeDogCards from "@/components/ui/WaitingHomeDogCards";
 import Link from "next/link";
-import WaitingHomeDogCards from "../ui/WaitingHomeDogCards";
 
 type Item = {
   src: string;

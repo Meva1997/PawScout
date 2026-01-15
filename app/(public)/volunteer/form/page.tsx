@@ -1,4 +1,4 @@
-import VolunteerForm from "@/components/volunteer/VolunteerForm";
+import VolunteerForm from "@/components/public/volunteer/VolunteerForm";
 
 export default function page() {
   return (

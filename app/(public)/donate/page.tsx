@@ -1,7 +1,7 @@
-import AmountForm from "@/components/donate/AmountForm";
-import HeroDonate from "@/components/donate/HeroDonate";
-import MoneyInfo from "@/components/donate/MoneyInfo";
-import SuccessStory from "@/components/donate/SuccessStory";
+import AmountForm from "@/components/public/donate/AmountForm";
+import HeroDonate from "@/components/public/donate/HeroDonate";
+import MoneyInfo from "@/components/public/donate/MoneyInfo";
+import SuccessStory from "@/components/public/donate/SuccessStory";
 
 export default function page() {
   return (

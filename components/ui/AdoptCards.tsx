@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
-import AdoptListFilter from "../adopt/AdoptListFilter";
+import AdoptListFilter from "../public/adopt/AdoptListFilter";
 
 export default function AdoptCards() {
   const [filteredDogs, setFilteredDogs] = useState<DogsDataType[]>(dogsData);
