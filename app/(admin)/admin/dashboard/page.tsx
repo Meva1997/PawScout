@@ -1,5 +1,122 @@
-import React from "react";
-
 export default function page() {
-  return <div>page</div>;
+  type Stat = {
+    title: string;
+    value: number;
+  };
+
+  type Animal = {
+    name: string;
+    type: string;
+    dateAdded: string;
+  };
+
+  const generalStats: Stat[] = [
+    { title: "Animales en total", value: 128 },
+    { title: "Adopciones este mes", value: 34 },
+    { title: "Peticiones pendientes", value: 12 },
+    { title: "Donaciones", value: 8 },
+  ];
+
+  const recentlyAddedAnimals: Animal[] = [
+    { name: "Max", type: "Perro", dateAdded: "2024-06-10" },
+    { name: "Luna", type: "Gato", dateAdded: "2024-06-12" },
+    { name: "Charlie", type: "Perro", dateAdded: "2024-06-14" },
+  ];
+
+  return (
+    <>
+      <section className="my-6 flex items-center justify-between">
+        <article>
+          <h1 className="text-3xl font-bold text-white">
+            Panel de Administración
+          </h1>
+          <p>Bienvenido al panel de administración de PawScout.</p>
+        </article>
+        <article>
+          <button className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/80 hover:bg-white/10 transition-all hover:cursor-pointer">
+            Ultimos 30 días ▼
+          </button>
+        </article>
+      </section>
+      <section className="my-4 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {generalStats.map((stat) => (
+          <article
+            key={stat.title}
+            className="bg-emerald-950/30 p-6 rounded-2xl flex flex-col wrap-break-word gap-4"
+          >
+            <p>{stat.title}:</p>
+            <span className="text-4xl font-bold">{stat.value}</span>
+          </article>
+        ))}
+      </section>
+      <section className="grid md:grid-cols-3 gap-6 mt-10 mb-20">
+        <article className="col-span-2  flex flex-col">
+          <div className="bg-emerald-950/30 p-6 rounded-2xl mb-6">
+            <h2 className="text-xl font-semibold text-white">
+              Actividad Reciente de adopciones
+            </h2>
+            <p>Variaciones en las adopciones de los ultimos meses.</p>
+            <div>
+              {/* Placeholder for chart or data visualization TODO:Chart */}
+              <div className="mt-6 h-48 bg-white/10 rounded-2xl flex items-center justify-center text-white/50">
+                [Gráfico de Actividad de Adopciones]
+              </div>
+            </div>
+          </div>
+          <div className="bg-emerald-950/30 p-6 rounded-2xl space-y-6">
+            {/* Placeholder for recent activities list */}
+            <h3 className=" text-lg font-semibold text-white">
+              Actividades Recientes
+            </h3>
+            <ul className="space-y-4">
+              {recentlyAddedAnimals.map((animal) => (
+                <li
+                  key={animal.name}
+                  className="flex justify-between border-b border-white/10 pb-2"
+                >
+                  <div>
+                    <p className="font-semibold text-white">{animal.name}</p>
+                    <p className="text-sm text-white/60">
+                      {animal.type} - Añadido el {animal.dateAdded}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+
+        {/* Donation statistics and urgent cases section */}
+        <article className=" flex flex-col col-span-1 ">
+          <div className="bg-emerald-950/30 p-6 rounded-2xl">
+            <h3 className="text-xl font-semibold text-white">
+              Estadísticas de Donaciones
+            </h3>
+            <p>Resumen de las donaciones recibidas.</p>
+            <div>
+              {/* Placeholder for chart or data visualization TODO:Chart */}
+              <div className="mt-6 h-48 bg-white/10 rounded-2xl flex items-center justify-center text-white/50">
+                [Gráfico de Estadísticas de Donaciones]
+              </div>
+            </div>
+          </div>
+          {/*Urgent cases section*/}
+          <div className="bg-emerald-950/30 p-6 rounded-2xl mt-6">
+            <h3 className="text-xl font-semibold text-white">Casos Urgentes</h3>
+            <p>Animales que necesitan atención inmediata.</p>
+            <ul className="mt-4 space-y-4">
+              <li className="flex justify-between">
+                <span>Perro herido encontrado en la calle</span>
+                <span className="text-red-500 font-semibold">¡Urgente!</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Gato enfermo necesita medicación</span>
+                <span className="text-red-500 font-semibold">¡Urgente!</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </section>
+    </>
+  );
 }

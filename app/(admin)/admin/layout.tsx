@@ -30,7 +30,7 @@ export default function AdminLayout({
                 Overview
               </p>
               <nav className="space-y-1">
-                <a
+                <Link
                   className="flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
                   href="/admin/dashboard"
                 >
@@ -38,35 +38,37 @@ export default function AdminLayout({
                   <div className="size-6 rounded-full bg-[#19e6b3]/20 text-center text-xs leading-6 text-[#19e6b3]">
                     ●
                   </div>
-                </a>
-                <a
+                </Link>
+                <Link
                   className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
-                  href="#"
+                  href="/admin/pets"
                 >
                   <span>Animales</span>
-                  <span aria-hidden>›</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
-                  href="#"
+                  href="/admin/adoptions"
                 >
                   <span>Adopciones</span>
-                  <span aria-hidden>›</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
-                  href="#"
+                  href="/admin/donations"
                 >
                   <span>Donaciones</span>
-                  <span aria-hidden>›</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
-                  href="#"
+                  href="/admin/volunteers"
+                >
+                  <span>Voluntarios</span>
+                </Link>
+                <Link
+                  className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm text-white/60 transition hover:bg-white/5 hover:text-white"
+                  href="/admin/settings"
                 >
                   <span>Configuracion</span>
-                  <span aria-hidden>›</span>
-                </a>
+                </Link>
               </nav>
             </div>
           </div>
