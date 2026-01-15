@@ -42,16 +42,18 @@ export default function page() {
         {generalStats.map((stat) => (
           <article
             key={stat.title}
-            className="bg-emerald-950/30 p-6 rounded-2xl flex flex-col wrap-break-word gap-4"
+            className="bg-emerald-950/30 p-6 flex flex-col wrap-break-word gap-4
+            rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]
+            "
           >
             <p>{stat.title}:</p>
             <span className="text-4xl font-bold">{stat.value}</span>
           </article>
         ))}
       </section>
-      <section className="grid md:grid-cols-3 gap-6 mt-10 mb-20">
-        <article className="col-span-2  flex flex-col">
-          <div className="bg-emerald-950/30 p-6 rounded-2xl mb-6">
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 mb-20">
+        <article className="md:col-span-2 flex flex-col">
+          <div className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] mb-6 p-6">
             <h2 className="text-xl font-semibold text-white">
               Actividad Reciente de adopciones
             </h2>
@@ -63,7 +65,7 @@ export default function page() {
               </div>
             </div>
           </div>
-          <div className="bg-emerald-950/30 p-6 rounded-2xl space-y-6">
+          <div className="rounded-2xl space-y-6 border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
             {/* Placeholder for recent activities list */}
             <h3 className=" text-lg font-semibold text-white">
               Actividades Recientes
@@ -87,8 +89,8 @@ export default function page() {
         </article>
 
         {/* Donation statistics and urgent cases section */}
-        <article className=" flex flex-col col-span-1 ">
-          <div className="bg-emerald-950/30 p-6 rounded-2xl">
+        <article className=" flex flex-col col-span-1 mx-auto w-full">
+          <div className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] mb-6 p-6 ">
             <h3 className="text-xl font-semibold text-white">
               Estadísticas de Donaciones
             </h3>
@@ -101,7 +103,7 @@ export default function page() {
             </div>
           </div>
           {/*Urgent cases section*/}
-          <div className="bg-emerald-950/30 p-6 rounded-2xl mt-6">
+          <div className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] mb-6 p-6 ">
             <h3 className="text-xl font-semibold text-white">Casos Urgentes</h3>
             <p>Animales que necesitan atención inmediata.</p>
             <ul className="mt-4 space-y-4">

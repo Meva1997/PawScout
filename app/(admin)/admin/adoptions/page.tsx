@@ -48,9 +48,20 @@ export default function page() {
     { label: "Rejected", count: 8 },
   ];
 
+  const getStatusBadgeClass = (status: AdoptionRequest["status"]) => {
+    switch (status) {
+      case "Approved":
+        return "bg-green-500/15 text-green-300";
+      case "Rejected":
+        return "bg-red-500/15 text-red-300";
+      default:
+        return "bg-amber-500/15 text-amber-300";
+    }
+  };
+
   return (
     <>
-      <section className="my-10 flex items-center justify-between max-w-6xl mx-auto">
+      <section className="my-10 flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
         <article>
           <h1 className="text-3xl font-bold text-white">
             Solicitudes de Adopción
@@ -114,63 +125,154 @@ export default function page() {
 
       {/* Adoption Requests Table */}
 
-      <section className="my-20 bg-emerald-950/30 p-6 rounded-2xl max-w-6xl mx-auto ">
-        {/* Table of adoption requests would go here */}
-        <table className="text-center w-full table-auto border-collapse gap-6 ">
-          <thead className="gap-6">
-            <tr className="border-b border-white/10 pb-4">
-              <th className=" text-white/70">Nombre del Solicitante</th>
-              <th className=" text-white/70">Mascota</th>
-              <th className=" text-white/70">Fecha de Solicitud</th>
-              <th className=" text-white/70">Estado</th>
-              <th className=" text-white/70">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Example row */}
+      <section className="my-20 rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] max-w-6xl mx-auto">
+        <div className="space-y-6">
+          <div className="space-y-4 md:hidden">
             {requests.map((request) => (
-              <tr
-                key={request.id}
-                className="border-b border-white/10 hover:bg-white/5 transition"
+              <article
+                key={`mobile-${request.id}`}
+                className="rounded-2xl border border-white/15 bg-white/5 p-4 text-white"
               >
-                <td className="py-4 text-white">{request.applicantName}</td>
-                <td className="py-4 text-white">
-                  {request.petName} ({request.petType})
-                </td>
-                <td className="py-4 text-white">{request.requestDate}</td>
-                <td className="py-4 text-white">{request.status}</td>
-                <td className="py-4 text-white flex flex-col xl:flex-row sm:items-center sm:gap-2 justify-center">
-                  {request.status === "Pending" && (
+                <header className="flex flex-col gap-1">
+                  <p className="text-sm uppercase tracking-[0.25em] text-white/40">
+                    Solicitud #{request.id}
+                  </p>
+                  <p className="text-xl font-semibold">
+                    {request.applicantName}
+                  </p>
+                  <p className="text-white/70">
+                    {request.petName} · {request.petType}
+                  </p>
+                </header>
+                <dl className="mt-4 grid grid-cols-2 gap-4 text-sm text-white/70">
+                  <div>
+                    <dt className="text-white/50">Fecha</dt>
+                    <dd>{request.requestDate}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-white/50">Estado</dt>
+                    <dd>
+                      <span
+                        className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${getStatusBadgeClass(
+                          request.status
+                        )}`}
+                      >
+                        {request.status}
+                      </span>
+                    </dd>
+                  </div>
+                </dl>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {request.status === "Pending" ? (
                     <>
                       <Link
                         href={`adoptions/${request.id}/details`}
-                        className="rounded-2xl bg-blue-500 px-3 py-1 text-sm font-semibold text-white transition hover:bg-blue-600"
+                        className="flex-1 min-w-30 rounded-2xl bg-blue-500 px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-blue-600"
                       >
                         Detalles
                       </Link>
-                      <button className="rounded-2xl bg-green-500 px-3 py-1 text-sm font-semibold text-white transition hover:bg-green-600">
+                      <button className="flex-1 min-w-30 rounded-2xl bg-green-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-600">
                         Aprobar
                       </button>
-                      <button className="rounded-2xl bg-red-500 px-3 py-1 text-sm font-semibold text-white transition hover:bg-red-600">
+                      <button className="flex-1 min-w-30 rounded-2xl bg-red-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600">
                         Rechazar
                       </button>
                     </>
-                  )}
-                  {request.status === "Approved" && (
-                    <span className="text-green-400 font-semibold">
-                      Aprobada
+                  ) : (
+                    <span
+                      className={`rounded-2xl px-4 py-2 text-sm font-semibold ${getStatusBadgeClass(
+                        request.status
+                      )}`}
+                    >
+                      {request.status === "Approved" ? "Aprobada" : "Rechazada"}
                     </span>
                   )}
-                  {request.status === "Rejected" && (
-                    <span className="text-red-400 font-semibold">
-                      Rechazada
-                    </span>
-                  )}
-                </td>
-              </tr>
+                </div>
+              </article>
             ))}
-          </tbody>
-        </table>
+          </div>
+
+          <div className="hidden md:block">
+            <div className="w-full overflow-x-auto rounded-2xl border border-white/10 bg-white/5/20">
+              <table className="w-full min-w-180table-auto border-collapse text-center">
+                <thead>
+                  <tr className="border-b border-white/10 pb-4">
+                    <th className="px-4 py-3 text-left font-semibold text-white/70">
+                      Nombre del Solicitante
+                    </th>
+                    <th className="px-4 py-3 text-left font-semibold text-white/70">
+                      Mascota
+                    </th>
+                    <th className="px-4 py-3 font-semibold text-white/70">
+                      Fecha de Solicitud
+                    </th>
+                    <th className="px-4 py-3 font-semibold text-white/70">
+                      Estado
+                    </th>
+                    <th className="px-4 py-3 font-semibold text-white/70">
+                      Acciones
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {requests.map((request) => (
+                    <tr
+                      key={request.id}
+                      className="border-b border-white/10 text-sm text-white transition hover:bg-white/5"
+                    >
+                      <td className="px-4 py-4 text-left font-semibold">
+                        {request.applicantName}
+                      </td>
+                      <td className="px-4 py-4 text-left text-white/80">
+                        {request.petName} ({request.petType})
+                      </td>
+                      <td className="px-4 py-4">{request.requestDate}</td>
+                      <td className="px-4 py-4">
+                        <span
+                          className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${getStatusBadgeClass(
+                            request.status
+                          )}`}
+                        >
+                          {request.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
+                          {request.status === "Pending" ? (
+                            <>
+                              <Link
+                                href={`adoptions/${request.id}/details`}
+                                className="rounded-2xl bg-blue-500 px-3 py-1 font-semibold text-white transition hover:bg-blue-600"
+                              >
+                                Detalles
+                              </Link>
+                              <button className="rounded-2xl bg-green-500 px-3 py-1 font-semibold text-white transition hover:bg-green-600">
+                                Aprobar
+                              </button>
+                              <button className="rounded-2xl bg-red-500 px-3 py-1 font-semibold text-white transition hover:bg-red-600">
+                                Rechazar
+                              </button>
+                            </>
+                          ) : (
+                            <span
+                              className={`rounded-2xl px-3 py-1 font-semibold ${getStatusBadgeClass(
+                                request.status
+                              )}`}
+                            >
+                              {request.status === "Approved"
+                                ? "Aprobada"
+                                : "Rechazada"}
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );

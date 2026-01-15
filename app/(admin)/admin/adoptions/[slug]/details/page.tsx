@@ -131,7 +131,7 @@ export default function page() {
                 </p>
               </article>
 
-              <article className="rounded-3xl border border-white/10 bg-[#111c19] p-6">
+              <article className=" rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <p className="text-xs uppercase tracking-[0.35em] text-white/40">
                   Contacto
                 </p>
@@ -152,7 +152,7 @@ export default function page() {
                 </div>
               </article>
 
-              <article className="rounded-3xl border border-white/10 bg-[#111c19] p-6">
+              <article className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <p className="text-xs uppercase tracking-[0.35em] text-white/40">
                   Intereses
                 </p>
@@ -195,7 +195,7 @@ export default function page() {
             </div>
 
             <div className="flex flex-col gap-6 lg:col-span-8">
-              <article className="rounded-3xl border border-white/10 bg-[#0e1816] p-6">
+              <article className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 Animal a adoptar
                 <div className="mt-4 flex items-center gap-4">
                   <div
@@ -217,7 +217,7 @@ export default function page() {
                   </div>
                 </div>
               </article>
-              <article className="rounded-3xl border border-white/10 bg-[#0e1816]">
+              <article className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
                   <h3 className="text-lg font-semibold text-white">
                     Detalles de la solicitud
@@ -262,7 +262,7 @@ export default function page() {
                 </div>
               </article>
 
-              <article className="rounded-3xl border border-white/10 bg-[#0e1816]">
+              <article className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <div className="border-b border-white/5 px-6 py-4">
                   <h3 className="text-lg font-semibold text-white">
                     Cuestionario
@@ -285,7 +285,7 @@ export default function page() {
                 </div>
               </article>
 
-              <article className="rounded-3xl border border-white/10 bg-[#0e1816] p-6">
+              <article className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold text-white">
                     Notas internas
