@@ -1,4 +1,4 @@
-import ApplyHeader from "@/components/adopt/ApplyHeader";
+import ApplyHeader from "@/components/public/adopt/ApplyHeader";
 
 export default function page() {
   return (

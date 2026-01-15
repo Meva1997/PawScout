@@ -1,8 +1,8 @@
-import EmailSubscription from "@/components/home/EmailSubscription";
-import HeroSection from "@/components/home/HeroSection";
-import HowWorks from "@/components/home/HowWorks";
-import NewArrivals from "@/components/home/NewArrivals";
-import Testimonials from "@/components/home/Testimonials";
+import EmailSubscription from "@/components/public/home/EmailSubscription";
+import HeroSection from "@/components/public/home/HeroSection";
+import HowWorks from "@/components/public/home/HowWorks";
+import NewArrivals from "@/components/public/home/NewArrivals";
+import Testimonials from "@/components/public/home/Testimonials";
 
 export default function page() {
   return (
