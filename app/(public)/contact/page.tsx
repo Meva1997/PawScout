@@ -28,7 +28,7 @@ export default function page() {
   return (
     <main className="bg-gray-100 py-10">
       <article className="max-w-6xl mx-auto pt-16 space-y-4 px-4">
-        <h1 className="text-3xl font-black">Contactanos</h1>
+        <h1 className="text-3xl font-black text-emerald-600">Contáctanos</h1>
         <p className="text-gray-500">
           Si tienes alguna pregunta, comentario o necesitas asistencia, no dudes
           en contactarnos. Estamos aquí para ayudarte y asegurarnos de que
@@ -37,7 +37,7 @@ export default function page() {
       </article>
       <article className="grid lg:grid-cols-3 my-20 gap-6 w-3/4 max-w-6xl mx-auto">
         <section className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-emerald-600">
             Información de Contacto
           </h2>
           <p className="mb-2">
@@ -48,13 +48,17 @@ export default function page() {
           </p>
         </section>
         <section className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">Correo electronico</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-emerald-600">
+            Correo electrónico
+          </h2>
           <p className="mb-2">
             <strong>Email:</strong> contacto@pawscout.com
           </p>
         </section>
         <section className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">Ubicación</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-emerald-600">
+            Ubicación
+          </h2>
           <p className="mb-2">Visita el refugio</p>
           <p className="mb-2">123 Calle Principal</p>
           <p className="mb-2">Ciudad, País</p>

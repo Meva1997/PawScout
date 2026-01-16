@@ -64,7 +64,7 @@ export default function ApplyHeader() {
           <div className="flex text-xs flex-wrap items-center gap-2 text-black font-bold">
             <div
               className={`${
-                dog?.attributes.goodWithKids ? "bg-emerald-400" : "bg-red-400"
+                dog?.attributes.goodWithKids ? "bg-emerald-500" : "bg-red-400"
               } px-2 py-1 rounded-lg`}
             >
               <dt className="sr-only">Bueno con niños</dt>
@@ -74,7 +74,7 @@ export default function ApplyHeader() {
             </div>
             <div
               className={`${
-                dog?.attributes.goodWithDogs ? "bg-emerald-400" : "bg-red-400"
+                dog?.attributes.goodWithDogs ? "bg-emerald-500" : "bg-red-400"
               } px-2 py-1 rounded-lg`}
             >
               <dt className="sr-only">Bueno con perros</dt>
@@ -84,7 +84,7 @@ export default function ApplyHeader() {
             </div>
             <div
               className={`${
-                dog?.attributes.houseTrained ? "bg-emerald-400" : "bg-red-400"
+                dog?.attributes.houseTrained ? "bg-emerald-500" : "bg-red-400"
               } px-2 py-1 rounded-lg`}
             >
               <dt className="sr-only">Entrenado en casa</dt>

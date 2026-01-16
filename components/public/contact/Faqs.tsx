@@ -34,7 +34,7 @@ export default function Faqs() {
     <section className="w-full bg-gray-100 py-16 px-6">
       <div className="mx-auto flex flex-col gap-10 rounded-3xl bg-white p-8 shadow-xl md:flex-row md:items-start md:p-12">
         <header className="md:w-1/3">
-          <p className="text-sm uppercase tracking-[0.35em] text-emerald-500">
+          <p className="text-sm uppercase tracking-[0.35em] text-emerald-600">
             Preguntas frecuentes
           </p>
           <h2 className="mt-3 text-3xl font-black text-gray-900">
@@ -56,11 +56,11 @@ export default function Faqs() {
               {({ open }) => (
                 <>
                   <DisclosureButton className="group flex w-full items-center justify-between text-left">
-                    <span className="text-base font-semibold text-gray-900 group-data-hover:text-emerald-600">
+                    <span className="text-base font-semibold text-gray-900 group-data-hover:text-emerald-800">
                       {faq.question}
                     </span>
                     <ChevronDownIcon
-                      className={`size-5 text-emerald-500 transition-transform ${
+                      className={`size-5 text-emerald-600 transition-transform ${
                         open ? "rotate-180" : "rotate-0"
                       }`}
                     />

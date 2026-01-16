@@ -47,7 +47,7 @@ export default function Page() {
                 <div
                   className={`${
                     dog?.attributes.goodWithKids
-                      ? "bg-emerald-400"
+                      ? "bg-emerald-500"
                       : "bg-red-400"
                   } px-2 py-1 rounded-lg`}
                 >
@@ -60,7 +60,7 @@ export default function Page() {
                 <div
                   className={`${
                     dog?.attributes.goodWithDogs
-                      ? "bg-emerald-400"
+                      ? "bg-emerald-500"
                       : "bg-red-400"
                   } px-2 py-1 rounded-lg`}
                 >
@@ -73,7 +73,7 @@ export default function Page() {
                 <div
                   className={`${
                     dog?.attributes.houseTrained
-                      ? "bg-emerald-400"
+                      ? "bg-emerald-500"
                       : "bg-red-400"
                   } px-2 py-1 rounded-lg`}
                 >
@@ -111,7 +111,7 @@ export default function Page() {
                 {dog?.longDescription}
               </p>
             </div>
-            <div className="mt-6 bg-emerald-400 p-4 rounded-lg text-center font-black hover:bg-emerald-600 transition-colors cursor-pointer">
+            <div className="mt-6 bg-emerald-500 p-4 rounded-lg text-center font-black hover:bg-emerald-700 transition-colors cursor-pointer">
               <Link href={`/adopt/${dog?.id}/adopt-form`}>
                 Aplica para adoptar -&gt;{" "}
               </Link>

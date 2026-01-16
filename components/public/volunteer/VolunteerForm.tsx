@@ -1,3 +1,22 @@
+const daysOfWeek = [
+  { label: "Lunes", value: "monday" },
+  { label: "Martes", value: "tuesday" },
+  { label: "Miércoles", value: "wednesday" },
+  { label: "Jueves", value: "thursday" },
+  { label: "Viernes", value: "friday" },
+  { label: "Sábado", value: "saturday" },
+  { label: "Domingo", value: "sunday" },
+];
+
+const areaOfInterest = [
+  { label: "Cuidado de animales", value: "animalCare" },
+  { label: "Planificación de eventos", value: "eventPlanning" },
+  { label: "Recaudación de fondos", value: "fundraising" },
+  { label: "Apoyo administrativo", value: "administrativeSupport" },
+  { label: "Alcance comunitario", value: "outreach" },
+  { label: "Otro", value: "other" },
+];
+
 export default function VolunteerForm() {
   return (
     <article className="max-w-5xl mx-auto p-8 bg-white rounded-lg shadow-md">
@@ -64,72 +83,20 @@ export default function VolunteerForm() {
 
         <section>
           <h3 className="font-bold text-2xl py-6">Disponibilidad</h3>
-          <hr className="mb-6 text-gray-200" />
+          <hr className="mb-6 text-emerald-600" />
           <p className="text-gray-600 pb-2">Dias disponibles</p>
           <div className="flex gap-4">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                name="days"
-                value="monday"
-                className="mr-2"
-              />
-              Lunes
-            </label>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                name="days"
-                value="tuesday"
-                className="mr-2"
-              />
-              Martes
-            </label>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                name="days"
-                value="wednesday"
-                className="mr-2"
-              />
-              Miércoles
-            </label>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                name="days"
-                value="thursday"
-                className="mr-2"
-              />
-              Jueves
-            </label>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                name="days"
-                value="friday"
-                className="mr-2"
-              />
-              Viernes
-            </label>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                name="days"
-                value="saturday"
-                className="mr-2"
-              />
-              Sábado
-            </label>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                name="days"
-                value="sunday"
-                className="mr-2"
-              />
-              Domingo
-            </label>
+            {daysOfWeek.map((day) => (
+              <label key={day.value} className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="days"
+                  value={day.value}
+                  className="mr-2"
+                />
+                {day.label}
+              </label>
+            ))}
           </div>
           <div className="mt-4 mb-8">
             <p className="text-gray-600 pb-2">Horario preferido</p>
@@ -145,67 +112,24 @@ export default function VolunteerForm() {
         </section>
         <section>
           <h3 className="font-bold text-2xl py-6">Areas de interes</h3>
-          <hr className="mb-6 text-gray-200" />
+          <hr className="mb-6 text-emerald-600" />
           <div className="grid md:grid-cols-2">
-            <label className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                name="areas"
-                value="animalCare"
-                className="mr-2"
-              />
-              Cuidado de animales
-            </label>
-            <label className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                name="areas"
-                value="eventPlanning"
-                className="mr-2"
-              />
-              Planificación de eventos
-            </label>
-            <label className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                name="areas"
-                value="fundraising"
-                className="mr-2"
-              />
-              Recaudación de fondos
-            </label>
-            <label className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                name="areas"
-                value="administrativeSupport"
-                className="mr-2"
-              />
-              Apoyo administrativo
-            </label>
-            <label className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                name="areas"
-                value="outreach"
-                className="mr-2"
-              />
-              Alcance comunitario
-            </label>
-            <label className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                name="areas"
-                value="other"
-                className="mr-2"
-              />
-              Otro
-            </label>
+            {areaOfInterest.map((area) => (
+              <label key={area.value} className="flex items-center mb-4">
+                <input
+                  type="checkbox"
+                  name="areas"
+                  value={area.value}
+                  className="mr-2"
+                />
+                {area.label}
+              </label>
+            ))}
           </div>
         </section>
         <section className="space-y-4">
           <h4 className="font-bold text-2xl py-6">Experiencia y habilidades</h4>
-          <hr className="mb-6 text-gray-200" />
+          <hr className="mb-6 text-emerald-600" />
           <div>
             <p className="text-black">Porque quieres ser voluntario?</p>
             <textarea
@@ -228,7 +152,7 @@ export default function VolunteerForm() {
         </section>
         <section className="space-y-4">
           <h5 className="font-bold text-2xl py-6">Contacto de emergencia</h5>
-          <hr className="mb-6 text-gray-200" />
+          <hr className="mb-6 text-emerald-600" />
           <div className="flex items-center justify-center">
             <div>
               <label htmlFor="">Nombre de contacto</label>
@@ -251,14 +175,14 @@ export default function VolunteerForm() {
           </div>
         </section>
 
-        <hr className="my-10 text-gray-200" />
+        <hr className="my-10 text-emerald-600" />
 
         <section>
           <div className="flex items-center justify-center max-w-lg mx-auto gap-4">
             <input type="checkbox" className="mr-2" name="terms" />
             <p className="text-gray-400">
               Confirmo que soy mayor de 18 años de edad, acepto los{" "}
-              <span className="text-emerald-400 font-bold">
+              <span className="text-emerald-600 font-bold">
                 términos y condiciones y la política de privacidad
               </span>
               .
@@ -266,7 +190,7 @@ export default function VolunteerForm() {
           </div>
           <button
             type="submit"
-            className="mt-8 bg-emerald-400 text-black font-bold px-6 py-3 rounded-full hover:bg-emerald-600 transition-colors duration-300 mx-auto block cursor-pointer"
+            className="mt-8 bg-emerald-500 text-black font-bold px-6 py-3 rounded-full hover:bg-emerald-700 transition-colors duration-300 mx-auto block cursor-pointer"
           >
             Enviar formulario
           </button>

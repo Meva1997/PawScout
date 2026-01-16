@@ -103,7 +103,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
             />
           </div>
         </section>
-        <section className="flex flex-col md:flex-row justify-between my-6 gap-6">
+        <section className="flex flex-col md:flex-row  my-6 gap-6">
           <div>
             <p>Fecha de Nacimiento</p>
             <input
@@ -124,7 +124,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
             />
           </div>
         </section>
-        <hr className="border border-emerald-400 my-4" />
+        <hr className="border border-emerald-500 my-4" />
 
         {/*Skills and Experience section */}
         <section className="my-6 space-y-4">
@@ -139,7 +139,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
           ></textarea>
         </section>
 
-        <hr className="border border-emerald-400 my-4" />
+        <hr className="border border-emerald-500 my-4" />
 
         {/*Skills and Experience section */}
         <section className="my-6 space-y-4">
@@ -154,7 +154,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
           ></textarea>
         </section>
 
-        <hr className="border border-emerald-400 my-4" />
+        <hr className="border border-emerald-500 my-4" />
 
         {/* Home information section */}
         <section className="my-6 space-y-4">
@@ -184,7 +184,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
             <input type="checkbox" />
             <p className="text-gray-400">
               Acepto los{" "}
-              <span className="underline text-emerald-400 font-bold">
+              <span className="underline text-emerald-600 font-bold">
                 términos y condiciones
               </span>
               . Estoy de acuerdo en que los datos proporcionados serán
@@ -195,7 +195,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
           <div className="mt-10 justify-center flex w-2/3 mx-auto">
             <Link
               href={`/adopt/${slug}/adopt-form/success`}
-              className="mt-6 bg-emerald-400 p-4 rounded-lg text-center font-black hover:bg-emerald-600 transition-colors cursor-pointer w-full  "
+              className="mt-6 bg-emerald-500 p-4 rounded-lg text-center font-black hover:bg-emerald-700 transition-colors cursor-pointer w-full  "
             >
               Enviar Solicitud de Adopción
             </Link>

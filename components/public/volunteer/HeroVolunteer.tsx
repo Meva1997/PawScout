@@ -8,7 +8,7 @@ export default function HeroVolunteer() {
         <section className="flex flex-col justify-center items-start p-8 my-10">
           <h1 className="font-black text-4xl">
             Haz la diferencia,
-            <span className="text-emerald-600 text-5xl">
+            <span className="text-emerald-600 text-5xl underline decoration-amber-600">
               {" "}
               ayuda a cambiar vidas.
             </span>
