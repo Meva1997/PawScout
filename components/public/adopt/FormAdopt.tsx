@@ -103,7 +103,60 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
             />
           </div>
         </section>
+        <section className="flex flex-col md:flex-row justify-between my-6 gap-6">
+          <div>
+            <p>Fecha de Nacimiento</p>
+            <input
+              type="date"
+              name="birthDate"
+              inputMode="numeric"
+              className="border border-gray-500 rounded-lg p-2 w-full"
+            />
+          </div>
+          <div>
+            <p>Ocupacion</p>
+            <input
+              type="text"
+              inputMode="text"
+              name="occupation"
+              placeholder="Ocupacion"
+              className="border border-gray-500 rounded-lg p-2 w-full"
+            />
+          </div>
+        </section>
         <hr className="border border-emerald-400 my-4" />
+
+        {/*Skills and Experience section */}
+        <section className="my-6 space-y-4">
+          <h3 className="text-2xl font-bold">Intereses</h3>
+
+          <textarea
+            name="interests"
+            id="interests"
+            className="border border-gray-500 rounded-lg p-2 w-full"
+            placeholder="¿Por qué quieres adoptar esta mascota? ¿Tienes experiencia previa con mascotas y cuales?"
+            rows={4}
+          ></textarea>
+        </section>
+
+        <hr className="border border-emerald-400 my-4" />
+
+        {/*Skills and Experience section */}
+        <section className="my-6 space-y-4">
+          <h3 className="text-2xl font-bold">Experiencia con Mascotas</h3>
+
+          <textarea
+            name="experience"
+            id="experience"
+            className="border border-gray-500 rounded-lg p-2 w-full"
+            placeholder="Describe tu experiencia previa con mascotas, si has tenido mascotas antes, y cómo las has cuidado."
+            rows={4}
+          ></textarea>
+        </section>
+
+        <hr className="border border-emerald-400 my-4" />
+
+        {/* Home information section */}
         <section className="my-6 space-y-4">
           <h3 className="text-2xl font-bold">Información del Hogar</h3>
           <p className="text-gray-600 font-semibold">Tipo de vivienda</p>
