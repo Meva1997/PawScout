@@ -46,10 +46,13 @@ export default function NewArrivals() {
       <article>
         <h4 className="text-3xl font-black text-black">Esperando un hogar</h4>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 justify-between">
-          <p className="text-gray-500 mt-2">
+          <p className="text-gray-700 mt-2">
             Descubre las nuevas mascotas que buscan un hogar amoroso.
           </p>
-          <Link href="/adopt" className="font-bold text-emerald-400">
+          <Link
+            href="/adopt"
+            className="font-bold text-emerald-600 hover:text-emerald-700"
+          >
             Ver más →
           </Link>
         </div>

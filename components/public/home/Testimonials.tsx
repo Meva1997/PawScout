@@ -31,7 +31,7 @@ export default function Testimonials() {
       <section className="bg-white max-w-6xl mx-auto p-6 my-20 text-center rounded-3xl shadow-xl">
         <article>
           <h5 className="text-3xl font-black">Nuestros Testimonios</h5>
-          <p className="text-gray-500 py-4">
+          <p className="text-gray-700 py-4">
             Historias de personas que han encontrado un nuevo amigo peludo a
             través de nuestra plataforma.
           </p>
@@ -48,7 +48,7 @@ export default function Testimonials() {
                 </p>
                 <div className="mt-4">
                   <h6 className="font-semibold">-{testimonial.name}</h6>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-600">
                     Adoptó a {testimonial.adopted}
                   </span>
                 </div>

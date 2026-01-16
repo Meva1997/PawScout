@@ -7,11 +7,21 @@ import Testimonials from "@/components/public/home/Testimonials";
 export default function page() {
   return (
     <main className="bg-gray-100 py-10">
-      <HeroSection />
-      <HowWorks />
-      <NewArrivals />
-      <Testimonials />
-      <EmailSubscription />
+      <div className="px-6">
+        <HeroSection />
+      </div>
+      <div className="px-6">
+        <HowWorks />
+      </div>
+      <div className="px-6">
+        <NewArrivals />
+      </div>
+      <div className="px-6">
+        <Testimonials />
+      </div>
+      <div className="px-6">
+        <EmailSubscription />
+      </div>
     </main>
   );
 }

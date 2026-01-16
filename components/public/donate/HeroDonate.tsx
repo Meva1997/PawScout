@@ -6,7 +6,7 @@ export default function HeroDonate() {
       <section>
         <h1 className="font-bold text-4xl max-w-md leading-snug">
           Se un heroe para una{" "}
-          <span className="text-emerald-400 font-black text-5xl decoration-orange-400 underline">
+          <span className="text-emerald-600 font-black text-5xl decoration-orange-400 underline">
             mascota sin hogar
           </span>
         </h1>

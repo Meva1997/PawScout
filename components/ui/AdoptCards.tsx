@@ -40,7 +40,7 @@ export default function AdoptCards() {
               <div className="p-4 border-t border-gray-200 text-center">
                 <Link
                   href={`/adopt/${dog.id}/info`}
-                  className="bg-emerald-400 text-white px-4 py-2 rounded hover:bg-emerald-600 transition-colors duration-300 font-bold cursor-pointer"
+                  className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-800 transition-colors duration-300 font-bold cursor-pointer"
                 >
                   Conoce a {dog.name}
                 </Link>

@@ -33,7 +33,7 @@ export default function HowWorks() {
       <section className="bg-white px-4 py-14 max-w-6xl mx-auto my-20 rounded-3xl shadow-xl">
         <article className="mb-10 max-w-6xl mx-auto">
           <h3 className="text-3xl font-black text-black">¿Cómo funciona?</h3>
-          <p className="text-gray-500 my-2 max-w-3xl">
+          <p className="text-gray-700 my-2 max-w-3xl">
             Nuestro proceso de adopción esta diseñado para ser simple,
             transparente y enfocado en encontrar el hogar perfecto para cada
             mascota.
@@ -45,7 +45,7 @@ export default function HowWorks() {
               <div className="bg-gray-100 rounded-xl space-y-2 p-6 shadow-md">
                 <p>{step.icon}</p>
                 <p className="text-black font-bold text-xl ">{step.title}</p>
-                <p className="text-gray-500">{step.description}</p>
+                <p className="text-gray-700">{step.description}</p>
               </div>
             </div>
           ))}

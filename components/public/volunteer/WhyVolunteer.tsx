@@ -31,7 +31,7 @@ export default function WhyVolunteer() {
     <>
       <article className="grid md:grid-cols-3 max-w-6xl justify-center items-center mx-auto gap-18 bg-white p-10 rounded-lg shadow-lg my-16">
         <section className="space-y-4 col-span-1">
-          <p className="font-bold text-emerald-400 text-md">Beneficios</p>
+          <p className="font-bold text-emerald-600 text-md">Beneficios</p>
           <h3 className="text-3xl font-black">¿Por qué ser voluntario?</h3>
           <p className="text-gray-500">
             Ser voluntario en nuestra organización de rescate de mascotas no

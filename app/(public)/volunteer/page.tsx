@@ -8,9 +8,13 @@ export default function page() {
     <>
       <main className="bg-gray-100 py-20">
         <HeroVolunteer />
-        <WhyVolunteer />
+        <div className="px-6">
+          <WhyVolunteer />
+        </div>
         <VolunteerRoles />
-        <VolunteerRequirements />
+        <div className="px-6">
+          <VolunteerRequirements />
+        </div>
       </main>
     </>
   );

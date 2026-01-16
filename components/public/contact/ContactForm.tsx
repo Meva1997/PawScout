@@ -67,7 +67,7 @@ export default function ContactForm() {
           </label>
           <button
             type="submit"
-            className="bg-emerald-500 text-white font-bold py-2 px-4 rounded-xl hover:bg-emerald-600 transition-colors cursor-pointer"
+            className="bg-emerald-600 text-white font-bold py-2 px-4 rounded-xl hover:bg-emerald-800 transition-all cursor-pointer"
           >
             Enviar mensaje
           </button>
