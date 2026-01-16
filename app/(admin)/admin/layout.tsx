@@ -9,12 +9,13 @@ type NavigationItem = {
 };
 
 const navigation: NavigationItem[] = [
-  { name: "Dashboard", href: "/admin/dashboard" },
-  { name: "Pets", href: "/admin/pets" },
-  { name: "Adoptions", href: "/admin/adoptions" },
-  { name: "Donations", href: "/admin/donations" },
-  { name: "Volunteers", href: "/admin/volunteers" },
-  { name: "Settings", href: "/admin/settings" },
+  { name: "Panel General", href: "/admin/dashboard" },
+  { name: "Mascotas", href: "/admin/pets" },
+  { name: "Adopciones", href: "/admin/adoptions" },
+  { name: "Donaciones", href: "/admin/donations" },
+  { name: "Voluntarios", href: "/admin/volunteers" },
+  { name: "Mensajes", href: "/admin/newsletter" },
+  { name: "Configuración", href: "/admin/settings" },
 ];
 
 export default function AdminLayout({
