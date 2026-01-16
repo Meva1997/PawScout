@@ -92,7 +92,7 @@ export default function VolunteerRequirements() {
         </section>
       </article>
       <article className="py-20">
-        <section className="rounded-2xl bg-emerald-400 p-8 space-y-10  md:space-y-4 flex flex-col md:flex-row md:justify-between md:items-center max-w-6xl mx-auto">
+        <section className="rounded-2xl bg-emerald-500 p-8 space-y-10  md:space-y-4 flex flex-col md:flex-row md:justify-between md:items-center max-w-6xl mx-auto">
           <div>
             <h6 className="font-bold text-xl">
               ¡Únete a nuestro equipo de voluntarios!

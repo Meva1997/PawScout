@@ -27,12 +27,12 @@ export default function WaitingHomeDogCards({
         />
         <div className=" bg-white p-4 rounded-b-2xl">
           <h5 className="text-xl font-bold text-black">{name}</h5>
-          <p className="text-gray-500">{subtitle}</p>
-          <p className="text-gray-700 mt-2 font-bold">
-            Raza: <span className="font-semibold text-gray-500">{breed}</span>
+          <p className="text-gray-700">{subtitle}</p>
+          <p className="text-gray-800 mt-2 font-bold">
+            Raza: <span className="font-semibold text-gray-600">{breed}</span>
           </p>
-          <p className="text-gray-700 font-bold">
-            Edad: <span className="font-semibold text-gray-500">{age}</span>
+          <p className="text-gray-800 font-bold">
+            Edad: <span className="font-semibold text-gray-600">{age}</span>
           </p>
         </div>
       </div>

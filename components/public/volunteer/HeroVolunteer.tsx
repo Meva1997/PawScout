@@ -8,7 +8,7 @@ export default function HeroVolunteer() {
         <section className="flex flex-col justify-center items-start p-8 my-10">
           <h1 className="font-black text-4xl">
             Haz la diferencia,
-            <span className="text-emerald-400 text-5xl">
+            <span className="text-emerald-600 text-5xl">
               {" "}
               ayuda a cambiar vidas.
             </span>
@@ -19,7 +19,7 @@ export default function HeroVolunteer() {
           </p>
           <Link
             href="/volunteer/form"
-            className="mt-6 bg-emerald-400 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-colors font-bold cursor-pointer"
+            className="mt-6 bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-800 transition-all font-bold cursor-pointer"
           >
             Quiero ser voluntario
           </Link>
@@ -37,15 +37,15 @@ export default function HeroVolunteer() {
       <article className="mt-10 max-w-6xl mx-auto">
         <section className="grid md:grid-cols-3">
           <div className="p-8 text-center">
-            <h2 className="font-bold text-3xl text-emerald-400">150+</h2>
+            <h2 className="font-bold text-3xl text-emerald-600">150+</h2>
             <p className="mt-2">Voluntarios activos</p>
           </div>
           <div className="p-8 text-center">
-            <h2 className="font-bold text-3xl text-emerald-400">3000+</h2>
+            <h2 className="font-bold text-3xl text-emerald-600">3000+</h2>
             <p className="mt-2">Horas de servicio al mes</p>
           </div>
           <div className="p-8 text-center">
-            <h2 className="font-bold text-3xl text-emerald-400">500+</h2>
+            <h2 className="font-bold text-3xl text-emerald-600">500+</h2>
             <p className="mt-2">Mascotas ayudadas</p>
           </div>
         </section>

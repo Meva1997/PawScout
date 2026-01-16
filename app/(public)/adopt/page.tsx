@@ -2,7 +2,7 @@ import AdoptCards from "@/components/ui/AdoptCards";
 
 export default function page() {
   return (
-    <main className="bg-gray-100 py-10">
+    <main className="bg-gray-100 py-10 px-6">
       <section className="py-16 px-4 max-w-6xl mx-auto bg-white rounded-3xl my-20 shadow-xl">
         <h1 className="font-black text-4xl">
           Encuentra tu mascota ideal para adoptar

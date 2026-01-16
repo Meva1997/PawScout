@@ -85,7 +85,7 @@ export default function AmountForm() {
           )}
           <button
             type="submit"
-            className="my-4 bg-emerald-400 text-white font-bold py-3 rounded-lg hover:bg-emerald-600 transition-colors"
+            className="my-4 bg-emerald-600 text-white font-bold py-3 rounded-lg hover:bg-emerald-800 transition-all cursor-pointer"
           >
             Donar Ahora
           </button>
