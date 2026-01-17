@@ -55,6 +55,7 @@ function PetsPageContent() {
       {isCreatingPet && (
         <NewPetForm isOpen={isCreatingPet} onCloseAction={handleCloseModal} />
       )}
+      <div className="hidden"></div>
     </>
   );
 }
