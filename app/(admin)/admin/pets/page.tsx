@@ -1,10 +1,19 @@
 "use client";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import PetsTable from "@/components/admin/pets/PetsTable";
 import NewPetForm from "@/components/admin/pets/NewPetForm";
 
 export default function PetsPage() {
+  return (
+    <Suspense fallback={null}>
+      <PetsPageContent />
+    </Suspense>
+  );
+}
+
+function PetsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isCreatingPet = searchParams.get("modal") === "new";
