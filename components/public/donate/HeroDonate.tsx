@@ -1,9 +1,16 @@
+"use client";
 import Image from "next/image";
 import { ShieldCheckIcon, CheckBadgeIcon } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
 
 export default function HeroDonate() {
   return (
-    <article className="flex flex-col gap-8 justify-center items-start">
+    <motion.article
+      className="flex flex-col gap-8 justify-center items-start"
+      initial={{ opacity: 0, y: -50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, delay: 0.4 }}
+    >
       <section>
         <h1 className="font-bold text-4xl max-w-md leading-snug">
           Se un heroe para una{" "}
@@ -37,6 +44,6 @@ export default function HeroDonate() {
           <p className="font-bold">Deducible de impuestos</p>
         </div>
       </section>
-    </article>
+    </motion.article>
   );
 }

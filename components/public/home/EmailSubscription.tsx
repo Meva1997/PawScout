@@ -1,7 +1,15 @@
+"use client";
+import { motion } from "framer-motion";
+
 export default function EmailSubscription() {
   return (
     <>
-      <section className="bg-emerald-500 py-16 max-w-6xl mx-auto rounded-3xl my-20 shadow-lg shadow-emerald-200/40">
+      <motion.section
+        className="bg-emerald-500 py-16 max-w-6xl mx-auto rounded-3xl my-20 shadow-lg shadow-emerald-200/40"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
         <article className="text-center px-4">
           <h6 className="text-3xl font-black text-black mb-4">
             Suscribete a nuestro boletin de noticias
@@ -27,7 +35,7 @@ export default function EmailSubscription() {
             </button>
           </form>
         </article>
-      </section>
+      </motion.section>
     </>
   );
 }

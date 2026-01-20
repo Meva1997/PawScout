@@ -6,7 +6,7 @@ import Testimonials from "@/components/public/home/Testimonials";
 
 export default function page() {
   return (
-    <main className="bg-gray-100 py-10">
+    <main className="bg-gray-200 py-10">
       <div className="px-6">
         <HeroSection />
       </div>

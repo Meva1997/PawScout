@@ -1,6 +1,8 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import { motion } from "framer-motion";
 
 type VolunteerComment = {
   name: string;
@@ -32,7 +34,12 @@ const volunteerComments: VolunteerComment[] = [
 export default function VolunteerRequirements() {
   return (
     <>
-      <article className="py-20">
+      <motion.article
+        className="py-20"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.4 }}
+      >
         <section className="grid md:grid-cols-2 mx-auto rounded-lg overflow-hidden shadow-lg  bg-white gap-8 md:max-w-6xl w-2/3 md:w-full">
           <div className="space-y-4 p-8 mt-10">
             <h5 className="text-xl font-bold">
@@ -73,13 +80,16 @@ export default function VolunteerRequirements() {
             />
           </div>
         </section>
-      </article>
+      </motion.article>
       <article>
         <section className="grid md:grid-cols-3 max-w-6xl mx-auto my-20">
           {volunteerComments.map((volunteer, index) => (
-            <div
+            <motion.div
               key={index}
               className="bg-white p-6 m-4 rounded-lg shadow-md flex flex-col items-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: index * 0.3 }}
             >
               <Image
                 src={volunteer.image}
@@ -92,11 +102,16 @@ export default function VolunteerRequirements() {
               <p className="text-gray-600 text-center">
                 &quot;{volunteer.comment}&quot;
               </p>
-            </div>
+            </motion.div>
           ))}
         </section>
       </article>
-      <article className="py-20">
+      <motion.article
+        className="py-20"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.4 }}
+      >
         <section className="rounded-2xl bg-emerald-500 p-8 space-y-10  md:space-y-4 flex flex-col md:flex-row md:justify-between md:items-center max-w-6xl mx-auto">
           <div>
             <h6 className="font-bold text-xl">
@@ -113,7 +128,7 @@ export default function VolunteerRequirements() {
             </Link>
           </div>
         </section>
-      </article>
+      </motion.article>
     </>
   );
 }

@@ -1,11 +1,17 @@
-import React from "react";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
     <>
-      <section className="bg-white max-w-6xl mx-auto my-20 rounded-3xl shadow-xl ">
+      <motion.section
+        className="bg-white max-w-6xl mx-auto my-20 rounded-3xl shadow-xl"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1.5, delay: 0.3 }}
+      >
         <div className="grid md:grid-cols-1 lg:grid-cols-2 max-w-6xl mx-auto gap-8 py-16 px-4">
           <article className="mx-auto">
             <div className="rounded-xl px-3 border border-emerald-500 bg-emerald-50 inline-block mb-4">
@@ -55,8 +61,13 @@ export default function HeroSection() {
             </div>
           </article>
         </div>
-      </section>
-      <section className="bg-white rounded-3xl max-w-6xl shadow-xl mx-auto">
+      </motion.section>
+      <motion.section
+        className="bg-white rounded-3xl max-w-6xl shadow-xl mx-auto"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.3 }}
+      >
         <article className="md:flex grid grid-cols-2 gap-6 md:gap-0 justify-evenly max-w-6xl mx-auto py-12 px-4 text-center text-gray-700">
           <div>
             <p className="font-bold text-emerald-600 text-2xl">1,240</p>
@@ -75,7 +86,7 @@ export default function HeroSection() {
             <p>Animales Sanos</p>
           </div>
         </article>
-      </section>
+      </motion.section>
     </>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import type { DogsDataType } from "@/db/dogs";
 
 interface AdoptListFilterProps {
@@ -88,7 +89,12 @@ export default function AdoptListFilter({
   };
 
   return (
-    <section className="sticky top-0 z-40 max-w-6xl mx-auto rounded-3xl shadow-xl border-b border-gray-200 bg-white/95 backdrop-blur">
+    <motion.section
+      className=" top-0 z-40 max-w-6xl mx-auto rounded-3xl shadow-xl border-b border-gray-200 bg-white/95 backdrop-blur"
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1, delay: 0.4 }}
+    >
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
         {/* Filtros */}
         <div className="flex flex-1 items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
@@ -210,6 +216,6 @@ export default function AdoptListFilter({
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

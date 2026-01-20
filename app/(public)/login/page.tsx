@@ -1,11 +1,18 @@
-import LoginForm from "@/components/public/Login/LoginForm";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import LoginForm from "@/components/public/Login/LoginForm";
+import { motion } from "framer-motion";
 
 export default function page() {
   return (
     <>
-      <main className="grid md:grid-cols-2 max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden my-20">
+      <motion.main
+        className="grid md:grid-cols-2 max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden my-20"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.4 }}
+      >
         <section className="col-span-1 flex flex-col items-center justify-center p-4">
           <h1 className="font-black text-4xl">Bienvenido</h1>
           <p className="my-4 text-gray-500">
@@ -37,7 +44,7 @@ export default function page() {
             loading="lazy"
           />
         </section>
-      </main>
+      </motion.main>
     </>
   );
 }

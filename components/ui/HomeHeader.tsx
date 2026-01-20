@@ -1,7 +1,8 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { motion } from "framer-motion";
 
 type NavItem = {
   href: string;
@@ -24,7 +25,12 @@ export default function HomeHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="flex items-center justify-between p-4 bg-white max-w-6xl mx-auto">
+    <motion.header
+      className="flex items-center justify-between p-4 bg-white max-w-6xl mx-auto"
+      initial={{ y: -50, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6 }}
+    >
       <Link href="/home">
         <h1 className="font-bold text-2xl">
           <span className="md:pr-4 lg:pr-0">🐾</span> PawScout
@@ -110,6 +116,6 @@ export default function HomeHeader() {
           </div>
         )}
       </nav>
-    </header>
+    </motion.header>
   );
 }

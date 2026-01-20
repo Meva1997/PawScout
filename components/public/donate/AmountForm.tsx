@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function AmountForm() {
   const presetAmounts = [50, 100, 150, 200, 300, 500];
@@ -35,7 +36,12 @@ export default function AmountForm() {
   };
 
   return (
-    <article className="flex flex-col bg-white p-8 rounded-lg shadow-lg ">
+    <motion.article
+      className="flex flex-col bg-white p-8 rounded-lg shadow-lg"
+      initial={{ opacity: 0, y: -50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, delay: 0.4 }}
+    >
       <section>
         <h2 className="font-bold text-2xl">Elige la cantidad a donar</h2>
         <p className="text-gray-500 pt-2">Cambia una vida hoy</p>
@@ -91,6 +97,6 @@ export default function AmountForm() {
           </button>
         </form>
       </section>
-    </article>
+    </motion.article>
   );
 }

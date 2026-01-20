@@ -1,3 +1,6 @@
+"use client";
+import { motion } from "framer-motion";
+
 type Testimonial = {
   comment: string;
   name: string;
@@ -28,7 +31,12 @@ const testimonials: Testimonial[] = [
 export default function Testimonials() {
   return (
     <>
-      <section className="bg-white max-w-6xl mx-auto p-6 my-20 text-center rounded-3xl shadow-xl">
+      <motion.section
+        className="bg-white max-w-6xl mx-auto p-6 my-20 text-center rounded-3xl shadow-xl"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.4 }}
+      >
         <article>
           <h5 className="text-3xl font-black">Nuestros Testimonios</h5>
           <p className="text-gray-700 py-4">
@@ -56,7 +64,7 @@ export default function Testimonials() {
             ))}
           </div>
         </article>
-      </section>
+      </motion.section>
     </>
   );
 }

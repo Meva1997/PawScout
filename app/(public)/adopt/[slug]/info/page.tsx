@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { motion } from "framer-motion";
 import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
 import {
@@ -43,10 +44,13 @@ export default function Page() {
   ];
 
   return (
-    <main>
-      <section
-        className="max-w-6xl mx-auto p-8 bg-gray-100 py-30"
+    <>
+      <motion.main
+        className="max-w-6xl mx-auto p-8 bg-gray-200 py-20 my-20 rounded-3xl shadow-xl"
         aria-labelledby="dog-info-heading"
+        initial={{ opacity: 0, y: 80 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.4 }}
       >
         <article className="grid md:grid-cols-2 gap-6">
           <figure className="flex flex-col">
@@ -67,7 +71,12 @@ export default function Page() {
               Galería de imágenes del perro seleccionado
             </figcaption>
           </figure>
-          <div className="flex flex-col">
+          <motion.div
+            className="flex flex-col"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1.2, delay: 0.4 }}
+          >
             <header id="dog-info-heading">
               <h1 className="text-3xl font-bold mb-4">{dog?.name}</h1>
               <p className="text-gray-400">
@@ -122,7 +131,7 @@ export default function Page() {
               aria-labelledby="dog-details-heading"
             >
               <h2 id="dog-details-heading" className="sr-only">
-                Detalles clave del perro
+                Detalles clave del animal
               </h2>
               {infoCards.map(({ label, value, Icon }) => (
                 <div key={label} className="bg-white p-4 rounded-lg mb-4">
@@ -151,9 +160,15 @@ export default function Page() {
                 Aplica para adoptar -&gt;{" "}
               </Link>
             </section>
-          </div>
+          </motion.div>
         </article>
-      </section>
-    </main>
+      </motion.main>
+      <motion.hr
+        className="text-emerald-600"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.4 }}
+      />
+    </>
   );
 }

@@ -1,3 +1,4 @@
+"use client";
 import {
   UserIcon,
   ClipboardDocumentCheckIcon,
@@ -6,6 +7,7 @@ import {
   GlobeAmericasIcon,
   HandRaisedIcon,
 } from "@heroicons/react/20/solid";
+import { motion } from "framer-motion";
 
 type VolunteerRole = {
   title: string;
@@ -66,14 +68,17 @@ export default function VolunteerRoles() {
         </section>
         <section className="grid md:grid-cols-3 max-w-6xl mx-auto">
           {roles.map((role, index) => (
-            <div
+            <motion.div
               key={index}
               className="border-2 border-gray-200 p-4 rounded-lg m-4 bg-white shadow-lg"
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
             >
               <role.icon className="h-10 w-10 text-emerald-500 mb-4" />
               <h5 className="font-bold text-lg mb-2">{role.title}</h5>
               <p className="text-gray-500">{role.description}</p>
-            </div>
+            </motion.div>
           ))}
         </section>
       </article>
