@@ -1,8 +1,15 @@
+"use client";
 import VolunteerForm from "@/components/public/volunteer/VolunteerForm";
+import { motion } from "framer-motion";
 
 export default function page() {
   return (
-    <main className="bg-gray-100 pb-30 pt-10">
+    <motion.main
+      className="bg-gray-200 pb-30 pt-10"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 0.3 }}
+    >
       <article className=" flex flex-col justify-center items-center gap-4 p-8">
         <div className="bg-emerald-500 rounded-full px-4 py-2 mb-4">
           <p className="text-black font-bold text-sm">
@@ -22,6 +29,6 @@ export default function page() {
       </article>
 
       <VolunteerForm />
-    </main>
+    </motion.main>
   );
 }

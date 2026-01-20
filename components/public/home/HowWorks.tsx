@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import { motion } from "framer-motion";
 
 type Step = {
   icon: string;
@@ -30,7 +32,12 @@ const steps: Step[] = [
 export default function HowWorks() {
   return (
     <>
-      <section className="bg-white px-4 py-14 max-w-6xl mx-auto my-20 rounded-3xl shadow-xl">
+      <motion.section
+        className="bg-white px-4 py-14 max-w-6xl mx-auto my-20 rounded-3xl shadow-xl"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.3 }}
+      >
         <article className="mb-10 max-w-6xl mx-auto">
           <h3 className="text-3xl font-black text-black">¿Cómo funciona?</h3>
           <p className="text-gray-700 my-2 max-w-3xl">
@@ -50,7 +57,7 @@ export default function HowWorks() {
             </div>
           ))}
         </article>
-      </section>
+      </motion.section>
     </>
   );
 }

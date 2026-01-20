@@ -2,10 +2,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { CakeIcon } from "@heroicons/react/20/solid";
+import { motion } from "framer-motion";
 import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
 import AdoptListFilter from "../public/adopt/AdoptListFilter";
-import { CakeIcon } from "@heroicons/react/20/solid";
 
 export default function AdoptCards() {
   const [filteredDogs, setFilteredDogs] = useState<DogsDataType[]>(dogsData);
@@ -13,7 +14,12 @@ export default function AdoptCards() {
   return (
     <>
       <AdoptListFilter dogs={dogsData} onFilterChange={setFilteredDogs} />
-      <section className=" bg-white py-16 max-w-6xl mx-auto rounded-3xl my-20 shadow-xl">
+      <motion.section
+        className=" bg-white py-16 max-w-6xl mx-auto rounded-3xl my-20 shadow-xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.3, delay: 0.5 }}
+      >
         <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
           {filteredDogs.map((dog) => (
             <div
@@ -51,7 +57,7 @@ export default function AdoptCards() {
             </div>
           ))}
         </article>
-      </section>
+      </motion.section>
     </>
   );
 }

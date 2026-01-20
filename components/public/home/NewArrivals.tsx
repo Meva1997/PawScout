@@ -1,5 +1,7 @@
-import WaitingHomeDogCards from "@/components/ui/WaitingHomeDogCards";
+"use client";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import WaitingHomeDogCards from "@/components/ui/WaitingHomeDogCards";
 
 type Item = {
   src: string;
@@ -42,7 +44,12 @@ const defaultDogs: Item[] = [
 
 export default function NewArrivals() {
   return (
-    <section className="my-20 px-4 max-w-6xl mx-auto">
+    <motion.section
+      className="py-20 px-4 max-w-6xl mx-auto"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 0.4 }}
+    >
       <article>
         <h4 className="text-3xl font-black text-black">Esperando un hogar</h4>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 justify-between">
@@ -69,6 +76,6 @@ export default function NewArrivals() {
           />
         ))}
       </article>
-    </section>
+    </motion.section>
   );
 }

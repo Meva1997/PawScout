@@ -22,7 +22,7 @@ const areaOfInterest = [
 
 export default function VolunteerForm() {
   return (
-    <article className="max-w-5xl mx-auto p-8 bg-white rounded-lg shadow-md">
+    <article className="max-w-5xl mx-auto p-8 bg-white rounded-2xl shadow-xl">
       <form action="">
         <section>
           <h2 className="font-bold text-2xl pb-6">

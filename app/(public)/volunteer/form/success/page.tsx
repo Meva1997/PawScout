@@ -1,9 +1,16 @@
+"use client";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function page() {
   return (
-    <main className="grow flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-gray-100">
-      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row min-h-150 my-20">
+    <main className="grow flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-gray-200">
+      <motion.section
+        className="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row min-h-150 my-20"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.3 }}
+      >
         <div className="relative w-full md:w-5/12 h-64 md:h-auto bg-slate-200 order-first">
           <div
             className="absolute inset-0 bg-center bg-cover bg-no-repeat"
@@ -31,13 +38,13 @@ export default function page() {
           <div className="mt-auto flex flex-col sm:flex-row gap-4">
             <Link
               className="flex-1 inline-flex items-center justify-center rounded-xl h-12 px-6 py-4 bg-emerald-400 text-black font-bold  text-sm hover:bg-emerald-600 transition-colors"
-              href="/"
+              href="/home"
             >
               Pagina principal
             </Link>
           </div>
         </div>
-      </div>
+      </motion.section>
     </main>
   );
 }

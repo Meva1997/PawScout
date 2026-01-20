@@ -1,11 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function HomeFooter() {
   return (
     <>
-      <footer>
+      <motion.footer
+        initial={{ y: 80, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: 0.4 }}
+      >
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-16 mb-10 px-8 gap-8 max-w-6xl mx-auto">
           <article>
             <h2 className="font-bold text-black text-xl">🐾 PawScout</h2>
@@ -99,7 +104,7 @@ export default function HomeFooter() {
             incorrecta; por favor contáctanos.
           </p>
         </section>
-      </footer>
+      </motion.footer>
     </>
   );
 }
