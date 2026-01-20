@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
 type VolunteerComment = {
   name: string;
@@ -43,19 +44,23 @@ export default function VolunteerRequirements() {
               para el voluntario como para las personas a las que ayudamos. A
               continuación, se detallan los principales requisitos:
             </p>
-            <ul className="space-y-2 list-disc list-inside">
-              <li className="list-disc">Ser mayor de 18 años.</li>
-              <li className="list-disc">
-                Comprometerse a un horario regular de voluntariado.
-              </li>
-              <li className="list-disc">
-                Tener pasión por el bienestar animal.
-              </li>
-              <li className="list-disc">Ser responsable y confiable.</li>
-              <li className="list-disc">Capacidad para trabajar en equipo.</li>
-              <li className="list-disc">
-                Disposición para aprender y seguir instrucciones.
-              </li>
+            <ul className="space-y-3">
+              {[
+                "Ser mayor de 18 años.",
+                "Comprometerse a un horario regular de voluntariado.",
+                "Tener pasión por el bienestar animal.",
+                "Ser responsable y confiable.",
+                "Capacidad para trabajar en equipo.",
+                "Disposición para aprender y seguir instrucciones.",
+              ].map((requirement) => (
+                <li
+                  key={requirement}
+                  className="flex items-start gap-3 text-gray-700"
+                >
+                  <CheckCircleIcon className="h-5 w-5 shrink-0 text-emerald-500" />
+                  <span>{requirement}</span>
+                </li>
+              ))}
             </ul>
           </div>
           <div>

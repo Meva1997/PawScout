@@ -5,6 +5,7 @@ import Image from "next/image";
 import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
 import AdoptListFilter from "../public/adopt/AdoptListFilter";
+import { CakeIcon } from "@heroicons/react/20/solid";
 
 export default function AdoptCards() {
   const [filteredDogs, setFilteredDogs] = useState<DogsDataType[]>(dogsData);
@@ -31,7 +32,9 @@ export default function AdoptCards() {
                   {dog.name}
                 </h3>
                 <p className="text-sm text-gray-600">{dog.shortDescription}</p>
-                <p className="mt-2 text-sm text-gray-500">🎂: {dog.age}</p>
+                <p className="mt-2 text-sm text-gray-500 flex items-center">
+                  <CakeIcon className="h-5 w-5 mr-1" />: {dog.age}
+                </p>
                 <p className="mt-2 text-sm text-gray-500">Tamaño: {dog.size}</p>
                 <p className="mt-2 text-sm text-gray-500">
                   Genero: {dog.gender}

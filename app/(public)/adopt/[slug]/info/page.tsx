@@ -1,9 +1,15 @@
 "use client";
+import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
-import Image from "next/image";
-import Link from "next/link";
+import {
+  CakeIcon,
+  QuestionMarkCircleIcon,
+  ScaleIcon,
+  PaintBrushIcon,
+} from "@heroicons/react/20/solid";
 
 export default function Page() {
   const params = useParams();
@@ -13,9 +19,35 @@ export default function Page() {
     (d) => d.id === Number(slug)
   );
 
+  const infoCards = [
+    {
+      label: "Edad",
+      value: dog?.age,
+      Icon: CakeIcon,
+    },
+    {
+      label: "Genero",
+      value: dog?.gender,
+      Icon: QuestionMarkCircleIcon,
+    },
+    {
+      label: "Tamaño",
+      value: dog?.size,
+      Icon: ScaleIcon,
+    },
+    {
+      label: "Raza",
+      value: dog?.breed,
+      Icon: PaintBrushIcon,
+    },
+  ];
+
   return (
-    <>
-      <section className="max-w-6xl mx-auto p-8 bg-gray-100 py-30">
+    <main>
+      <section
+        className="max-w-6xl mx-auto p-8 bg-gray-100 py-30"
+        aria-labelledby="dog-info-heading"
+      >
         <article className="grid md:grid-cols-2 gap-6">
           <figure className="flex flex-col">
             <Link
@@ -31,12 +63,12 @@ export default function Page() {
               height={500}
               className="w-full h-auto rounded-lg"
             />
-            <aside>
-              <p>Carousel images</p>
-            </aside>
+            <figcaption className="sr-only">
+              Galería de imágenes del perro seleccionado
+            </figcaption>
           </figure>
           <div className="flex flex-col">
-            <header>
+            <header id="dog-info-heading">
               <h1 className="text-3xl font-bold mb-4">{dog?.name}</h1>
               <p className="text-gray-400">
                 {dog?.breed} Id: {dog?.id}
@@ -85,40 +117,43 @@ export default function Page() {
                 </div>
               </dl>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className=" bg-white p-4 rounded-lg mb-4">
-                <span>Edad</span>
-                <p className="font-bold text-black">{dog?.age}</p>
-              </div>
-              <div className="bg-white p-4 rounded-lg mb-4">
-                <span>Genero</span>
-                <p className="font-bold text-black">{dog?.gender}</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-4 rounded-lg mb-4">
-                <span>Tamaño</span>
-                <p className="font-bold text-black">{dog?.size}</p>
-              </div>
-              <div className="bg-white p-4 rounded-lg mb-4">
-                <span>Raza</span>
-                <p className="font-bold text-black">{dog?.breed}</p>
-              </div>
-            </div>
-            <div className="bg-white p-4 rounded-lg">
+            <section
+              className="grid grid-cols-2 gap-4"
+              aria-labelledby="dog-details-heading"
+            >
+              <h2 id="dog-details-heading" className="sr-only">
+                Detalles clave del perro
+              </h2>
+              {infoCards.map(({ label, value, Icon }) => (
+                <div key={label} className="bg-white p-4 rounded-lg mb-4">
+                  <dl>
+                    <div className="flex items-center mb-2">
+                      <Icon className="h-6 w-6 inline-block mr-2 text-emerald-500" />
+                      <dt>{label}</dt>
+                    </div>
+                    <dd className="font-bold text-black">{value}</dd>
+                  </dl>
+                </div>
+              ))}
+            </section>
+            <section className="bg-white p-4 rounded-lg">
               <h2 className="text-2xl font-bold mb-4">Sobre {dog?.name} ✨</h2>
               <p className="text-gray-700 leading-relaxed">
                 {dog?.longDescription}
               </p>
-            </div>
-            <div className="mt-6 bg-emerald-500 p-4 rounded-lg text-center font-black hover:bg-emerald-700 transition-colors cursor-pointer">
-              <Link href={`/adopt/${dog?.id}/adopt-form`}>
+            </section>
+            <section className="mt-6 bg-emerald-500 p-4 rounded-lg text-center font-black hover:bg-emerald-700 transition-colors cursor-pointer">
+              <Link
+                href={`/adopt/${dog?.id}/adopt-form`}
+                role="button"
+                aria-label={`Aplicar para adoptar a ${dog?.name}`}
+              >
                 Aplica para adoptar -&gt;{" "}
               </Link>
-            </div>
+            </section>
           </div>
         </article>
       </section>
-    </>
+    </main>
   );
 }

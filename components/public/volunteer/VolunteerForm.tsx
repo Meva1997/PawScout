@@ -1,3 +1,6 @@
+import { UserIcon, HeartIcon, BookOpenIcon } from "@heroicons/react/20/solid";
+import { CalendarIcon, IdentificationIcon } from "@heroicons/react/24/outline";
+
 const daysOfWeek = [
   { label: "Lunes", value: "monday" },
   { label: "Martes", value: "tuesday" },
@@ -22,7 +25,10 @@ export default function VolunteerForm() {
     <article className="max-w-5xl mx-auto p-8 bg-white rounded-lg shadow-md">
       <form action="">
         <section>
-          <h2 className="font-bold text-2xl pb-6">Información Personal</h2>
+          <h2 className="font-bold text-2xl pb-6">
+            <UserIcon className="h-10 inline-block mr-2 text-emerald-600" />
+            Información Personal
+          </h2>
           <hr className="mb-6 text-gray-200" />
 
           <div className="grid grid-cols-2">
@@ -82,7 +88,11 @@ export default function VolunteerForm() {
         </section>
 
         <section>
-          <h3 className="font-bold text-2xl py-6">Disponibilidad</h3>
+          <h3 className="font-bold text-2xl py-6">
+            {" "}
+            <CalendarIcon className="h-10 inline-block mr-2 text-emerald-600" />{" "}
+            Disponibilidad
+          </h3>
           <hr className="mb-6 text-emerald-600" />
           <p className="text-gray-600 pb-2">Dias disponibles</p>
           <div className="flex gap-4">
@@ -111,7 +121,11 @@ export default function VolunteerForm() {
           </div>
         </section>
         <section>
-          <h3 className="font-bold text-2xl py-6">Areas de interes</h3>
+          <h3 className="font-bold text-2xl py-6">
+            {" "}
+            <HeartIcon className="h-10 inline-block mr-2 text-emerald-600" />{" "}
+            Areas de interes
+          </h3>
           <hr className="mb-6 text-emerald-600" />
           <div className="grid md:grid-cols-2">
             {areaOfInterest.map((area) => (
@@ -128,7 +142,11 @@ export default function VolunteerForm() {
           </div>
         </section>
         <section className="space-y-4">
-          <h4 className="font-bold text-2xl py-6">Experiencia y habilidades</h4>
+          <h4 className="font-bold text-2xl py-6">
+            {" "}
+            <BookOpenIcon className="h-10 inline-block mr-2 text-emerald-600" />{" "}
+            Experiencia y habilidades
+          </h4>
           <hr className="mb-6 text-emerald-600" />
           <div>
             <p className="text-black">Porque quieres ser voluntario?</p>
@@ -151,7 +169,11 @@ export default function VolunteerForm() {
           </div>
         </section>
         <section className="space-y-4">
-          <h5 className="font-bold text-2xl py-6">Contacto de emergencia</h5>
+          <h5 className="font-bold text-2xl py-6">
+            {" "}
+            <IdentificationIcon className="h-10 inline-block mr-2 text-emerald-600" />{" "}
+            Contacto de emergencia
+          </h5>
           <hr className="mb-6 text-emerald-600" />
           <div className="flex items-center justify-center">
             <div>

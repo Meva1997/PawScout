@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ShieldCheckIcon, CheckBadgeIcon } from "@heroicons/react/24/outline";
 
 export default function HeroDonate() {
   return (
@@ -28,11 +29,11 @@ export default function HeroDonate() {
       </section>
       <section className="flex gap-4">
         <div className="flex items-center gap-2">
-          <p className="rounded-full bg-emerald-100 px-4 py-2">🛡️</p>
+          <ShieldCheckIcon className="h-20 rounded-full bg-emerald-100 p-2" />
           <p className="font-bold">100% seguro</p>
         </div>
         <div className="flex items-center gap-2">
-          <p className="rounded-full bg-emerald-100 px-4 py-2">✓</p>
+          <CheckBadgeIcon className="h-20 rounded-full bg-emerald-100 p-2" />
           <p className="font-bold">Deducible de impuestos</p>
         </div>
       </section>

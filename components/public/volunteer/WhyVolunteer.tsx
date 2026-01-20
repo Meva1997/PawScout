@@ -1,6 +1,14 @@
+import {
+  HeartIcon,
+  UserGroupIcon,
+  AcademicCapIcon,
+  ShieldCheckIcon,
+} from "@heroicons/react/20/solid";
+
 type Benefit = {
   title: string;
   description: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
 const volunteerBenefits: Benefit[] = [
@@ -8,21 +16,25 @@ const volunteerBenefits: Benefit[] = [
     title: "Recompensa emocional",
     description:
       "Siente la alegría de salvar vidas y hacer una diferencia real.",
+    icon: HeartIcon,
   },
   {
     title: "Comunidad",
     description:
       "Conéctate con personas que comparten tu pasión por los animales.",
+    icon: UserGroupIcon,
   },
   {
     title: "Desarrollo de habilidades",
     description:
       "Aprende nuevas habilidades y gana experiencia en el cuidado de animales.",
+    icon: AcademicCapIcon,
   },
   {
     title: "Salud y bienestar",
     description:
       "Mejora tu bienestar físico y mental al dedicar tiempo a una causa significativa.",
+    icon: ShieldCheckIcon,
   },
 ];
 
@@ -48,6 +60,7 @@ export default function WhyVolunteer() {
               key={index}
               className="border-2 border-gray-200 p-4 rounded-lg bg-gray-50 shadow-md"
             >
+              <benefit.icon className="h-6 w-6 text-emerald-600 mb-2" />
               <h5 className="font-bold text-lg mb-2">{benefit.title}</h5>
               <p className="text-gray-500">{benefit.description}</p>
             </div>
