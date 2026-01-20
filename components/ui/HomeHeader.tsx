@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 type NavItem = {
@@ -16,6 +17,10 @@ const navItems: NavItem[] = [
 ];
 
 export default function HomeHeader() {
+  const pathname = usePathname();
+
+  const isActive = (href: string) => pathname === href;
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -74,7 +79,7 @@ export default function HomeHeader() {
               <Link
                 href={item.href}
                 role="menuitem"
-                className="hover:bg-emerald-600 hover:text-white rounded-lg p-2 cursor-pointer transition-all"
+                className={`hover:bg-emerald-600 hover:text-white rounded-lg p-2 cursor-pointer transition-all ${isActive(item.href) ? "bg-emerald-600 text-white" : ""}`}
               >
                 {item.label}
               </Link>
