@@ -1,9 +1,18 @@
 import ContactForm from "@/components/public/contact/ContactForm";
 import Faqs from "@/components/public/contact/Faqs";
+import {
+  PhoneIcon,
+  InboxIcon,
+  MapPinIcon,
+  HeartIcon,
+  ShieldCheckIcon,
+  UserGroupIcon,
+} from "@heroicons/react/20/solid";
 
 type MisionType = {
   title: string;
   description: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
 const mision: MisionType[] = [
@@ -11,16 +20,19 @@ const mision: MisionType[] = [
     title: "Compasion",
     description:
       "Nos dedicamos a tratar a cada animal con el amor y respeto que merecen, asegurando su bienestar en cada paso del camino.",
+    icon: HeartIcon,
   },
   {
     title: "Integridad",
     description:
       "Operamos con transparencia y honestidad, construyendo confianza con nuestra comunidad y asegurando que cada adopción sea ética y responsable.",
+    icon: ShieldCheckIcon,
   },
   {
     title: "Comunidad",
     description:
       "Creemos en el poder de la comunidad para hacer una diferencia positiva en la vida de los animales, fomentando la colaboración y el apoyo mutuo.",
+    icon: UserGroupIcon,
   },
 ];
 
@@ -35,33 +47,36 @@ export default function page() {
           tengas la mejor experiencia posible con PawScout.
         </p>
       </article>
-      <article className="grid lg:grid-cols-3 my-20 gap-6 w-3/4 max-w-6xl mx-auto">
+      <article className="grid lg:grid-cols-3 my-20 gap-6 w-3/4 max-w-6xl mx-auto text-center">
         <section className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-emerald-600">
-            Información de Contacto
+          <h2 className="text-2xl font-semibold mb-6 text-emerald-600">
+            <PhoneIcon className="h-16 inline-block mr-2 bg-gray-200 p-2 rounded-full" />
           </h2>
-          <p className="mb-2">
-            <strong>Dirección:</strong> 123 Calle Principal, Ciudad, País
-          </p>
           <p className="mb-2">
             <strong>Teléfono:</strong> +1 (555) 123-4567
           </p>
-        </section>
-        <section className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-emerald-600">
-            Correo electrónico
-          </h2>
-          <p className="mb-2">
-            <strong>Email:</strong> contacto@pawscout.com
+          <p className="mb-2 text-gray-600 text-sm">
+            Lunes a Sabado: 9:00 AM - 6:00 PM
           </p>
         </section>
         <section className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-emerald-600">
-            Ubicación
+          <h2 className="text-2xl font-semibold mb-6 text-emerald-600">
+            <InboxIcon className="h-16 inline-block mr-2 bg-gray-200 p-2 rounded-full" />
+          </h2>
+          <p className="mb-2 ">
+            <strong>Email:</strong> contacto@pawscout.com
+          </p>
+          <p className="mb-2 text-gray-500 text-sm">
+            Mandanos tus consultas y te responderemos a la brevedad.
+          </p>
+        </section>
+        <section className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-6 text-emerald-600">
+            <MapPinIcon className="h-16 inline-block mr-2 bg-gray-200 p-2 rounded-full" />
           </h2>
           <p className="mb-2">Visita el refugio</p>
-          <p className="mb-2">123 Calle Principal</p>
-          <p className="mb-2">Ciudad, País</p>
+          <p className="mb-2 font-bold text-lg">123 Calle Principal</p>
+          <p className="mb-2 font-bold text-lg">Ciudad, País</p>
         </section>
       </article>
       <article className="flex flex-col md:flex-row py-20 max-w-6xl mx-auto p-6 gap-8">
@@ -90,6 +105,7 @@ export default function page() {
           <div className="grid md:grid-cols-3 pt-6">
             {mision.map((item) => (
               <div key={item.title} className="p-6 bg-gray-100 rounded-lg m-2">
+                <item.icon className="h-10 text-emerald-600 mb-4" />
                 <h5 className="font-bold mb-2">{item.title}</h5>
                 <p className="text-gray-600">{item.description}</p>
               </div>
