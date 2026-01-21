@@ -1,34 +1,14 @@
 "use client";
 import { motion } from "framer-motion";
-
-type Testimonial = {
-  comment: string;
-  name: string;
-  adopted: string;
-};
-
-const testimonials: Testimonial[] = [
-  {
-    comment:
-      "Adoptar a Max fue la mejor decisión que he tomado. Gracias a esta plataforma, encontré a mi compañero perfecto.",
-    name: "Laura G.",
-    adopted: "Max, el Labrador",
-  },
-  {
-    comment:
-      "Nunca pensé que adoptar sería tan fácil y gratificante. Ahora tengo a Bella, y no podría estar más feliz.",
-    name: "Carlos M.",
-    adopted: "Bella, la Beagle",
-  },
-  {
-    comment:
-      "Gracias a esta plataforma, pude darle un hogar a Rocky. Es un miembro más de la familia ahora.",
-    name: "Ana S.",
-    adopted: "Rocky, el Bulldog",
-  },
-];
+import { getTestimonialsContent } from "@/lib/i18n/home/testimonials";
+import { useParams } from "next/navigation";
 
 export default function Testimonials() {
+  const params = useParams<{ lang?: string }>();
+  const { header, content: testimonials } = getTestimonialsContent(
+    params?.lang
+  );
+
   return (
     <>
       <motion.section
@@ -38,11 +18,8 @@ export default function Testimonials() {
         transition={{ duration: 1, delay: 0.4 }}
       >
         <article>
-          <h5 className="text-3xl font-black">Nuestros Testimonios</h5>
-          <p className="text-gray-700 py-4">
-            Historias de personas que han encontrado un nuevo amigo peludo a
-            través de nuestra plataforma.
-          </p>
+          <h5 className="text-3xl font-black">{header.title}</h5>
+          <p className="text-gray-700 py-4">{header.subtitle}</p>
         </article>
         <article>
           <div className="mt-8 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
@@ -57,7 +34,7 @@ export default function Testimonials() {
                 <div className="mt-4">
                   <h6 className="font-semibold">-{testimonial.name}</h6>
                   <span className="text-sm text-gray-600">
-                    Adoptó a {testimonial.adopted}
+                    {testimonial.adopted}
                   </span>
                 </div>
               </div>

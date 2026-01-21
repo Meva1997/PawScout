@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
 type NavItem = {
@@ -9,21 +9,46 @@ type NavItem = {
   label: string;
 };
 
-const navItems: NavItem[] = [
-  { href: "/home", label: "Inicio" },
-  { href: "/adopt", label: "Adopta" },
-  { href: "/donate", label: "Donaciones" },
-  { href: "/volunteer", label: "Voluntariado" },
-  { href: "/contact", label: "Contacto" },
-  { href: "/admin/dashboard", label: "Admin" },
-];
-
 export default function HomeHeader() {
   const pathname = usePathname();
+  const router = useRouter();
+  const segments = pathname.split("/").filter(Boolean);
+  const langSegment = segments[0];
+  const currentLang = langSegment === "en" ? "en" : "es-mx";
+  const remainingPath = segments.slice(1).join("/");
+  const nextLang = currentLang === "en" ? "es-mx" : "en";
 
+  const navItems: NavItem[] = [
+    {
+      href: `/${currentLang}/home`,
+      label: currentLang === "en" ? "Home" : "Inicio",
+    },
+    {
+      href: `/${currentLang}/adopt`,
+      label: currentLang === "en" ? "Adopt" : "Adopta",
+    },
+    {
+      href: `/${currentLang}/donate`,
+      label: currentLang === "en" ? "Donate" : "Donaciones",
+    },
+    {
+      href: `/${currentLang}/volunteer`,
+      label: currentLang === "en" ? "Volunteer" : "Voluntariado",
+    },
+    {
+      href: `/${currentLang}/contact`,
+      label: currentLang === "en" ? "Contact" : "Contacto",
+    },
+    { href: `/admin/dashboard`, label: "Admin" },
+  ];
   const isActive = (href: string) => pathname === href;
 
   const [open, setOpen] = useState(false);
+
+  const handleLanguageToggle = () => {
+    const nextPath = `/${nextLang}/${remainingPath || "home"}`;
+    router.push(nextPath);
+  };
 
   return (
     <motion.header
@@ -32,13 +57,13 @@ export default function HomeHeader() {
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      <Link href="/home">
+      <Link href={`/${currentLang}/home`}>
         <h1 className="font-bold text-2xl">
           <span className="md:pr-4 lg:pr-0">🐾</span> PawScout
         </h1>
       </Link>
 
-      <nav className="relative">
+      <nav className="relative flex items-center gap-3">
         <button
           onClick={() => setOpen((s) => !s)}
           aria-expanded={open}
@@ -97,7 +122,7 @@ export default function HomeHeader() {
         {/*Mobile Menu*/}
         {open && (
           <motion.div
-            className="md:hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20"
+            className="md:hidden absolute top-10 right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20"
             initial={{ opacity: 0, y: -40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
@@ -122,9 +147,28 @@ export default function HomeHeader() {
                   </Link>
                 </li>
               ))}
+              <li role="none">
+                <button
+                  onClick={() => {
+                    handleLanguageToggle();
+                    setOpen(false);
+                  }}
+                  className="w-full mt-2 px-3 py-2 border border-emerald-600 text-emerald-600 rounded-lg text-sm font-semibold hover:bg-emerald-600 hover:text-white transition-colors"
+                  aria-label={`Cambiar idioma a ${nextLang === "en" ? "inglés" : "español"}`}
+                >
+                  {nextLang === "en" ? "EN 🇺🇸" : "ES 🇲🇽"}
+                </button>
+              </li>
             </ul>
           </motion.div>
         )}
+        <button
+          onClick={handleLanguageToggle}
+          className="hidden md:inline-flex items-center justify-center px-3 py-1 border border-emerald-600 text-emerald-600 rounded-lg text-sm font-semibold hover:bg-emerald-600 hover:text-white transition-colors"
+          aria-label={`Cambiar idioma a ${nextLang === "en" ? "inglés" : "español"}`}
+        >
+          {nextLang === "en" ? "EN 🇺🇸" : "ES 🇲🇽"}
+        </button>
       </nav>
     </motion.header>
   );
