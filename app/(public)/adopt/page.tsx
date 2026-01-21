@@ -1,8 +1,14 @@
 "use client";
-import AdoptCards from "@/components/ui/AdoptCards";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import AdoptListFilter from "@/components/public/adopt/AdoptListFilter";
+import AdoptCards from "@/components/ui/AdoptCards";
+import { dogsData } from "@/db/dogs";
+import type { DogsDataType } from "@/db/dogs";
 
-export default function page() {
+export default function Page() {
+  const [filteredDogs, setFilteredDogs] = useState<DogsDataType[]>(dogsData);
+
   return (
     <main className="bg-gray-200 py-10 px-6">
       <motion.section
@@ -23,7 +29,9 @@ export default function page() {
           </p>
         </div>
       </motion.section>
-      <AdoptCards />
+      <AdoptListFilter dogs={dogsData} onFilterChange={setFilteredDogs} />
+
+      <AdoptCards filteredDogs={filteredDogs} />
     </main>
   );
 }

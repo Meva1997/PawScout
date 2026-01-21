@@ -1,9 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function page() {
   return (
     <main className="bg-gray-200 py-10">
-      <section className="max-w-3xl mx-auto p-8 bg-white rounded-2xl shadow-xl my-20">
+      <motion.section
+        className="max-w-3xl mx-auto p-8 bg-white rounded-2xl shadow-xl my-20"
+        initial={{ opacity: 0, y: 80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.4 }}
+      >
         <header className="text-center mb-6">
           <h1 className="text-2xl font-bold text-emerald-600 mb-2">
             ¡Formulario de adopción enviado con éxito!
@@ -36,7 +44,7 @@ export default function page() {
             Regresar a la página de adopción
           </Link>
         </article>
-      </section>
+      </motion.section>
     </main>
   );
 }

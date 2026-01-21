@@ -1,27 +1,33 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CakeIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
-import AdoptListFilter from "../public/adopt/AdoptListFilter";
+import { usePathname } from "next/navigation";
 
-export default function AdoptCards() {
-  const [filteredDogs, setFilteredDogs] = useState<DogsDataType[]>(dogsData);
+type AdoptCardsProps = {
+  filteredDogs?: DogsDataType[];
+};
+
+export default function AdoptCards({
+  filteredDogs = dogsData,
+}: AdoptCardsProps) {
+  const pathname = usePathname();
+  const displayedDogs =
+    pathname === "/home" ? filteredDogs.slice(0, 4) : filteredDogs;
 
   return (
     <>
-      <AdoptListFilter dogs={dogsData} onFilterChange={setFilteredDogs} />
       <motion.section
-        className=" bg-white py-16 max-w-6xl mx-auto rounded-3xl my-20 shadow-xl"
+        className=" bg-white py-10 max-w-6xl mx-auto rounded-3xl my-10 shadow-xl"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.3, delay: 0.5 }}
       >
         <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
-          {filteredDogs.map((dog) => (
+          {displayedDogs.map((dog) => (
             <div
               key={dog.id}
               className="border border-gray-200 bg-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"

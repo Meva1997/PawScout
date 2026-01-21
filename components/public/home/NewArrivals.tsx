@@ -1,46 +1,7 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import WaitingHomeDogCards from "@/components/ui/WaitingHomeDogCards";
-
-type Item = {
-  src: string;
-  name: string;
-  subtitle: string;
-  breed: string;
-  age: string;
-};
-
-const defaultDogs: Item[] = [
-  {
-    src: "/waiting-home-dog.png",
-    name: "Bailey",
-    subtitle: "Rescatado hace 2 semanas",
-    breed: "Beagle",
-    age: "3 años",
-  },
-  {
-    src: "/waiting-home-dog.png",
-    name: "Luna",
-    subtitle: "Rescatada hace 1 mes",
-    breed: "Labrador",
-    age: "2 años",
-  },
-  {
-    src: "/waiting-home-dog.png",
-    name: "Max",
-    subtitle: "Rescatado hace 3 semanas",
-    breed: "Pastor Alemán",
-    age: "4 años",
-  },
-  {
-    src: "/waiting-home-dog.png",
-    name: "Coco",
-    subtitle: "Rescatado hace 2 días",
-    breed: "Bulldog Francés",
-    age: "1 año",
-  },
-];
+import AdoptCards from "@/components/ui/AdoptCards";
 
 export default function NewArrivals() {
   return (
@@ -64,18 +25,8 @@ export default function NewArrivals() {
           </Link>
         </div>
       </article>
-      <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto justify-evenly gap-10 lg:gap-6 my-10">
-        {defaultDogs.map((dog) => (
-          <WaitingHomeDogCards
-            key={dog.name}
-            src={dog.src}
-            name={dog.name}
-            subtitle={dog.subtitle}
-            breed={dog.breed}
-            age={dog.age}
-          />
-        ))}
-      </article>
+
+      <AdoptCards />
     </motion.section>
   );
 }
