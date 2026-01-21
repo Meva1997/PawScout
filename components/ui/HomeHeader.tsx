@@ -15,6 +15,7 @@ const navItems: NavItem[] = [
   { href: "/donate", label: "Donaciones" },
   { href: "/volunteer", label: "Voluntariado" },
   { href: "/contact", label: "Contacto" },
+  { href: "/admin/dashboard", label: "Admin" },
 ];
 
 export default function HomeHeader() {
@@ -41,7 +42,7 @@ export default function HomeHeader() {
         <button
           onClick={() => setOpen((s) => !s)}
           aria-expanded={open}
-          className="md:hidden bg-emerald-600 text-white p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
+          className="md:hidden bg-emerald-600 text-white p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer hover:bg-emerald-700 transition-all hover:scale-105"
         >
           {open ? (
             /* X icon */
@@ -79,7 +80,7 @@ export default function HomeHeader() {
         </button>
 
         {/*Desktop Menu*/}
-        <ul className="hidden md:flex space-x-6 font-medium" role="menubar">
+        <ul className="hidden md:flex space-x-2 font-medium" role="menubar">
           {navItems.map((item) => (
             <li key={item.href} role="none">
               <Link
@@ -95,7 +96,16 @@ export default function HomeHeader() {
 
         {/*Mobile Menu*/}
         {open && (
-          <div className="md:hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20">
+          <motion.div
+            className="md:hidden absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20"
+            initial={{ opacity: 0, y: -40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.1,
+              opacity: { duration: 1 },
+            }}
+          >
             <ul
               className="flex flex-col space-y-2 p-4 font-medium"
               role="menubar"
@@ -105,7 +115,7 @@ export default function HomeHeader() {
                   <Link
                     href={item.href}
                     role="menuitem"
-                    className="hover:bg-emerald-600 hover:text-white rounded-lg p-2 cursor-pointer transition-all block"
+                    className={`hover:bg-emerald-600 hover:text-white rounded-lg p-2 cursor-pointer transition-all block ${isActive(item.href) ? "bg-emerald-600 text-white" : ""}`}
                     onClick={() => setOpen(false)}
                   >
                     {item.label}
@@ -113,7 +123,7 @@ export default function HomeHeader() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         )}
       </nav>
     </motion.header>
