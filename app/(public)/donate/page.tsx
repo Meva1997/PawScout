@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
+
 import AmountForm from "@/components/public/donate/AmountForm";
 import HeroDonate from "@/components/public/donate/HeroDonate";
 import MoneyInfo from "@/components/public/donate/MoneyInfo";
+
+export const metadata: Metadata = {
+  title: "PawScout - Donar",
+  description:
+    "Apoya nuestra misión donando para ayudar a más animales a encontrar un hogar",
+};
 
 export default function page() {
   return (

@@ -3,6 +3,12 @@ import HeroSection from "@/components/public/home/HeroSection";
 import HowWorks from "@/components/public/home/HowWorks";
 import NewArrivals from "@/components/public/home/NewArrivals";
 import Testimonials from "@/components/public/home/Testimonials";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "PawScout - Home",
+  description: "Encuentra tu mascota ideal para adoptar con PawScout",
+};
 
 export default function page() {
   return (

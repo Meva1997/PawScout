@@ -89,133 +89,135 @@ export default function AdoptListFilter({
   };
 
   return (
-    <motion.section
-      className=" top-0 z-40 max-w-6xl mx-auto rounded-3xl shadow-xl border-b border-gray-200 bg-white/95 backdrop-blur"
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, delay: 0.4 }}
-    >
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-        {/* Filtros */}
-        <div className="flex flex-1 items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
-          <div className="flex items-center gap-2 pr-4">
-            <span className="flex items-center justify-center rounded-full bg-emerald-100 p-2 text-emerald-600">
-              🔍
-            </span>
-            <span className="text-sm font-semibold text-gray-800 whitespace-nowrap">
-              Filtros:
-            </span>
+    <>
+      <motion.section
+        className=" top-0 z-40 max-w-6xl mx-auto rounded-3xl shadow-xl border-b border-gray-200 bg-white/95 backdrop-blur"
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: 0.4 }}
+      >
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+          {/* Filtros */}
+          <div className="flex flex-1 items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
+            <div className="flex items-center gap-2 pr-4">
+              <span className="flex items-center justify-center rounded-full bg-emerald-100 p-2 text-emerald-600">
+                🔍
+              </span>
+              <span className="text-sm font-semibold text-gray-800 whitespace-nowrap">
+                Filtros:
+              </span>
+            </div>
+
+            {/* Filtros de Edad */}
+            <div className="h-6 w-px bg-gray-200 mx-1"></div>
+            {ageOptions.map((age) => (
+              <button
+                key={age}
+                onClick={() => toggleFilter("age", age)}
+                className={`flex h-8 shrink-0 items-center justify-center rounded-full border px-4 transition-all ${
+                  filters.age.includes(age)
+                    ? "border-emerald-400 bg-emerald-100 text-emerald-700"
+                    : "border-gray-200 bg-white text-gray-600 hover:border-emerald-300 hover:bg-emerald-50"
+                }`}
+              >
+                <span className="text-sm font-medium">{age}</span>
+              </button>
+            ))}
+
+            {/* Filtros de Tamaño */}
+            <div className="h-6 w-px bg-gray-200 mx-1"></div>
+            {sizeOptions.map((size) => (
+              <button
+                key={size}
+                onClick={() => toggleFilter("size", size)}
+                className={`flex h-8 shrink-0 items-center justify-center rounded-full border px-4 transition-all ${
+                  filters.size.includes(size)
+                    ? "border-emerald-400 bg-emerald-100 text-emerald-700"
+                    : "border-gray-200 bg-white text-gray-600 hover:border-emerald-300 hover:bg-emerald-50"
+                }`}
+              >
+                <span className="text-sm font-medium">{size}</span>
+              </button>
+            ))}
+
+            {/* Filtros de Género */}
+            <div className="h-6 w-px bg-gray-200 mx-1"></div>
+            {genderOptions.map((gender) => (
+              <button
+                key={gender}
+                onClick={() => toggleFilter("gender", gender)}
+                className={`flex h-8 shrink-0 items-center justify-center rounded-full border px-4 transition-all ${
+                  filters.gender.includes(gender)
+                    ? "border-emerald-400 bg-emerald-100 text-emerald-700"
+                    : "border-gray-200 bg-white text-gray-600 hover:border-emerald-300 hover:bg-emerald-50"
+                }`}
+              >
+                <span className="text-sm font-medium">{gender}</span>
+              </button>
+            ))}
+
+            {/* Filtros de Disponibilidad */}
+            <div className="h-6 w-px bg-gray-200 mx-1"></div>
+            {availabilityOptions.map((status) => (
+              <button
+                key={status}
+                onClick={() => toggleFilter("availability", status)}
+                className={`flex h-8 shrink-0 items-center justify-center rounded-full border px-4 transition-all ${
+                  filters.availability.includes(status)
+                    ? "border-emerald-400 bg-emerald-100 text-emerald-700"
+                    : "border-gray-200 bg-white text-gray-600 hover:border-emerald-300 hover:bg-emerald-50"
+                }`}
+              >
+                <span className="text-sm font-medium">{status}</span>
+              </button>
+            ))}
+
+            {/* Botón Limpiar */}
+            <button
+              onClick={clearAllFilters}
+              className="ml-4 text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+            >
+              Limpiar todo
+            </button>
           </div>
 
-          {/* Filtros de Edad */}
-          <div className="h-6 w-px bg-gray-200 mx-1"></div>
-          {ageOptions.map((age) => (
-            <button
-              key={age}
-              onClick={() => toggleFilter("age", age)}
-              className={`flex h-8 shrink-0 items-center justify-center rounded-full border px-4 transition-all ${
-                filters.age.includes(age)
-                  ? "border-emerald-400 bg-emerald-100 text-emerald-700"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-emerald-300 hover:bg-emerald-50"
-              }`}
-            >
-              <span className="text-sm font-medium">{age}</span>
-            </button>
-          ))}
-
-          {/* Filtros de Tamaño */}
-          <div className="h-6 w-px bg-gray-200 mx-1"></div>
-          {sizeOptions.map((size) => (
-            <button
-              key={size}
-              onClick={() => toggleFilter("size", size)}
-              className={`flex h-8 shrink-0 items-center justify-center rounded-full border px-4 transition-all ${
-                filters.size.includes(size)
-                  ? "border-emerald-400 bg-emerald-100 text-emerald-700"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-emerald-300 hover:bg-emerald-50"
-              }`}
-            >
-              <span className="text-sm font-medium">{size}</span>
-            </button>
-          ))}
-
-          {/* Filtros de Género */}
-          <div className="h-6 w-px bg-gray-200 mx-1"></div>
-          {genderOptions.map((gender) => (
-            <button
-              key={gender}
-              onClick={() => toggleFilter("gender", gender)}
-              className={`flex h-8 shrink-0 items-center justify-center rounded-full border px-4 transition-all ${
-                filters.gender.includes(gender)
-                  ? "border-emerald-400 bg-emerald-100 text-emerald-700"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-emerald-300 hover:bg-emerald-50"
-              }`}
-            >
-              <span className="text-sm font-medium">{gender}</span>
-            </button>
-          ))}
-
-          {/* Filtros de Disponibilidad */}
-          <div className="h-6 w-px bg-gray-200 mx-1"></div>
-          {availabilityOptions.map((status) => (
-            <button
-              key={status}
-              onClick={() => toggleFilter("availability", status)}
-              className={`flex h-8 shrink-0 items-center justify-center rounded-full border px-4 transition-all ${
-                filters.availability.includes(status)
-                  ? "border-emerald-400 bg-emerald-100 text-emerald-700"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-emerald-300 hover:bg-emerald-50"
-              }`}
-            >
-              <span className="text-sm font-medium">{status}</span>
-            </button>
-          ))}
-
-          {/* Botón Limpiar */}
-          <button
-            onClick={clearAllFilters}
-            className="ml-4 text-sm text-emerald-600 hover:text-emerald-700 font-medium"
-          >
-            Limpiar todo
-          </button>
-        </div>
-
-        {/* Ordenamiento y contador */}
-        <div className="flex items-center justify-between gap-4 sm:justify-end">
-          <span className="text-sm text-gray-500">
-            Mostrando{" "}
-            {!dogs || !Array.isArray(dogs)
-              ? 0
-              : dogs.filter((dog) => {
-                  return (
-                    (filters.age.length === 0 ||
-                      filters.age.includes(dog.age)) &&
-                    (filters.size.length === 0 ||
-                      filters.size.includes(dog.size)) &&
-                    (filters.gender.length === 0 ||
-                      filters.gender.includes(dog.gender)) &&
-                    (filters.availability.length === 0 ||
-                      filters.availability.includes(dog.availability))
-                  );
-                }).length}{" "}
-            perros
-          </span>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-700">
-              Ordenar por:
+          {/* Ordenamiento y contador */}
+          <div className="flex items-center justify-between gap-4 sm:justify-end">
+            <span className="text-sm text-gray-500">
+              Mostrando{" "}
+              {!dogs || !Array.isArray(dogs)
+                ? 0
+                : dogs.filter((dog) => {
+                    return (
+                      (filters.age.length === 0 ||
+                        filters.age.includes(dog.age)) &&
+                      (filters.size.length === 0 ||
+                        filters.size.includes(dog.size)) &&
+                      (filters.gender.length === 0 ||
+                        filters.gender.includes(dog.gender)) &&
+                      (filters.availability.length === 0 ||
+                        filters.availability.includes(dog.availability))
+                    );
+                  }).length}{" "}
+              perros
             </span>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="h-8 rounded-lg border-gray-200 bg-white text-sm text-gray-700 focus:border-emerald-400 focus:ring-emerald-400"
-            >
-              <option value="name">Nombre</option>
-              <option value="age">Edad</option>
-              <option value="size">Tamaño</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-700">
+                Ordenar por:
+              </span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="h-8 rounded-lg border-gray-200 bg-white text-sm text-gray-700 focus:border-emerald-400 focus:ring-emerald-400"
+              >
+                <option value="name">Nombre</option>
+                <option value="age">Edad</option>
+                <option value="size">Tamaño</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-    </motion.section>
+      </motion.section>
+    </>
   );
 }
