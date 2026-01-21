@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import HeroVolunteer from "@/components/public/volunteer/HeroVolunteer";
 import VolunteerRequirements from "@/components/public/volunteer/VolunteerRequirements";
 import VolunteerRoles from "@/components/public/volunteer/VolunteerRoles";
+
+export const metadata: Metadata = {
+  title: "PawScout - Voluntariado",
+  description:
+    "Únete a nuestro equipo de voluntarios y ayuda a cuidar y encontrar hogares para animales necesitados",
+};
 
 export default function page() {
   return (
