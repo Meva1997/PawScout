@@ -1,8 +1,13 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useParams } from "next/navigation";
+import { getVolunteerFormSuccessContent } from "@/lib/i18n/volunteer/success-form-volunteer";
 
-export default function page() {
+export default function SuccessVolunteerPage() {
+  const params = useParams<{ lang?: string }>();
+  const { content } = getVolunteerFormSuccessContent(params?.lang);
+
   return (
     <main className="grow flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-gray-200">
       <motion.section
@@ -28,19 +33,20 @@ export default function page() {
 
         <div className="w-full md:w-7/12 flex flex-col p-8 sm:p-10 lg:p-14">
           <div className="flex flex-col items-center md:items-start text-center md:text-left mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold mb-2">¡Gracias!</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2">
+              {content.thanksHeading}
+            </h1>
             <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed max-w-md">
-              Su solicitud ha sido enviada con éxito. Gracias por ofrecer su
-              tiempo para ayudar a nuestras mascotas.
+              {content.thanksMessage}
             </p>
           </div>
 
           <div className="mt-auto flex flex-col sm:flex-row gap-4">
             <Link
               className="flex-1 inline-flex items-center justify-center rounded-xl h-12 px-6 py-4 bg-emerald-400 text-black font-bold  text-sm hover:bg-emerald-600 transition-colors"
-              href="/home"
+              href={`/${params?.lang}/home`}
             >
-              Pagina principal
+              {content.returnLink}
             </Link>
           </div>
         </div>

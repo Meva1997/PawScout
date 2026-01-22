@@ -1,86 +1,76 @@
+"use client";
+
+import { useParams } from "next/navigation";
 import { UserIcon, HeartIcon, BookOpenIcon } from "@heroicons/react/20/solid";
 import { CalendarIcon, IdentificationIcon } from "@heroicons/react/24/outline";
-
-const daysOfWeek = [
-  { label: "Lunes", value: "monday" },
-  { label: "Martes", value: "tuesday" },
-  { label: "Miércoles", value: "wednesday" },
-  { label: "Jueves", value: "thursday" },
-  { label: "Viernes", value: "friday" },
-  { label: "Sábado", value: "saturday" },
-  { label: "Domingo", value: "sunday" },
-];
-
-const areaOfInterest = [
-  { label: "Cuidado de animales", value: "animalCare" },
-  { label: "Planificación de eventos", value: "eventPlanning" },
-  { label: "Recaudación de fondos", value: "fundraising" },
-  { label: "Apoyo administrativo", value: "administrativeSupport" },
-  { label: "Alcance comunitario", value: "outreach" },
-  { label: "Otro", value: "other" },
-];
+import { getVolunteerFormContent } from "@/lib/i18n/volunteer/form-volunteer";
 
 export default function VolunteerForm() {
+  const params = useParams<{ lang?: string }>();
+  const langParam = typeof params?.lang === "string" ? params.lang : undefined;
+  const { content } = getVolunteerFormContent(langParam);
+
   return (
     <article className="max-w-5xl mx-auto p-8 bg-white rounded-2xl shadow-xl">
       <form action="">
         <section>
           <h2 className="font-bold text-2xl pb-6">
             <UserIcon className="h-10 inline-block mr-2 text-emerald-600" />
-            Información Personal
+            {content.personal.heading}
           </h2>
           <hr className="mb-6 text-gray-200" />
+          <p className="text-gray-500 mb-6">{content.personal.description}</p>
 
           <div className="grid grid-cols-2">
             <div className="flex flex-col mb-4 mr-4">
               <label htmlFor="firstName" className="mb-2 font-semibold">
-                Nombre
+                {content.personal.fields.firstName.label}
               </label>
               <input
                 type="text"
                 id="firstName"
                 name="firstName"
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full"
-                placeholder="Juan"
+                placeholder={content.personal.fields.firstName.placeholder}
                 required
               />
             </div>
             <div className="flex flex-col mb-4">
               <label htmlFor="lastName" className="mb-2 font-semibold">
-                Apellido
+                {content.personal.fields.lastName.label}
               </label>
               <input
                 type="text"
                 id="lastName"
                 name="lastName"
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full"
-                placeholder="Pérez"
+                placeholder={content.personal.fields.lastName.placeholder}
                 required
               />
             </div>
             <div className="flex flex-col mb-4 mr-4">
               <label htmlFor="email" className="mb-2 font-semibold">
-                Correo Electrónico
+                {content.personal.fields.email.label}
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full"
-                placeholder="email@email.com"
+                placeholder={content.personal.fields.email.placeholder}
                 required
               />
             </div>
             <div className="flex flex-col mb-4">
               <label htmlFor="phone" className="mb-2 font-semibold">
-                Teléfono
+                {content.personal.fields.phone.label}
               </label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
                 className="border border-gray-300 p-2 rounded-full bg-gray-100"
-                placeholder="123-456-7890"
+                placeholder={content.personal.fields.phone.placeholder}
                 required
               />
             </div>
@@ -91,12 +81,12 @@ export default function VolunteerForm() {
           <h3 className="font-bold text-2xl py-6">
             {" "}
             <CalendarIcon className="h-10 inline-block mr-2 text-emerald-600" />{" "}
-            Disponibilidad
+            {content.availability.heading}
           </h3>
           <hr className="mb-6 text-emerald-600" />
-          <p className="text-gray-600 pb-2">Dias disponibles</p>
+          <p className="text-gray-600 pb-2">{content.availability.daysLabel}</p>
           <div className="flex gap-4">
-            {daysOfWeek.map((day) => (
+            {content.availability.days.map((day) => (
               <label key={day.value} className="flex items-center">
                 <input
                   type="checkbox"
@@ -109,14 +99,18 @@ export default function VolunteerForm() {
             ))}
           </div>
           <div className="mt-4 mb-8">
-            <p className="text-gray-600 pb-2">Horario preferido</p>
+            <p className="text-gray-600 pb-2">
+              {content.availability.preferredLabel}
+            </p>
             <select
               name="preferredTime"
               className="border border-gray-300 bg-gray-100 p-2 rounded-full w-full max-w-xs"
             >
-              <option value="morning">Mañana</option>
-              <option value="afternoon">Tarde</option>
-              <option value="evening">Noche</option>
+              {content.availability.preferredOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </div>
         </section>
@@ -124,11 +118,12 @@ export default function VolunteerForm() {
           <h3 className="font-bold text-2xl py-6">
             {" "}
             <HeartIcon className="h-10 inline-block mr-2 text-emerald-600" />{" "}
-            Areas de interes
+            {content.interests.heading}
           </h3>
           <hr className="mb-6 text-emerald-600" />
+          <p className="text-gray-600 mb-4">{content.interests.intro}</p>
           <div className="grid md:grid-cols-2">
-            {areaOfInterest.map((area) => (
+            {content.interests.items.map((area) => (
               <label key={area.value} className="flex items-center mb-4">
                 <input
                   type="checkbox"
@@ -145,26 +140,28 @@ export default function VolunteerForm() {
           <h4 className="font-bold text-2xl py-6">
             {" "}
             <BookOpenIcon className="h-10 inline-block mr-2 text-emerald-600" />{" "}
-            Experiencia y habilidades
+            {content.experience.heading}
           </h4>
           <hr className="mb-6 text-emerald-600" />
           <div>
-            <p className="text-black">Porque quieres ser voluntario?</p>
+            <p className="text-black">
+              {content.experience.questions.motivation}
+            </p>
             <textarea
               name="textVolunteer"
               id="textVolunteer"
               rows={4}
               className="border border-gray-300 bg-gray-100 p-2 rounded-lg w-full h-32 mt-2"
-              placeholder="Escribe aqui..."
+              placeholder={content.experience.placeholders.motivation}
             ></textarea>
           </div>
           <div>
-            <p className="text-black">Habilidades especiales? (opcional)</p>
+            <p className="text-black">{content.experience.questions.skills}</p>
             <textarea
               name="specialSkills"
               id="specialSkills"
               className="border border-gray-300 bg-gray-100 p-2 rounded-lg w-full h-10 mt-2"
-              placeholder="Escribe aqui..."
+              placeholder={content.experience.placeholders.skills}
             ></textarea>
           </div>
         </section>
@@ -172,26 +169,26 @@ export default function VolunteerForm() {
           <h5 className="font-bold text-2xl py-6">
             {" "}
             <IdentificationIcon className="h-10 inline-block mr-2 text-emerald-600" />{" "}
-            Contacto de emergencia
+            {content.emergency.heading}
           </h5>
           <hr className="mb-6 text-emerald-600" />
           <div className="flex items-center justify-center">
             <div>
-              <label htmlFor="">Nombre de contacto</label>
+              <label htmlFor="">{content.emergency.nameLabel}</label>
               <input
                 type="text"
                 name="emergencyContactName"
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full w-full max-w-3xl mt-2"
-                placeholder="Nombre completo"
+                placeholder={content.emergency.placeholders.name}
               />
             </div>
             <div className="ml-8">
-              <label htmlFor="">Teléfono de contacto</label>
+              <label htmlFor="">{content.emergency.phoneLabel}</label>
               <input
                 type="tel"
                 name="emergencyContactPhone"
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full w-full max-w-3xl mt-2"
-                placeholder="123-456-7890"
+                placeholder={content.emergency.placeholders.phone}
               />
             </div>
           </div>
@@ -203,9 +200,9 @@ export default function VolunteerForm() {
           <div className="flex items-center justify-center max-w-lg mx-auto gap-4">
             <input type="checkbox" className="mr-2" name="terms" />
             <p className="text-gray-400">
-              Confirmo que soy mayor de 18 años de edad, acepto los{" "}
+              {content.terms.text}{" "}
               <span className="text-emerald-600 font-bold">
-                términos y condiciones y la política de privacidad
+                {content.terms.highlight}
               </span>
               .
             </p>
@@ -214,12 +211,9 @@ export default function VolunteerForm() {
             type="submit"
             className="mt-8 bg-emerald-500 text-black font-bold px-6 py-3 rounded-full hover:bg-emerald-700 transition-colors duration-300 mx-auto block cursor-pointer"
           >
-            Enviar formulario
+            {content.submitLabel}
           </button>
-          <p className="text-center mt-6 text-gray-400">
-            Revisaremos tu solicitud y nos pondremos en contacto contigo de 3-5
-            días habiles.
-          </p>
+          <p className="text-center mt-6 text-gray-400">{content.reviewText}</p>
         </section>
       </form>
     </article>
