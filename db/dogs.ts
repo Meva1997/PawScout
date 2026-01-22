@@ -20,7 +20,7 @@ export const dogsData: DogsDataType[] = [
   {
     id: 1,
     name: "Max",
-    age: "8 años",
+    age: "8",
     size: "Mediano",
     breed: "Labrador",
     gender: "Macho",
@@ -38,7 +38,7 @@ export const dogsData: DogsDataType[] = [
   {
     id: 2,
     name: "Bella",
-    age: "1 año",
+    age: "1",
     size: "Pequeño",
     breed: "Beagle",
     gender: "Hembra",
@@ -56,7 +56,7 @@ export const dogsData: DogsDataType[] = [
   {
     id: 3,
     name: "Charlie",
-    age: "7 años",
+    age: "7",
     size: "Grande",
     breed: "Pastor Alemán",
     gender: "Macho",
@@ -74,7 +74,7 @@ export const dogsData: DogsDataType[] = [
   {
     id: 4,
     name: "Lucy",
-    age: "6 años",
+    age: "6",
     size: "Mediano",
     breed: "Bulldog",
     gender: "Hembra",
@@ -92,7 +92,7 @@ export const dogsData: DogsDataType[] = [
   {
     id: 5,
     name: "Daisy",
-    age: "1 año",
+    age: "1",
     size: "Pequeño",
     breed: "Poodle",
     gender: "Hembra",
@@ -110,7 +110,7 @@ export const dogsData: DogsDataType[] = [
   {
     id: 6,
     name: "Rocky",
-    age: "8 años",
+    age: "8",
     size: "Grande",
     breed: "Rottweiler",
     gender: "Macho",
@@ -128,7 +128,7 @@ export const dogsData: DogsDataType[] = [
   {
     id: 7,
     name: "Molly",
-    age: "7 años",
+    age: "7",
     size: "Mediano",
     breed: "Golden Retriever",
     gender: "Hembra",
@@ -146,7 +146,7 @@ export const dogsData: DogsDataType[] = [
   {
     id: 8,
     name: "Buddy",
-    age: "10 años",
+    age: "10",
     size: "Grande",
     breed: "Boxer",
     gender: "Macho",

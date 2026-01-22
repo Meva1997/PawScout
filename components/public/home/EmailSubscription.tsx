@@ -1,7 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
+import { getNewsEmailContent } from "@/lib/i18n/home/news-email";
+import { useParams } from "next/navigation";
 
 export default function EmailSubscription() {
+  const params = useParams<{ lang?: string }>();
+  const { content } = getNewsEmailContent(params?.lang);
+
   return (
     <>
       <motion.section
@@ -12,11 +17,10 @@ export default function EmailSubscription() {
       >
         <article className="text-center px-4">
           <h6 className="text-3xl font-black text-black mb-4">
-            Suscribete a nuestro boletin de noticias
+            {content.title}
           </h6>
           <p className="text-black text-md max-w-3xl mx-auto">
-            Suscribete para recibir nuestras novedades, mascotas recien
-            rescatadas, historias y proximos eventos. Prometemos no enviar spam!
+            {content.subtitle}
           </p>
         </article>
         <article>
@@ -24,14 +28,14 @@ export default function EmailSubscription() {
             <input
               type="email"
               inputMode="email"
-              placeholder="Ingresa tu correo electronico"
+              placeholder={content.placeholderText}
               className="mx-auto w-2/3 md:w-full px-4 py-2 rounded-md focus:outline-none bg-white text-center"
             />
             <button
               type="submit"
               className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors cursor-pointer w-1/3 mx-auto md:w-full"
             >
-              Suscribirse
+              {content.buttonText}
             </button>
           </form>
         </article>

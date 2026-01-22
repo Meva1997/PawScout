@@ -5,14 +5,43 @@ import { motion } from "framer-motion";
 import FormAdopt from "./FormAdopt";
 import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
+import { getAdoptFormContent } from "@/lib/i18n/adopt/adopt-form";
 
 export default function ApplyHeader() {
-  const params = useParams();
+  const params = useParams<{ lang?: string; slug?: string }>();
   const { slug } = params;
 
   const dog: DogsDataType | undefined = dogsData.find(
     (d) => d.id === Number(slug)
   );
+
+  const { content } = getAdoptFormContent(params?.lang);
+
+  const genderTranslations: Record<string, keyof typeof content.gender> = {
+    Macho: "genderMale",
+    Hembra: "genderFemale",
+  };
+
+  const translateGender = (gender?: string) => {
+    if (!gender) return gender;
+    const key = genderTranslations[gender];
+    return key ? content.gender[key] : gender;
+  };
+
+  const attributeBadges = [
+    {
+      label: content.attributes.kids,
+      value: dog?.attributes.goodWithKids,
+    },
+    {
+      label: content.attributes.dogs,
+      value: dog?.attributes.goodWithDogs,
+    },
+    {
+      label: content.attributes.houseTrained,
+      value: dog?.attributes.houseTrained,
+    },
+  ];
 
   return (
     <motion.main
@@ -23,11 +52,10 @@ export default function ApplyHeader() {
     >
       <article className="md:col-span-2 bg-gray-200 p-6 rounded-2xl">
         <header className="pb-10">
-          <h1 className="text-3xl font-bold mb-4">Formulario de Adopción</h1>
-          <p className="text-gray-600">
-            Completa el siguiente formulario para iniciar el proceso de
-            adopción. Nos pondremos en contacto contigo pronto.
-          </p>
+          <h1 className="text-3xl font-bold mb-4">
+            {content.header.formTitle}
+          </h1>
+          <p className="text-gray-600">{content.header.formDescription}</p>
         </header>
         <FormAdopt slug={Number(slug)} />
       </article>
@@ -45,12 +73,14 @@ export default function ApplyHeader() {
             />
           ) : (
             <div className="w-md md:w-100 h-55 bg-gray-200 flex items-center justify-center text-gray-500">
-              Sin imagen
+              {content.header.noImage}
             </div>
           )}
         </section>
         <section className="bg-gray-200 p-4 rounded-b-lg w-auto">
-          <p className="text-emerald-400 font-medium">Aplicando para:</p>
+          <p className="text-emerald-400 font-medium">
+            {content.header.applyingFor}
+          </p>
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold mt-4 mb-2">{dog?.name}</h2>
             <p
@@ -58,7 +88,7 @@ export default function ApplyHeader() {
                 dog?.gender === "Macho" ? "text-blue-500" : "text-pink-500"
               }`}
             >
-              {dog?.gender}
+              {translateGender(dog?.gender)}
             </p>
           </div>
           <div className="flex gap-2">
@@ -68,36 +98,17 @@ export default function ApplyHeader() {
           </div>
 
           <div className="flex text-xs flex-wrap items-center gap-2 text-black font-bold">
-            <div
-              className={`${
-                dog?.attributes.goodWithKids ? "bg-emerald-500" : "bg-red-400"
-              } px-2 py-1 rounded-lg`}
-            >
-              <dt className="sr-only">Bueno con niños</dt>
-              <dd>
-                Bueno con niños: {dog?.attributes.goodWithKids ? "Sí" : "No"}
-              </dd>
-            </div>
-            <div
-              className={`${
-                dog?.attributes.goodWithDogs ? "bg-emerald-500" : "bg-red-400"
-              } px-2 py-1 rounded-lg`}
-            >
-              <dt className="sr-only">Bueno con perros</dt>
-              <dd>
-                Bueno con perros: {dog?.attributes.goodWithDogs ? "Sí" : "No"}
-              </dd>
-            </div>
-            <div
-              className={`${
-                dog?.attributes.houseTrained ? "bg-emerald-500" : "bg-red-400"
-              } px-2 py-1 rounded-lg`}
-            >
-              <dt className="sr-only">Entrenado en casa</dt>
-              <dd>
-                Entrenado en casa: {dog?.attributes.houseTrained ? "Sí" : "No"}
-              </dd>
-            </div>
+            {attributeBadges.map(({ label, value }) => (
+              <div
+                key={label}
+                className={`${value ? "bg-emerald-500" : "bg-red-400"} px-2 py-1 rounded-lg`}
+              >
+                <dt className="sr-only">{label}</dt>
+                <dd>
+                  {label}: {value ? content.yesNo.yes : content.yesNo.no}
+                </dd>
+              </div>
+            ))}
           </div>
         </section>
       </article>

@@ -1,22 +1,30 @@
 "use client";
 import React, { useState } from "react";
+import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import {
+  getDonateFormContent,
+  type DonationPreset,
+} from "@/lib/i18n/donate/donate-form";
 
 export default function AmountForm() {
-  const presetAmounts = [50, 100, 150, 200, 300, 500];
-  const [selected, setSelected] = useState<number | null>(null);
+  const params = useParams<{ lang?: string }>();
+  const langParam = typeof params?.lang === "string" ? params.lang : undefined;
+  const { content } = getDonateFormContent(langParam);
+  const {
+    heading,
+    subheading,
+    customLabel,
+    customPlaceholder,
+    presetAmounts,
+    amountInfo,
+    submitLabel,
+  } = content;
+
+  const [selected, setSelected] = useState<DonationPreset | null>(null);
   const [customAmount, setCustomAmount] = useState<number | "">("");
 
-  const amountInfo: Record<number, string> = {
-    50: "$50: puedes cubrir las vacunas básicas para una mascota.",
-    100: "$100: puedes proporcionar desparasitaciones y revisiones.",
-    150: "$150: puedes costear pruebas y tratamiento iniciales.",
-    200: "$200: puedes pagar una cirugía menor o atención especializada.",
-    300: "$300: puedes cubrir cirugías importantes o cuidados prolongados.",
-    500: "$500: puedes financiar rescates y tratamientos complejos.",
-  };
-
-  const handleSelect = (amount: number) => {
+  const handleSelect = (amount: DonationPreset) => {
     setSelected(amount);
     setCustomAmount("");
   };
@@ -43,8 +51,8 @@ export default function AmountForm() {
       transition={{ duration: 1.2, delay: 0.4 }}
     >
       <section>
-        <h2 className="font-bold text-2xl">Elige la cantidad a donar</h2>
-        <p className="text-gray-500 pt-2">Cambia una vida hoy</p>
+        <h2 className="font-bold text-2xl">{heading}</h2>
+        <p className="text-gray-500 pt-2">{subheading}</p>
       </section>
       <section>
         <form className="mt-6 flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -70,13 +78,13 @@ export default function AmountForm() {
               htmlFor="custom-amount"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Cantidad personalizada
+              {customLabel}
             </label>
             <input
               type="number"
               id="custom-amount"
               name="custom-amount"
-              placeholder="$"
+              placeholder={customPlaceholder}
               inputMode="numeric"
               value={customAmount as number | ""}
               onChange={handleCustomChange}
@@ -84,7 +92,7 @@ export default function AmountForm() {
             />
           </div>
           {/* Nota informativa según monto seleccionado */}
-          {selected && (
+          {selected && amountInfo[selected] && (
             <div className="mt-6 p-3 rounded-md bg-blue-200 text-blue-700 text-sm text-center">
               {amountInfo[selected]}
             </div>
@@ -93,7 +101,7 @@ export default function AmountForm() {
             type="submit"
             className="my-4 bg-emerald-600 text-white font-bold py-3 rounded-lg hover:bg-emerald-800 transition-all cursor-pointer"
           >
-            Donar Ahora
+            {submitLabel}
           </button>
         </form>
       </section>

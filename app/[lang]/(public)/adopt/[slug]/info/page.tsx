@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <>
+    <main className="px-6">
       <AnimalInfo />
-    </>
+    </main>
   );
 }
