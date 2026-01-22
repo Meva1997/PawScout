@@ -1,9 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { getAdoptSuccessContent } from "@/lib/i18n/adopt/success-submit-adopt";
 
-export default function page() {
+export default function Page() {
+  const params = useParams<{ lang?: string }>();
+  const langParam = typeof params?.lang === "string" ? params.lang : undefined;
+  const { content, lang } = getAdoptSuccessContent(langParam);
+
   return (
     <main className="bg-gray-200 py-10">
       <motion.section
@@ -14,34 +20,22 @@ export default function page() {
       >
         <header className="text-center mb-6">
           <h1 className="text-2xl font-bold text-emerald-600 mb-2">
-            ¡Formulario de adopción enviado con éxito!
+            {content.title}
           </h1>
-          <p className="text-gray-600">
-            Gracias por tu interés en adoptar una mascota a través de PawScout.
-          </p>
+          <p className="text-gray-600">{content.intro}</p>
         </header>
         <article className="text-gray-700 space-y-4">
-          <p>
-            Hemos recibido tu formulario de adopción y nuestro equipo lo está
-            revisando. Nos pondremos en contacto contigo pronto para los
-            siguientes pasos del proceso de adopción.
-          </p>
-          <p>
-            Mientras tanto, si tienes alguna pregunta o necesitas más
-            información, no dudes en contactarnos a través de nuestro correo
-            electrónico o número de teléfono.
-          </p>
-          <p className="text-emerald-600 font-bold">
-            ¡Gracias por ayudar a brindar un hogar amoroso a una mascota
-            necesitada!
-          </p>
+          {content.body.map((paragraph, index) => (
+            <p key={paragraph.slice(0, 12) + index}>{paragraph}</p>
+          ))}
+          <p className="text-emerald-600 font-bold">{content.thanks}</p>
         </article>
         <article>
           <Link
-            href="/adopt"
+            href={`/${lang}/adopt`}
             className="inline-block mt-6 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
           >
-            Regresar a la página de adopción
+            {content.cta}
           </Link>
         </article>
       </motion.section>

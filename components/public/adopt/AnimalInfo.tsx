@@ -11,33 +11,74 @@ import {
   ScaleIcon,
   PaintBrushIcon,
 } from "@heroicons/react/20/solid";
+import { getAnimalInfo } from "@/lib/i18n/adopt/animal-info";
 
 export default function AnimalInfo() {
-  const params = useParams();
+  const params = useParams<{ lang?: string; slug?: string }>();
   const { slug } = params;
 
   const dog: DogsDataType | undefined = dogsData.find(
     (d) => d.id === Number(slug)
   );
 
+  const { content } = getAnimalInfo(params?.lang);
+
+  const genderKeyMap: Record<string, keyof typeof content.gender> = {
+    Macho: "genderMale",
+    Hembra: "genderFemale",
+  };
+
+  const sizeKeyMap: Record<string, keyof typeof content.size> = {
+    Pequeño: "small",
+    Mediano: "medium",
+    Grande: "large",
+  };
+
+  const translateGender = (value?: string) => {
+    if (!value) return value;
+    const key = genderKeyMap[value];
+    return key ? content.gender[key] : value;
+  };
+
+  const translateSize = (value?: string) => {
+    if (!value) return value;
+    const key = sizeKeyMap[value];
+    return key ? content.size[key] : value;
+  };
+
+  const attributeBadges = [
+    {
+      label: content.label.kids,
+      value: dog?.attributes.goodWithKids,
+    },
+    {
+      label: content.label.dogs,
+      value: dog?.attributes.goodWithDogs,
+    },
+    {
+      label: content.label.houseTrained,
+      value: dog?.attributes.houseTrained,
+    },
+  ];
+
   const infoCards = [
     {
-      label: "Edad",
+      label: content.infoCards[0].label,
       value: dog?.age,
       Icon: CakeIcon,
     },
     {
-      label: "Genero",
-      value: dog?.gender,
+      label: content.infoCards[1].label,
+      value: translateGender(dog?.gender),
       Icon: QuestionMarkCircleIcon,
     },
     {
-      label: "Tamaño",
-      value: dog?.size,
+      label: content.infoCards[2].label,
+      value: translateSize(dog?.size),
       Icon: ScaleIcon,
     },
     {
-      label: "Raza",
+      label: content.infoCards[3].label,
       value: dog?.breed,
       Icon: PaintBrushIcon,
     },
@@ -45,7 +86,7 @@ export default function AnimalInfo() {
 
   return (
     <>
-      <motion.main
+      <motion.div
         className="max-w-6xl mx-auto p-8 bg-gray-200 py-20 my-20 rounded-3xl shadow-xl"
         aria-labelledby="dog-info-heading"
         initial={{ opacity: 0, y: 80 }}
@@ -58,7 +99,7 @@ export default function AnimalInfo() {
               href="/adopt"
               className="text-emerald-600 font-bold mb-2 hover:text-emerald-800"
             >
-              &larr; Regresar a la lista de adopción
+              &larr; {content.backLink}
             </Link>
             <Image
               src={dog?.imageUrl || "/placeholder-dog.png"}
@@ -85,45 +126,20 @@ export default function AnimalInfo() {
             </header>
             <div className="py-6">
               <dl className="flex space-x-2 gap-4 flex-wrap font-bold text-sm">
-                <div
-                  className={`${
-                    dog?.attributes.goodWithKids
-                      ? "bg-emerald-500"
-                      : "bg-red-400"
-                  } px-2 py-1 rounded-lg`}
-                >
-                  <dt className="sr-only">Bueno con niños</dt>
-                  <dd>
-                    Bueno con niños:{" "}
-                    {dog?.attributes.goodWithKids ? "Sí" : "No"}
-                  </dd>
-                </div>
-                <div
-                  className={`${
-                    dog?.attributes.goodWithDogs
-                      ? "bg-emerald-500"
-                      : "bg-red-400"
-                  } px-2 py-1 rounded-lg`}
-                >
-                  <dt className="sr-only">Bueno con perros</dt>
-                  <dd>
-                    Bueno con perros:{" "}
-                    {dog?.attributes.goodWithDogs ? "Sí" : "No"}
-                  </dd>
-                </div>
-                <div
-                  className={`${
-                    dog?.attributes.houseTrained
-                      ? "bg-emerald-500"
-                      : "bg-red-400"
-                  } px-2 py-1 rounded-lg`}
-                >
-                  <dt className="sr-only">Entrenado en casa</dt>
-                  <dd>
-                    Entrenado en casa:{" "}
-                    {dog?.attributes.houseTrained ? "Sí" : "No"}
-                  </dd>
-                </div>
+                {attributeBadges.map(({ label, value }) => (
+                  <div
+                    key={label}
+                    className={`${value ? "bg-emerald-500" : "bg-red-400"} px-2 py-1 rounded-lg`}
+                  >
+                    <dt className="sr-only">{label}</dt>
+                    <dd>
+                      {label}:{" "}
+                      {value
+                        ? content.valueBoolean.yes
+                        : content.valueBoolean.no}
+                    </dd>
+                  </div>
+                ))}
               </dl>
             </div>
             <section
@@ -146,23 +162,25 @@ export default function AnimalInfo() {
               ))}
             </section>
             <section className="bg-white p-4 rounded-lg">
-              <h2 className="text-2xl font-bold mb-4">Sobre {dog?.name} ✨</h2>
+              <h2 className="text-2xl font-bold mb-4">
+                {content.about} {dog?.name} ✨
+              </h2>
               <p className="text-gray-700 leading-relaxed">
                 {dog?.longDescription}
               </p>
             </section>
             <section className="mt-6 bg-emerald-500 p-4 rounded-lg text-center font-black hover:bg-emerald-700 transition-colors cursor-pointer">
               <Link
-                href={`/adopt/${dog?.id}/adopt-form`}
+                href={`/${params?.lang}/adopt/${dog?.id}/adopt-form`}
                 role="button"
                 aria-label={`Aplicar para adoptar a ${dog?.name}`}
               >
-                Aplica para adoptar -&gt;{" "}
+                {content.linkToAdopt} -&gt;{" "}
               </Link>
             </section>
           </motion.div>
         </article>
-      </motion.main>
+      </motion.div>
       <motion.hr
         className="text-emerald-600"
         initial={{ opacity: 0 }}

@@ -5,7 +5,8 @@ import { CakeIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
+import { getAdoptCardsContent } from "@/lib/i18n/ui/adopt-cards";
 
 type AdoptCardsProps = {
   filteredDogs?: DogsDataType[];
@@ -17,6 +18,10 @@ export default function AdoptCards({
   const pathname = usePathname();
   const displayedDogs =
     pathname === "/home" ? filteredDogs.slice(0, 4) : filteredDogs;
+
+  const params = useParams<{ lang?: string }>();
+
+  const { content } = getAdoptCardsContent(params?.lang);
 
   return (
     <>
@@ -45,19 +50,22 @@ export default function AdoptCards({
                 </h3>
                 <p className="text-sm text-gray-600">{dog.shortDescription}</p>
                 <p className="mt-2 text-sm text-gray-500 flex items-center">
-                  <CakeIcon className="h-5 w-5 mr-1" />: {dog.age}
+                  <CakeIcon className="h-5 w-5 mr-1" />: {dog.age} {content.age}
                 </p>
-                <p className="mt-2 text-sm text-gray-500">Tamaño: {dog.size}</p>
                 <p className="mt-2 text-sm text-gray-500">
-                  Genero: {dog.gender}
+                  {content.size}: {content.sizeValues[dog.size] ?? dog.size}
+                </p>
+                <p className="mt-2 text-sm text-gray-500">
+                  {content.gender}:{" "}
+                  {content.genderValues[dog.gender] ?? dog.gender}
                 </p>
               </div>
               <div className="p-4 border-t border-gray-200 text-center">
                 <Link
-                  href={`/adopt/${dog.id}/info`}
+                  href={`/${params?.lang}/adopt/${dog.id}/info`}
                   className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-800 transition-colors duration-300 font-bold cursor-pointer"
                 >
-                  Conoce a {dog.name}
+                  {content.button} {dog.name}
                 </Link>
               </div>
             </div>

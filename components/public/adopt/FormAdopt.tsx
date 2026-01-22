@@ -1,34 +1,45 @@
+"use client";
+
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { getAdoptFormContent } from "@/lib/i18n/adopt/adopt-form";
 
 type FormAdoptProps = {
   slug: number;
 };
 
 export default function FormAdopt({ slug }: FormAdoptProps) {
+  const params = useParams<{ lang?: string }>();
+  const { content } = getAdoptFormContent(params?.lang);
+  const { fields } = content;
   return (
     <section className="bg-white p-6 rounded-lg">
-      <h2 className="font-bold text-2xl py-8">Información Personal</h2>
+      <h2 className="font-bold text-2xl py-8">{content.personalInfoTitle}</h2>
 
       <form action="" className="space-y-4">
         <section className="grid md:grid-cols-2 gap-8">
           <div className="mb-4">
-            <p className="font-semibold pb-2 text-gray-600">Primer Nombre</p>
+            <p className="font-semibold pb-2 text-gray-600">
+              {fields.firstName.label}
+            </p>
             <input type="hidden" name="slug" value={slug} />
             <input
               type="text"
               inputMode="text"
               name="firstname"
-              placeholder="María"
+              placeholder={fields.firstName.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
           </div>
           <div className="mb-4">
-            <p className="font-semibold pb-2 text-gray-600">Apellidos</p>
+            <p className="font-semibold pb-2 text-gray-600">
+              {fields.lastName.label}
+            </p>
             <input
               type="text"
               inputMode="text"
               name="lastname"
-              placeholder="González"
+              placeholder={fields.lastName.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
           </div>
@@ -36,23 +47,25 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
         <section className="grid md:grid-cols-2 gap-8">
           <div className="mb-4">
             <p className="font-semibold pb-2 text-gray-600">
-              Correo Electrónico
+              {fields.email.label}
             </p>
             <input
               type="email"
               inputMode="email"
               name="email"
-              placeholder="maria@example.com"
+              placeholder={fields.email.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
           </div>
           <div className="mb-4">
-            <p className="font-semibold pb-2 text-gray-600">Teléfono</p>
+            <p className="font-semibold pb-2 text-gray-600">
+              {fields.phone.label}
+            </p>
             <input
               type="text"
               inputMode="text"
               name="phone"
-              placeholder="(123) 456-7890"
+              placeholder={fields.phone.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
           </div>
@@ -60,52 +73,52 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
         <section>
           <div className="mb-4">
             <p className="font-semibold pb-2 text-gray-600">
-              Dirección Completa
+              {fields.address.label}
             </p>
             <input
               type="text"
               inputMode="text"
               name="address"
-              placeholder="Calle Falsa 123"
+              placeholder={fields.address.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
           </div>
         </section>
         <section className="grid md:grid-cols-3 gap-8 mb-4">
           <div>
-            <p>Ciudad</p>
+            <p>{fields.city.label}</p>
             <input
               type="text"
               inputMode="text"
               name="city"
-              placeholder="Ciudad"
+              placeholder={fields.city.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
           </div>
           <div>
-            <p>Estado/Provincia</p>
+            <p>{fields.state.label}</p>
             <input
               type="text"
               inputMode="text"
               name="state"
-              placeholder="Estado/Provincia"
+              placeholder={fields.state.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
           </div>
           <div>
-            <p>Código Postal</p>
+            <p>{fields.postalCode.label}</p>
             <input
               type="text"
               inputMode="numeric"
               name="postalCode"
-              placeholder="Código Postal"
+              placeholder={fields.postalCode.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
           </div>
         </section>
         <section className="flex flex-col md:flex-row  my-6 gap-6">
           <div>
-            <p>Fecha de Nacimiento</p>
+            <p>{fields.birthDate.label}</p>
             <input
               type="date"
               name="birthDate"
@@ -114,12 +127,12 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
             />
           </div>
           <div>
-            <p>Ocupacion</p>
+            <p>{fields.occupation.label}</p>
             <input
               type="text"
               inputMode="text"
               name="occupation"
-              placeholder="Ocupacion"
+              placeholder={fields.occupation.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
           </div>
@@ -128,13 +141,13 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
 
         {/*Skills and Experience section */}
         <section className="my-6 space-y-4">
-          <h3 className="text-2xl font-bold">Intereses</h3>
+          <h3 className="text-2xl font-bold">{content.interests.title}</h3>
 
           <textarea
             name="interests"
             id="interests"
             className="border border-gray-500 rounded-lg p-2 w-full"
-            placeholder="¿Por qué quieres adoptar esta mascota? ¿Tienes experiencia previa con mascotas y cuales?"
+            placeholder={content.interests.placeholder}
             rows={4}
           ></textarea>
         </section>
@@ -143,13 +156,13 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
 
         {/*Skills and Experience section */}
         <section className="my-6 space-y-4">
-          <h3 className="text-2xl font-bold">Experiencia con Mascotas</h3>
+          <h3 className="text-2xl font-bold">{content.experience.title}</h3>
 
           <textarea
             name="experience"
             id="experience"
             className="border border-gray-500 rounded-lg p-2 w-full"
-            placeholder="Describe tu experiencia previa con mascotas, si has tenido mascotas antes, y cómo las has cuidado."
+            placeholder={content.experience.placeholder}
             rows={4}
           ></textarea>
         </section>
@@ -158,46 +171,48 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
 
         {/* Home information section */}
         <section className="my-6 space-y-4">
-          <h3 className="text-2xl font-bold">Información del Hogar</h3>
-          <p className="text-gray-600 font-semibold">Tipo de vivienda</p>
+          <h3 className="text-2xl font-bold">{content.homeInfo.title}</h3>
+          <p className="text-gray-600 font-semibold">
+            {content.homeInfo.housingTypeLabel}
+          </p>
           <div className="grid md:grid-cols-2 gap-4 mb-4">
-            <div className="text-gray-600 font-semibold">
-              <input type="radio" name="housingType" value="house" /> Casa
-            </div>
-            <div className="text-gray-600 font-semibold">
-              <input type="radio" name="housingType" value="apartment" />{" "}
-              Apartamento
-            </div>
+            <label className="text-gray-600 font-semibold flex items-center gap-2">
+              <input type="radio" name="housingType" value="house" />
+              {content.homeInfo.housingOptions.house}
+            </label>
+            <label className="text-gray-600 font-semibold flex items-center gap-2">
+              <input type="radio" name="housingType" value="apartment" />
+              {content.homeInfo.housingOptions.apartment}
+            </label>
           </div>
           <p className="text-gray-600 font-semibold">
-            Quienes residen en el hogar?
+            {content.homeInfo.householdLabel}
           </p>
           <textarea
             name="householdMembers"
             rows={4}
             className="border border-gray-500 rounded-lg p-2 w-full"
-            placeholder="Porfavor agregue una lista de adultos (Mayores de 18 años), niños (con edades) y el ambiente familiar"
+            placeholder={content.homeInfo.householdPlaceholder}
           />
         </section>
         <section className="pt-10">
           <div className="flex items-center gap-4 justify-center">
             <input type="checkbox" />
             <p className="text-gray-400">
-              Acepto los{" "}
+              {content.terms.text}{" "}
               <span className="underline text-emerald-600 font-bold">
-                términos y condiciones
+                {content.terms.linkText}
               </span>
-              . Estoy de acuerdo en que los datos proporcionados serán
-              utilizados conforme a la política de privacidad.
+              {content.terms.suffix}
             </p>
           </div>
           {/* TODO: Implement form submission logic. Change Link to button and handle form submission */}
           <div className="mt-10 justify-center flex w-2/3 mx-auto">
             <Link
-              href={`/adopt/${slug}/adopt-form/success`}
-              className="mt-6 bg-emerald-500 p-4 rounded-lg text-center font-black hover:bg-emerald-700 transition-colors cursor-pointer w-full  "
+              href={`/${params?.lang}/adopt/${slug}/adopt-form/success`}
+              className="mt-6 bg-emerald-500 p-4 rounded-lg text-center font-black hover:bg-emerald-700 transition-colors cursor-pointer w-full"
             >
-              Enviar Solicitud de Adopción
+              {content.terms.buttonLabel}
             </Link>
           </div>
         </section>
