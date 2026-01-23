@@ -16,10 +16,12 @@ export default function AdoptCards({
   filteredDogs = dogsData,
 }: AdoptCardsProps) {
   const pathname = usePathname();
-  const displayedDogs =
-    pathname === "/home" ? filteredDogs.slice(0, 4) : filteredDogs;
-
   const params = useParams<{ lang?: string }>();
+
+  const displayedDogs =
+    pathname === `/${params?.lang}/home`
+      ? filteredDogs.slice(0, 4)
+      : filteredDogs;
 
   const { content } = getAdoptCardsContent(params?.lang);
 
