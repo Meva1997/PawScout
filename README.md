@@ -1,12 +1,3 @@
-## TL;DR for Recruiters
-
-- End-to-end product: design, development, and localization
-- Bilingual architecture powered by strongly typed dictionaries (i18n)
-- Realistic adoption, donation, and volunteer funnels with mock data
-- Public + admin route groups that prove scalability across surfaces
-- Built with Next.js App Router, TypeScript, Tailwind CSS, and Framer Motion
-- Intended as an in-kind donation for an animal shelter partner
-
 <div align="center">
 
 # PawScout Frontend
@@ -14,6 +5,31 @@
 Human-centered platform that lets future pet parents, donors, and volunteers collaborate with PawScout rescues through a polished, bilingual web experience.
 
 </div>
+
+## Fast Facts for Recruiters
+
+- **End-to-end ownership** across product design, engineering, and localization
+- **Bilingual architecture** powered by strongly typed `lib/i18n/**` dictionaries
+- **Production-ready funnels** for adoption, donation, and volunteer journeys
+- **Public + admin route groups** that showcase scalability and governance
+- **Modern stack** with Next.js App Router, TypeScript, Tailwind CSS, Framer Motion
+- **Real shelter impact** — packaged to donate as an in-kind platform handoff
+
+## Quick Links
+
+- [Fast Facts for Recruiters](#fast-facts-for-recruiters)
+- [Mission & Context](#mission--context)
+- [Live Demo](#live-demo)
+- [UI Preview](#ui-preview)
+- [Experience Highlights](#experience-highlights)
+- [Why It Stands Out for Recruiters](#why-it-stands-out-for-recruiters)
+- [Tech Stack](#tech-stack)
+- [System Architecture](#system-architecture)
+- [Project Structure (High-Level)](#project-structure-high-level)
+- [Setup & Local Development](#setup--local-development)
+- [Quality & Accessibility](#quality--accessibility)
+- [Roadmap & Donation Plan](#roadmap--donation-plan)
+- [Contribution Policy](#contribution-policy)
 
 ## Mission & Context
 
