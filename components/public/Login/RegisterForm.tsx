@@ -1,26 +1,36 @@
+"use client";
+
+import { getRegisterFormContent } from "@/lib/i18n/register/register-form";
+import { useParams } from "next/navigation";
+
 export default function RegisterForm() {
+  const params = useParams<{ lang?: string }>();
+  const { content } = getRegisterFormContent(params?.lang);
+
   return (
     <>
       <form action="" className="w-full max-w-sm">
         <div className="mb-6">
           <div className="flex gap-4 my-4">
             <div>
-              <label htmlFor="firstName">Nombre</label>
+              <label htmlFor="firstName">{content.name}</label>
               <input
                 type="text"
                 id="firstName"
+                inputMode="text"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
-                placeholder="Nombre"
+                placeholder={content.namePlaceholder}
                 required
               />
             </div>
             <div>
-              <label htmlFor="lastName">Apellido</label>
+              <label htmlFor="lastName">{content.lastName}</label>
               <input
                 type="text"
                 id="lastName"
+                inputMode="text"
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
-                placeholder="Apellido"
+                placeholder={content.lastNamePlaceholder}
                 required
               />
             </div>
@@ -30,13 +40,14 @@ export default function RegisterForm() {
               htmlFor="email"
               className="block text-sm font-medium mb-1 text-black"
             >
-              Correo electrónico
+              {content.email}
             </label>
             <input
               type="email"
               id="email"
+              inputMode="email"
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
-              placeholder="correo@correo.com"
+              placeholder={content.emailPlaceholder}
               required
             />
           </div>
@@ -46,14 +57,15 @@ export default function RegisterForm() {
               htmlFor="password"
               className="block text-sm font-medium mb-1 text-black"
             >
-              Contraseña
+              {content.password}
             </label>
             <input
               type="password"
               id="password"
+              inputMode="text"
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
               required
-              placeholder="contraseña"
+              placeholder={content.passwordPlaceholder}
             />
           </div>
 
@@ -62,14 +74,15 @@ export default function RegisterForm() {
               htmlFor="confirmPassword"
               className="block text-sm font-medium mb-1 text-black"
             >
-              Confirmar Contraseña
+              {content.confirmPassword}
             </label>
             <input
               type="password"
               id="confirmPassword"
+              inputMode="text"
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
               required
-              placeholder="confirmar contraseña"
+              placeholder={content.confirmPasswordPlaceholder}
             />
           </div>
 
@@ -77,7 +90,7 @@ export default function RegisterForm() {
             type="submit"
             className="w-full bg-emerald-400 text-black font-bold py-2 px-4 rounded-lg hover:bg-emerald-600 transition-colors cursor-pointer"
           >
-            Registrarse
+            {content.submitLabel}
           </button>
         </div>
       </form>

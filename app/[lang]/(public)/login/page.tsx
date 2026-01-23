@@ -3,8 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import LoginForm from "@/components/public/Login/LoginForm";
 import { motion } from "framer-motion";
+import { getLoginHeaderContent } from "@/lib/i18n/login/login-header";
+import { useParams } from "next/navigation";
 
-export default function page() {
+export default function LoginPage() {
+  const params = useParams<{ lang?: string }>();
+  const { content } = getLoginHeaderContent(params.lang);
   return (
     <>
       <motion.main
@@ -14,23 +18,21 @@ export default function page() {
         transition={{ duration: 1, delay: 0.4 }}
       >
         <section className="col-span-1 flex flex-col items-center justify-center p-4">
-          <h1 className="font-black text-4xl">Bienvenido</h1>
-          <p className="my-4 text-gray-500">
-            Por favor, inicia sesión para continuar.
-          </p>
+          <h1 className="font-black text-4xl">{content.title}</h1>
+          <p className="my-4 text-gray-500">{content.subtitle}</p>
           <LoginForm />
           <div className="mt-2">
             <Link
-              href="/register"
+              href={`/${params.lang}/register`}
               className="text-sm text-gray-500 hover:underline hover:text-emerald-400 transition-colors"
             >
-              ¿No tienes una cuenta? Regístrate
+              {content.account}
             </Link>
             <Link
-              href="/forgot-password"
+              href={`/${params.lang}/forgot-password`}
               className="ml-4 text-sm text-gray-500 hover:underline hover:text-emerald-400 transition-colors"
             >
-              ¿Olvidaste tu contraseña?
+              {content.forgotPassword}
             </Link>
           </div>
         </section>

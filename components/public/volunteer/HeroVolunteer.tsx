@@ -83,35 +83,39 @@ export default function HeroVolunteer() {
         </section>
       </motion.article>
       <motion.article
-        className="grid md:grid-cols-3 max-w-6xl justify-center items-center mx-auto gap-18 bg-white p-10 rounded-lg shadow-lg my-16"
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.4 }}
+        className="px-4"
       >
-        <section className="space-y-4 col-span-1">
-          <p className="font-bold text-emerald-600 text-md">
-            {content.benefitsSection.label}
-          </p>
-          <h3 className="text-3xl font-black">
-            {content.benefitsSection.heading}
-          </h3>
-          <p className="text-gray-500">{content.benefitsSection.description}</p>
-        </section>
-        <section className="grid md:grid-cols-2 gap-10 col-span-2">
-          {content.benefitsSection.items.map((benefit) => {
-            const Icon = benefitIconMap[benefit.iconKey];
-            return (
-              <div
-                key={benefit.title}
-                className="border-2 border-gray-200 p-4 rounded-lg bg-gray-50 shadow-md"
-              >
-                <Icon className="h-6 w-6 text-emerald-600 mb-2" />
-                <h5 className="font-bold text-lg mb-2">{benefit.title}</h5>
-                <p className="text-gray-500">{benefit.description}</p>
-              </div>
-            );
-          })}
-        </section>
+        <div className="grid md:grid-cols-3 max-w-6xl justify-center items-center mx-auto gap-18  p-10 bg-white rounded-lg shadow-lg my-16">
+          <section className="space-y-4 col-span-1">
+            <p className="font-bold text-emerald-600 text-md">
+              {content.benefitsSection.label}
+            </p>
+            <h3 className="text-3xl font-black">
+              {content.benefitsSection.heading}
+            </h3>
+            <p className="text-gray-500">
+              {content.benefitsSection.description}
+            </p>
+          </section>
+          <section className="grid md:grid-cols-2 gap-10 col-span-2">
+            {content.benefitsSection.items.map((benefit) => {
+              const Icon = benefitIconMap[benefit.iconKey];
+              return (
+                <div
+                  key={benefit.title}
+                  className="border-2 border-gray-200 p-4 rounded-lg bg-gray-50 shadow-md"
+                >
+                  <Icon className="h-6 w-6 text-emerald-600 mb-2" />
+                  <h5 className="font-bold text-lg mb-2">{benefit.title}</h5>
+                  <p className="text-gray-500">{benefit.description}</p>
+                </div>
+              );
+            })}
+          </section>
+        </div>
       </motion.article>
     </>
   );

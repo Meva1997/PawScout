@@ -2,8 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useParams } from "next/navigation";
+import { getFooterContent } from "@/lib/i18n/ui/footer";
 
 export default function HomeFooter() {
+  const params = useParams<{ lang?: string }>();
+  const { content } = getFooterContent(params?.lang);
   return (
     <>
       <motion.footer
@@ -15,94 +19,104 @@ export default function HomeFooter() {
           <article>
             <h2 className="font-bold text-black text-xl">🐾 PawScout</h2>
             <p className="text-gray-700 mt-4 max-w-xs text-sm">
-              Conectando mascotas con hogares amorosos. Organizacion sin fines
-              de lucro dedicada a rescatar y encontrar hogares para mascotas
-              necesitadas.
+              {content.description}
             </p>
           </article>
           <article className="space-y-4 flex flex-col ">
-            <h2 className="font-bold text-black text-xl">Adopta</h2>
+            <h2 className="font-bold text-black text-xl">
+              {content.subtitleAdopt}
+            </h2>
             <Link
-              href="/adopt"
+              href={`/${params?.lang}/adopt`}
               className="text-gray-700 text-sm hover:underline hover:text-emerald-600"
             >
-              Busca mascotas
+              {content.linkContact.linkAdopt}
             </Link>
             <Link
-              href="/"
+              href={`/${params?.lang}/home`}
               className="text-gray-700 text-sm hover:underline hover:text-emerald-600"
             >
-              Como adoptar
+              {content.linkContact.linkHowAdopt}
             </Link>
           </article>
           <article className="space-y-4 flex flex-col ">
-            <h2 className="font-bold text-black text-xl">Apoyanos</h2>
+            <h2 className="font-bold text-black text-xl">
+              {content.subtitleHelp}
+            </h2>
             <Link
-              href="/donate"
+              href={`/${params?.lang}/donate`}
               className="text-gray-700 text-sm hover:underline hover:text-emerald-600"
             >
-              Donaciones
+              {content.linkContact.linkHelp}
             </Link>
             <Link
-              href="/volunteer"
+              href={`/${params?.lang}/volunteer`}
               className="text-gray-700 text-sm hover:underline hover:text-emerald-600"
             >
-              Voluntariado
+              {content.linkContact.linkVolunteer}
             </Link>
           </article>
           <article className="space-y-4 flex flex-col">
-            <h2 className="font-bold text-black text-xl">Contacto</h2>
-            <p className="text-gray-700 text-sm">mevadev97@gmail.com</p>
-            <p className="text-gray-700 text-sm"> +1 (956) 502-7164</p>
+            <h2 className="font-bold text-black text-xl">
+              {content.subtitleContact}
+            </h2>
+            <p className="text-gray-700 text-sm">
+              {content.creatorContact.email}
+            </p>
+            <p className="text-gray-700 text-sm">
+              {" "}
+              {content.creatorContact.phoneNumber}
+            </p>
             <a
-              href="https://github.com/Meva1997"
+              href={content.creatorContact.gitHub}
               className="text-gray-700 text-sm hover:underline hover:text-emerald-600"
               rel="noopener noreferrer"
               target="_blank"
             >
-              GitHub: https://github.com/Meva1997
+              GitHub: {content.creatorContact.gitHub}
             </a>
             <a
-              href="https://www.linkedin.com/in/alex-fullstack-developer/"
+              href={content.creatorContact.linkedIn}
               className="text-gray-700 text-sm hover:underline hover:text-emerald-600"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Linkedin: https://www.linkedin.com/in/alex-fullstack-developer/
+              Linkedin: {content.creatorContact.linkedIn}
+            </a>
+            <a
+              href={content.creatorContact.portfolio}
+              className="text-gray-700 text-sm hover:underline hover:text-emerald-600"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {params?.lang == "en" ? "Portfolio" : "Portafolio"}:{" "}
+              {content.creatorContact.portfolio}
             </a>
           </article>
         </section>
         <hr className="max-w-6xl mx-auto my-10" />
         <section className="py-6 px-8 text-center text-gray-700 text-sm">
-          &copy; {new Date().getFullYear()} PawScout. Todos los derechos
-          reservados.
+          &copy; {new Date().getFullYear()} {content.legal.reservedRights}
         </section>
-        <section className="bg-gray-50 px-8 py-6 text-gray-700 text-sm max-w-6xl mx-auto my-10 rounded-3xl shadow-xl">
-          <h3 className="font-semibold text-black mb-2">Aviso legal</h3>
-          <p>
-            Las imágenes mostradas en este sitio han sido generadas con
-            tecnologías de inteligencia artificial con fines de demostración y
-            prototipado. Algunos perfiles o descripciones pueden ser ficticios o
-            simplificados y no representan animales reales disponibles para
-            adopción.
-          </p>
-          <p className="mt-2">
-            PawScout es actualmente un proyecto personal y no una organización
-            oficial. Para consultas o reportes, contacta a
-            <a
-              href="mailto:mevadev97@gmail.com"
-              className="text-emerald-600 underline"
-            >
-              {" "}
-              mevadev97@gmail.com
-            </a>
-            .
-          </p>
-          <p className="mt-2 text-xs text-gray-600">
-            Si utilizas el contenido de este sitio, hazlo bajo tu propia
-            responsabilidad. Estamos abiertos a corregir cualquier información
-            incorrecta; por favor contáctanos.
-          </p>
+        <section className="px-6">
+          <div className="bg-gray-200 text-gray-700 max-w-6xl mx-auto my-10 rounded-2xl shadow-xl p-6 space-y-4">
+            <h3 className="font-semibold text-black">
+              {content.legal.legalAdvice}
+            </h3>
+            <p>{content.legal.content}</p>
+            <p>
+              {content.legal.personalProject}{" "}
+              <a
+                href={`mailto:${content.creatorContact.email}`}
+                className="text-emerald-600 underline"
+              >
+                {" "}
+                {content.creatorContact.email}
+              </a>
+            </p>
+
+            <p>{content.legal.webContent}</p>
+          </div>
         </section>
       </motion.footer>
     </>

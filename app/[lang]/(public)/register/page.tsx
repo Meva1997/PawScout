@@ -4,8 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import RegisterForm from "@/components/public/Login/RegisterForm";
 import { motion } from "framer-motion";
+import { useParams } from "next/navigation";
+import { getRegisterHeaderContent } from "@/lib/i18n/register/register-header";
 
-export default function page() {
+export default function RegisterPage() {
+  const params = useParams<{ lang?: string }>();
+  const { content } = getRegisterHeaderContent(params?.lang);
+
   return (
     <>
       <motion.main
@@ -15,23 +20,21 @@ export default function page() {
         transition={{ duration: 1, delay: 0.4 }}
       >
         <section className="col-span-1 flex flex-col items-center justify-center p-4">
-          <h1 className="font-black text-4xl">Crea tu cuenta</h1>
-          <p className="my-4 text-gray-500">
-            Por favor, crea una cuenta para continuar.
-          </p>
+          <h1 className="font-black text-4xl">{content.title}</h1>
+          <p className="my-4 text-gray-500">{content.subtitle}</p>
           <RegisterForm />
           <div className="mt-2">
             <Link
-              href="/login"
+              href={`/${params?.lang}/login`}
               className="text-sm text-gray-500 hover:underline hover:text-emerald-400 transition-colors"
             >
-              Ya tienes una cuenta? Inicia sesión
+              {content.account}
             </Link>
             <Link
-              href="/forgot-password"
+              href={`/${params?.lang}/forgot-password`}
               className="ml-4 text-sm text-gray-500 hover:underline hover:text-emerald-400 transition-colors"
             >
-              ¿Olvidaste tu contraseña?
+              {content.forgotPassword}
             </Link>
           </div>
         </section>
