@@ -1,4 +1,8 @@
 "use client";
+
+import type { ComponentType, SVGProps } from "react";
+import { Suspense } from "react";
+import { useParams } from "next/navigation";
 import ContactForm from "@/components/public/contact/ContactForm";
 import Faqs from "@/components/public/contact/Faqs";
 import MapLocationLoading from "@/components/skeletons/MapLocationLoading";
@@ -11,57 +15,34 @@ import {
   UserGroupIcon,
 } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
-import { Suspense } from "react";
+import {
+  getContactMainContent,
+  type ContactMethodIconKey,
+  type MissionIconKey,
+} from "@/lib/i18n/contact/contact-main";
 
-type MisionType = {
-  title: string;
-  description: string;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+const contactIconMap: Record<
+  ContactMethodIconKey,
+  ComponentType<SVGProps<SVGSVGElement>>
+> = {
+  phone: PhoneIcon,
+  email: InboxIcon,
+  visit: MapPinIcon,
 };
 
-const contactMethods = [
-  {
-    icon: PhoneIcon,
-    title: "Teléfono",
-    detail: "+1 (555) 123-4567",
-    info: "Lunes a Sabado: 9:00 AM - 6:00 PM",
-  },
-  {
-    icon: InboxIcon,
-    title: "Email",
-    detail: "contacto@pawscout.com",
-    info: "Mandanos tus consultas y te responderemos a la brevedad.",
-  },
-  {
-    icon: MapPinIcon,
-    title: "Visita el refugio",
-    detail: "123 Calle Principal, Ciudad, País",
-    info: "",
-  },
-];
-
-const mision: MisionType[] = [
-  {
-    title: "Compasion",
-    description:
-      "Nos dedicamos a tratar a cada animal con el amor y respeto que merecen, asegurando su bienestar en cada paso del camino.",
-    icon: HeartIcon,
-  },
-  {
-    title: "Integridad",
-    description:
-      "Operamos con transparencia y honestidad, construyendo confianza con nuestra comunidad y asegurando que cada adopción sea ética y responsable.",
-    icon: ShieldCheckIcon,
-  },
-  {
-    title: "Comunidad",
-    description:
-      "Creemos en el poder de la comunidad para hacer una diferencia positiva en la vida de los animales, fomentando la colaboración y el apoyo mutuo.",
-    icon: UserGroupIcon,
-  },
-];
+const missionIconMap: Record<
+  MissionIconKey,
+  ComponentType<SVGProps<SVGSVGElement>>
+> = {
+  compassion: HeartIcon,
+  integrity: ShieldCheckIcon,
+  community: UserGroupIcon,
+};
 
 export default function ContactMain() {
+  const params = useParams<{ lang?: string }>();
+  const { content } = getContactMainContent(params?.lang);
+
   return (
     <main className="bg-gray-200 py-10">
       <motion.article
@@ -70,32 +51,33 @@ export default function ContactMain() {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.4 }}
       >
-        <h1 className="text-3xl font-black text-emerald-600">Contáctanos</h1>
-        <p className="text-gray-500">
-          Si tienes alguna pregunta, comentario o necesitas asistencia, no dudes
-          en contactarnos. Estamos aquí para ayudarte y asegurarnos de que
-          tengas la mejor experiencia posible con PawScout.
-        </p>
+        <h1 className="text-3xl font-black text-emerald-600">
+          {content.heading}
+        </h1>
+        <p className="text-gray-500">{content.description}</p>
       </motion.article>
-      <article className="grid lg:grid-cols-3 my-20 gap-6 w-3/4 max-w-6xl mx-auto text-center">
-        {contactMethods.map((method, index) => (
-          <motion.section
-            key={method.title}
-            className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: index * 0.4 }}
-          >
-            <h2 className="text-2xl font-semibold mb-6 text-emerald-600">
-              <method.icon className="h-16 inline-block mr-2 bg-gray-200 p-2 rounded-full" />
-              {method.title}
-            </h2>
-            <p className="mb-2 font-bold text-lg">{method.detail}</p>
-            {method.info && (
-              <p className="mb-2 text-gray-600 text-sm">{method.info}</p>
-            )}
-          </motion.section>
-        ))}
+      <article className="grid lg:grid-cols-3 w-3/4 lg:w-full my-20 px-4 gap-6 max-w-6xl mx-auto text-center">
+        {content.contactMethods.map((method, index) => {
+          const Icon = contactIconMap[method.iconKey];
+          return (
+            <motion.section
+              key={`${method.title}-${method.detail}`}
+              className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: index * 0.4 }}
+            >
+              <h2 className="text-2xl font-semibold mb-6 text-emerald-600">
+                <Icon className="h-16 inline-block mr-2 bg-gray-200 p-2 rounded-full" />
+                {method.title}
+              </h2>
+              <p className="mb-2 font-bold text-lg">{method.detail}</p>
+              {method.info && (
+                <p className="mb-2 text-gray-600 text-sm">{method.info}</p>
+              )}
+            </motion.section>
+          );
+        })}
       </article>
       <motion.article
         className="flex flex-col md:flex-row py-20 max-w-6xl mx-auto p-6 gap-8"
@@ -124,21 +106,24 @@ export default function ContactMain() {
         transition={{ duration: 1.2, delay: 0.4 }}
       >
         <section className="bg-white max-w-6xl mx-auto rounded-xl p-6 my-10 shadow-xl ">
-          <h4 className="font-black text-2xl pb-4">Nuestra misión</h4>
-          <p className="text-gray-500">
-            En PawScout, nuestra misión es conectar a los animales necesitados
-            con personas que puedan brindarles un hogar amoroso y seguro.
-            Trabajamos incansablemente para rescatar, rehabilitar y encontrar
-            familias responsables para cada uno de nuestros amigos peludos.
-          </p>
+          <h4 className="font-black text-2xl pb-4">
+            {content.mission.heading}
+          </h4>
+          <p className="text-gray-500">{content.mission.intro}</p>
           <div className="grid md:grid-cols-3 pt-6">
-            {mision.map((item) => (
-              <div key={item.title} className="p-6 bg-gray-100 rounded-lg m-2">
-                <item.icon className="h-10 text-emerald-600 mb-4" />
-                <h5 className="font-bold mb-2">{item.title}</h5>
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            ))}
+            {content.mission.cards.map((card) => {
+              const Icon = missionIconMap[card.iconKey];
+              return (
+                <div
+                  key={card.title}
+                  className="p-6 bg-gray-100 rounded-lg m-2"
+                >
+                  <Icon className="h-10 text-emerald-600 mb-4" />
+                  <h5 className="font-bold mb-2">{card.title}</h5>
+                  <p className="text-gray-600">{card.description}</p>
+                </div>
+              );
+            })}
           </div>
         </section>
       </motion.article>

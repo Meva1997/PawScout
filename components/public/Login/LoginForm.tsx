@@ -1,4 +1,10 @@
+"use client";
+import { useParams } from "next/navigation";
+import { getLoginFormContent } from "@/lib/i18n/login/login-form";
+
 export default function LoginForm() {
+  const params = useParams<{ lang?: string }>();
+  const { content } = getLoginFormContent(params?.lang);
   return (
     <>
       <form action="" className="w-full max-w-sm">
@@ -8,13 +14,14 @@ export default function LoginForm() {
               htmlFor="email"
               className="block text-sm font-medium mb-1 text-black"
             >
-              Correo electrónico
+              {content.emailLabel}
             </label>
             <input
               type="email"
               id="email"
+              inputMode="text"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
-              placeholder="email@email.com"
+              placeholder={content.emailPlaceholder}
               required
             />
           </div>
@@ -24,14 +31,15 @@ export default function LoginForm() {
               htmlFor="password"
               className="block text-sm font-medium mb-1 text-black"
             >
-              Contraseña
+              {content.passwordLabel}
             </label>
             <input
               type="password"
               id="password"
+              inputMode="text"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
               required
-              placeholder="password"
+              placeholder={content.passwordPlaceholder}
             />
           </div>
 
@@ -39,7 +47,7 @@ export default function LoginForm() {
             type="submit"
             className="w-full bg-emerald-400 text-black font-bold py-2 px-4 rounded-lg hover:bg-emerald-600 transition-colors cursor-pointer"
           >
-            Iniciar sesión
+            {content.submitLabel}
           </button>
         </div>
       </form>

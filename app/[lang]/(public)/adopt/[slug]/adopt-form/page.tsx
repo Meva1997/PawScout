@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function page() {
   return (
-    <main className="bg-gray-200 py-10">
+    <main className="bg-gray-200 py-10 px-6">
       <ApplyHeader />
     </main>
   );
