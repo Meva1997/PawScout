@@ -2,126 +2,104 @@
 
 # PawScout Frontend
 
-Modern web experience that connects future pet parents, donors, and volunteers with PawScout's rescue initiatives.
+Human-centered platform that lets future pet parents, donors, and volunteers collaborate with PawScout rescues through a polished, bilingual web experience.
 
 </div>
 
-## 🌟 Project Overview
+## Mission & Context
 
-PawScout centralizes the organization's public-facing touchpoints into a single, responsive Next.js application. Visitors can browse adoptable dogs, learn how to donate, submit volunteer applications, and follow success stories. The UI emphasizes high visual polish, bilingual messaging, and clear calls-to-action to increase conversions across adoption, donation, and volunteering funnels.
+This is a personal end-to-end build that I designed, engineered, and localized to showcase my product thinking for animal-welfare initiatives. The application will be donated to a real shelter once content and integrations are production-ready. Because it is part of my portfolio, I am not accepting external code contributions.
 
-### Objectives
+## Live Demo
 
-- Showcase adoptable dogs with rich media and contextual info.
-- Guide donors through transparent, story-driven contribution flows.
-- Capture volunteer intent with structured forms and status feedback.
-- Maintain a cohesive brand experience while enabling route-specific layouts (e.g., login, volunteer success, etc.).
+- Latest preview: [https://paw-scout.vercel.app/](https://paw-scout.vercel.app/)
+- Tested on desktop and mobile (iOS Safari, Android Chrome) to ensure every funnel stays responsive.
 
-## 🔗 Live Demo
+## UI Preview
 
-Experience the latest build at [https://paw-scout.vercel.app/](https://paw-scout.vercel.app/).
+![PawScout home screen](public/PawScout-home.png)
 
-## 🧰 Tech Stack
+## Experience Highlights
 
-| Layer        | Tools                                                            |
-| ------------ | ---------------------------------------------------------------- |
-| Framework    | Next.js 16 (App Router, Server Components)                       |
-| Language     | TypeScript 5 + React 19                                          |
-| Styling      | Tailwind CSS 4, custom utility classes, CSS Modules where needed |
-| Tooling      | pnpm, ESLint 9 with `eslint-config-next`, PostCSS                |
-| Content/Data | Local mock data (`db/dogs.ts`), public assets in `/public`       |
+- **Adoption Flow** – `/app/(public)/adopt` renders hero storytelling, filterable dog grids, and `[slug]/info` detail views backed by `db/dogs.ts` mock data. Forms under `[slug]/adopt-form` capture intent and route to bilingual success screens.
+- **Donation Journey** – `/app/(public)/donate` combines impact storytelling (`components/public/donate/HeroDonate.tsx`) with amount selectors, transparency cards, and success narratives to build trust.
+- **Volunteer Pipeline** – `/app/(public)/volunteer` covers requirements, role deep dives, and a form + thank-you state under `volunteer/form`. Inputs are validated and copy is fully localized.
+- **Contact Hub** – `/app/(public)/contact` blends hero content, outreach cards, and a localized form fed by `lib/i18n/contact/*` dictionaries so the rescue can triage adoption, rescue, or donation requests.
+- **Admin Preview** – `/app/(admin)` demonstrates how the same design system scales to internal dashboards (adoptions, donations, pets, volunteers, settings) even though data is mocked today.
 
-## 🗂️ Project Structure
+## Why It Stands Out For Recruiters
+
+- **Bilingual Copy Platform** – Every public route reads from strongly typed dictionaries in `lib/i18n/**`, allowing instant locale switching (`[lang]` segments) without duplicating components.
+- **Compositional Design System** – Shared UI primitives live in `components/ui` (headers, cards, global footer) and power both public and admin surfaces.
+- **Story-Driven Funnels** – Each flow mixes motion (`framer-motion`), iconography (`@heroicons/react`), and CTAs that map to real shelter KPIs: adoptions completed, donations pledged, volunteer hours scheduled.
+- **Realistic Data Model** – Even without APIs, `db/dogs.ts` expresses the fields (temperament, health, requirements) a shelter CMS would expose, proving readiness for backend integration.
+
+## Tech Stack
+
+| Layer     | Details                                                                  |
+| --------- | ------------------------------------------------------------------------ |
+| Framework | Next.js 16.1 (App Router, Server + Client Components, Route Groups)      |
+| Language  | TypeScript 5.0 + React 19                                                |
+| Styling   | Tailwind CSS 4 utilities, motion micro-interactions via Framer Motion    |
+| UI Assets | Heroicons 2, custom SVG/imagery in `/public`, responsive CSS grid system |
+| Tooling   | pnpm, ESLint 9 (`eslint-config-next`), PostCSS, TypeScript strict mode   |
+
+## System Architecture
+
+- **Routing Layout** – Split between `(public)` and `(admin)` route groups. Each section has its own `layout.tsx` to inject context-specific chrome while inheriting global providers from `app/layout.tsx`.
+- **Localization Engine** – `get*Content` helpers (e.g., `lib/i18n/contact/contact-form.ts`) return `{ lang, content }` objects consumed by client components via `useParams`. This pattern keeps copy centralized and makes adding new locales trivial.
+- **Design Tokens** – `app/globals.css` seeds Tailwind presets, typography scales, and reusable utility classes to ensure brand consistency.
+- **Data & Mock Services** – `db/dogs.ts` mimics a CMS payload; additional data is encoded directly in dictionaries so the UI is production-ready once endpoints are available.
+- **Animation & Interaction** – Hero sections, cards, and CTA panels rely on Framer Motion for subtle entrance transitions that elevate perceived quality without harming performance.
+
+## Project Structure (High-Level)
 
 ```
 frontend/
 ├── app/
-│   ├── layout.tsx            # Root layout with global providers/styles
-│   ├── globals.css           # Tailwind base + design tokens
-│   ├── page.tsx              # Home landing page
-│   ├── adopt/                # Adoption listing + detail flows
-│   ├── donate/               # Donation hero, tiers, stories
-│   └── volunteer/            # Volunteer info, forms, success screens
+│   ├── (public)/home, adopt, donate, volunteer, contact, auth flows, etc.
+│   └── (admin)/admin dashboard sections for future shelter staff tooling
 ├── components/
-│   ├── adopt/                # Feature-specific UI blocks
-│   ├── donate/
-│   ├── volunteer/
-│   └── ui/                   # Shared cards, header/footer, etc.
-├── db/dogs.ts                # Mock dataset for adoptable dogs
-├── public/                   # Static assets (images, icons, etc.)
-├── eslint.config.mjs
-├── next.config.ts
-├── package.json
-├── pnpm-lock.yaml
-└── tailwind/postcss configs
+│   ├── public/… feature-specific blocks
+│   ├── admin/… settings and dashboards
+│   └── ui/ shared primitives (headers, footers, cards)
+├── lib/i18n/ dictionaries powering bilingual copy
+├── db/dogs.ts mock dataset for adoption catalog
+└── public/ static imagery and icons
 ```
 
-## ✨ Key Features
-
-- **Adoption Library** – Filterable cards, detailed profiles, and application entry points for every dog.
-- **Donation Experience** – Tiered amount selector, donor stories, and progress highlights to drive trust.
-- **Volunteer Journey** – Requirements overview, role descriptions, rich application form, and success confirmation screen.
-- **Composable UI Kit** – Reusable headers, footers, CTA blocks, and cards to keep visuals consistent.
-- **Dark-Mode Ready** – Tailwind utility strategy already accounts for light/dark surfaces on key screens.
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 20+
-- pnpm 8+ (recommended package manager)
-
-### Installation
+## Setup & Local Development
 
 ```bash
+# prerequisites
+node --version  # >= 20
+pnpm --version  # >= 8
+
 pnpm install
+pnpm dev       # http://localhost:3000
+
+pnpm lint      # ESLint + TypeScript checks
+pnpm build     # Production bundle (Next.js standalone)
+pnpm start     # Serve .next output
 ```
 
-### Local Development
+## Quality & Accessibility
 
-```bash
-pnpm dev
-# Visit http://localhost:3000
-```
+- Strict TypeScript plus ESLint keeps every route segment aligned with React 19 best practices.
+- Form components ship with labels, `aria`-friendly focus states, and keyboard-safe controls.
+- I rely on design tokens and responsive utilities to maintain readability across breakpoints.
 
-### Linting & Type-Checking
+## Roadmap & Donation Plan
 
-```bash
-pnpm lint
-```
+1. Replace mock dog data with a headless CMS or shelter API.
+2. Wire form submissions to a transactional email or CRM service.
+3. Harden authentication for the `(admin)` workspace so shelter staff can manage pets, donations, and volunteers.
+4. Transfer the finished codebase to a partner rescue organization as an in-kind donation.
 
-### Production Build
+## Contribution Policy
 
-```bash
-pnpm build
-pnpm start  # Serves .next/ output
-```
-
-## 🧭 Architectural Notes
-
-- **App Router First**: Every route segment (e.g., `adopt`, `donate`, `volunteer/form`) can declare its own layout for bespoke storytelling and UX.
-- **Tailwind v4**: Utility-first styling with design tokens allows rapid iteration while staying on brand.
-- **Component Domains**: UI is grouped by feature domains (`adopt`, `donate`, `volunteer`) plus a `ui` folder for primitives to encourage reuse.
-- **Mock Data Layer**: `db/dogs.ts` feeds adoption pages until a real API is wired in, keeping the UI decoupled from backend delivery.
-- **Accessibility**: Focus states, semantic headings, and responsive typography baked into components to ensure inclusive design.
-
-## 🧪 Testing & Quality
-
-- Run `pnpm lint` before every commit to catch accessibility and best-practice issues early.
-- Component-level props are strongly typed via TypeScript; favor explicit interfaces when adding new shared components.
-
-## 📦 Deployment
-
-1. Ensure a fresh `pnpm build` succeeds locally.
-2. Deploy through Vercel (recommended) or any platform that supports Next.js standalone output.
-3. Configure environment variables (if/when backend integration is added) via the chosen host's dashboard.
-
-## 🤝 Contributing
-
-1. Fork or branch off `main`.
-2. Create feature-specific components under the relevant domain folder to keep the UI scalable.
-3. Submit PRs with screenshots/GIFs for UI changes to speed up reviews.
+This repository is a personal portfolio project. Please do not submit pull requests or feature requests. If you are evaluating my work for a role, feel free to reach out via LinkedIn or email instead.
 
 ---
 
-Questions or suggestions? Open an issue or start a discussion so we can keep improving the PawScout experience.
+Thank you for reviewing PawScout Frontend. I am excited to bring the same care and execution to your engineering team.
