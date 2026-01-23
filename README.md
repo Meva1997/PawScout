@@ -1,3 +1,12 @@
+## TL;DR for Recruiters
+
+- End-to-end product: design, development, and localization
+- Bilingual architecture powered by strongly typed dictionaries (i18n)
+- Realistic adoption, donation, and volunteer funnels with mock data
+- Public + admin route groups that prove scalability across surfaces
+- Built with Next.js App Router, TypeScript, Tailwind CSS, and Framer Motion
+- Intended as an in-kind donation for an animal shelter partner
+
 <div align="center">
 
 # PawScout Frontend
