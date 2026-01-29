@@ -1,15 +1,19 @@
 "use client";
 
-import { getRegisterFormContent } from "@/lib/i18n/register/register-form";
 import { useParams } from "next/navigation";
+import { register } from "@/actions/register/create-account-action";
+import { getRegisterFormContent } from "@/lib/i18n/register/register-form";
+import { useActionState } from "react";
 
 export default function RegisterForm() {
   const params = useParams<{ lang?: string }>();
   const { content } = getRegisterFormContent(params?.lang);
 
+  // const [] = useActionState(register);
+
   return (
     <>
-      <form action="" className="w-full max-w-sm">
+      <form action={register} className="w-full max-w-sm">
         <div className="mb-6">
           <div className="flex gap-4 my-4">
             <div>
