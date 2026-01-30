@@ -1,19 +1,48 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import { useActionState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 import { register } from "@/actions/register/create-account-action";
 import { getRegisterFormContent } from "@/lib/i18n/register/register-form";
-import { useActionState } from "react";
 
 export default function RegisterForm() {
+  const router = useRouter();
   const params = useParams<{ lang?: string }>();
   const { content } = getRegisterFormContent(params?.lang);
 
-  // const [] = useActionState(register);
+  const [state, dispatch, isPending] = useActionState(register, {
+    errors: [],
+    success: "",
+    formData: {
+      firstName: "",
+      lastName: "",
+      email: "",
+    },
+  });
+
+  useEffect(() => {
+    if (state.errors.length > 0) {
+      state.errors.forEach((error) => {
+        toast.error(error);
+      });
+    }
+    if (state.success) {
+      if (params?.lang === "es-mx") {
+        toast.success("Cuenta creada exitosamente");
+      } else if (params?.lang === "en") {
+        toast.success(state.success || "Account created successfully");
+      }
+
+      router.push(`/${params?.lang || "en"}/login`);
+    }
+  }, [state, params?.lang, router]);
 
   return (
     <>
-      <form action={register} className="w-full max-w-sm">
+      <form action={dispatch} className="w-full max-w-sm">
+        <input type="hidden" name="lang" value={params?.lang || "en"} />
         <div className="mb-6">
           <div className="flex gap-4 my-4">
             <div>
@@ -22,9 +51,10 @@ export default function RegisterForm() {
                 type="text"
                 id="firstName"
                 inputMode="text"
+                name="firstName"
+                defaultValue={state.formData?.firstName || ""}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
                 placeholder={content.namePlaceholder}
-                required
               />
             </div>
             <div>
@@ -33,9 +63,10 @@ export default function RegisterForm() {
                 type="text"
                 id="lastName"
                 inputMode="text"
+                name="lastName"
+                defaultValue={state.formData?.lastName || ""}
                 className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
                 placeholder={content.lastNamePlaceholder}
-                required
               />
             </div>
           </div>
@@ -50,9 +81,10 @@ export default function RegisterForm() {
               type="email"
               id="email"
               inputMode="email"
+              name="email"
+              defaultValue={state.formData?.email || ""}
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
               placeholder={content.emailPlaceholder}
-              required
             />
           </div>
 
@@ -67,8 +99,8 @@ export default function RegisterForm() {
               type="password"
               id="password"
               inputMode="text"
+              name="password"
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
-              required
               placeholder={content.passwordPlaceholder}
             />
           </div>
@@ -83,9 +115,9 @@ export default function RegisterForm() {
             <input
               type="password"
               id="confirmPassword"
+              name="confirmPassword"
               inputMode="text"
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-gray-100"
-              required
               placeholder={content.confirmPasswordPlaceholder}
             />
           </div>
@@ -94,7 +126,7 @@ export default function RegisterForm() {
             type="submit"
             className="w-full bg-emerald-400 text-black font-bold py-2 px-4 rounded-lg hover:bg-emerald-600 transition-colors cursor-pointer"
           >
-            {content.submitLabel}
+            {isPending ? content.submittingLabel : content.submitLabel}
           </button>
         </div>
       </form>

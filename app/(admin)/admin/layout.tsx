@@ -92,11 +92,6 @@ export default function AdminLayout({
               <button className="relative rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-widest text-white/80">
                 ES
               </button>
-              {/* Notification Button */}
-              {/* <button className="relative size-11 rounded-2xl border border-white/10 bg-white/5 text-white/80">
-                ●
-                <span className="absolute -right-0.5 -top-0.5 size-3 rounded-full border border-[#111f1c] bg-[#19e6b3]"></span>
-              </button> */}
 
               {/* User Profile */}
               <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">

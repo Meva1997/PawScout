@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    root: __dirname,
-  },
+  // turbopack: {
+  //   root: __dirname,
+  // },
   async rewrites() {
     return [
       { source: "/", destination: "/es-mx/home" },
@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
       { source: "/donate", destination: "/es-mx/donate" },
       { source: "/volunteer", destination: "/es-mx/volunteer" },
       { source: "/contact", destination: "/es-mx/contact" },
+      { source: "/login", destination: "/es-mx/login" },
+      { source: "/register", destination: "/es-mx/register" },
     ];
   },
 };

@@ -14,6 +14,7 @@ type RegisterFormContent = {
   confirmPassword: string;
   confirmPasswordPlaceholder: string;
   submitLabel: string;
+  submittingLabel?: string;
 };
 
 const registerFormContent: Record<RegisterFormContentKey, RegisterFormContent> =
@@ -30,6 +31,7 @@ const registerFormContent: Record<RegisterFormContentKey, RegisterFormContent> =
       confirmPassword: "Confirmar contraseña",
       confirmPasswordPlaceholder: "contraseña",
       submitLabel: "Registrarse",
+      submittingLabel: "Registrando...",
     },
     en: {
       name: "First Name",
@@ -43,6 +45,7 @@ const registerFormContent: Record<RegisterFormContentKey, RegisterFormContent> =
       confirmPassword: "Confirm Password",
       confirmPasswordPlaceholder: "password",
       submitLabel: "Register",
+      submittingLabel: "Registering...",
     },
   };
 

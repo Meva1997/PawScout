@@ -8,6 +8,7 @@ type LoginFormContent = {
   passwordLabel: string;
   passwordPlaceholder: string;
   submitLabel: string;
+  submittingLabel?: string;
 };
 
 const loginFormContent: Record<LoginFormContentKey, LoginFormContent> = {
@@ -17,6 +18,7 @@ const loginFormContent: Record<LoginFormContentKey, LoginFormContent> = {
     passwordLabel: "Contraseña",
     passwordPlaceholder: "contraseña",
     submitLabel: "Iniciar sesión",
+    submittingLabel: "Iniciando...",
   },
   en: {
     emailLabel: "Email",
@@ -24,6 +26,7 @@ const loginFormContent: Record<LoginFormContentKey, LoginFormContent> = {
     passwordLabel: "Password",
     passwordPlaceholder: "password",
     submitLabel: "Log In",
+    submittingLabel: "Logging in...",
   },
 };
 
