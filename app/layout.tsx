@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { googleSansFlex } from "@/lib/fonts";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "PawScout",
@@ -22,6 +23,14 @@ export default async function RootLayout({
     <html lang={lang}>
       <body className={`${googleSansFlex.variable} antialiased`}>
         {children}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          pauseOnHover={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          theme="colored"
+        />
       </body>
     </html>
   );

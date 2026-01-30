@@ -1,3 +1,5 @@
+import { verifySession } from "@/lib/auth/dal";
+
 export default function page() {
   type Stat = {
     title: string;
@@ -22,6 +24,8 @@ export default function page() {
     { name: "Luna", type: "Gato", dateAdded: "2024-06-12" },
     { name: "Charlie", type: "Perro", dateAdded: "2024-06-14" },
   ];
+
+  verifySession();
 
   return (
     <>
