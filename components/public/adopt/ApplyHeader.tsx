@@ -3,23 +3,27 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import FormAdopt from "./FormAdopt";
-import { dogsData } from "@/db/dogs";
 import type { DogsDataType } from "@/db/dogs";
 import { getAdoptFormContent } from "@/lib/i18n/adopt/adopt-form";
+import { getAnimalById } from "@/api/api";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ApplyHeader() {
   const params = useParams<{ lang?: string; slug?: string }>();
   const { slug } = params;
 
-  const dog: DogsDataType | undefined = dogsData.find(
-    (d) => d.id === Number(slug)
-  );
-
   const { content } = getAdoptFormContent(params?.lang);
 
+  const { data } = useQuery({
+    queryKey: ["animal", slug],
+    queryFn: () => getAnimalById(Number(slug)),
+  });
+
+  const dog = data as DogsDataType | undefined;
+
   const genderTranslations: Record<string, keyof typeof content.gender> = {
-    Macho: "genderMale",
-    Hembra: "genderFemale",
+    Male: "genderMale",
+    Female: "genderFemale",
   };
 
   const translateGender = (gender?: string) => {
@@ -31,15 +35,15 @@ export default function ApplyHeader() {
   const attributeBadges = [
     {
       label: content.attributes.kids,
-      value: dog?.attributes.goodWithKids,
+      value: dog?.goodWithKids,
     },
     {
       label: content.attributes.dogs,
-      value: dog?.attributes.goodWithDogs,
+      value: dog?.goodWithDogs,
     },
     {
       label: content.attributes.houseTrained,
-      value: dog?.attributes.houseTrained,
+      value: dog?.homeTrained,
     },
   ];
 
@@ -63,9 +67,9 @@ export default function ApplyHeader() {
       {/* Dog information */}
       <article className="flex flex-col items-center md:col-span-1 px-4 ">
         <section className="overflow-hidden rounded-t-lg">
-          {dog?.imageUrl ? (
+          {dog?.media?.[0]?.url ? (
             <Image
-              src={dog.imageUrl}
+              src={dog.media[0].url}
               alt={dog?.name ?? "Imagen de perro"}
               width={300}
               height={300}
@@ -85,7 +89,7 @@ export default function ApplyHeader() {
             <h2 className="text-2xl font-bold mt-4 mb-2">{dog?.name}</h2>
             <p
               className={`font-medium ${
-                dog?.gender === "Macho" ? "text-blue-500" : "text-pink-500"
+                dog?.gender === "Male" ? "text-blue-500" : "text-pink-500"
               }`}
             >
               {translateGender(dog?.gender)}
@@ -94,7 +98,9 @@ export default function ApplyHeader() {
           <div className="flex gap-2">
             <p className="text-gray-600 mb-4">{dog?.breed}</p>
             <span>-</span>
-            <p className="text-gray-600 mb-4">{dog?.age}</p>
+            <p className="text-gray-600 mb-4">
+              {dog?.age} {params?.lang === "es-mx" ? "años" : "years"}
+            </p>
           </div>
 
           <div className="flex text-xs flex-wrap items-center gap-2 text-black font-bold">

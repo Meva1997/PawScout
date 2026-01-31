@@ -1,17 +1,34 @@
 "use client";
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getAllAnimals } from "@/api/api";
 import AdoptListFilter from "@/components/public/adopt/AdoptListFilter";
 import AdoptCards from "@/components/ui/AdoptCards";
-import { dogsData } from "@/db/dogs";
-import type { DogsDataType } from "@/db/dogs";
 import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
 import { getAdoptHeroContents } from "@/lib/i18n/adopt/adopt-hero";
+import { useState, useEffect, useMemo } from "react";
 
 export default function AdoptMain() {
-  const [filteredDogs, setFilteredDogs] = useState<DogsDataType[]>(dogsData);
   const params = useParams<{ lang?: string }>();
   const { content } = getAdoptHeroContents(params?.lang);
+
+  const { data, isError, isPending } = useQuery({
+    queryKey: ["animals"],
+    queryFn: getAllAnimals,
+    retry: 2,
+  });
+
+  const animals = useMemo(
+    () => (Array.isArray(data?.animals) ? data.animals : []),
+    [data?.animals],
+  );
+
+  const [filteredAnimals, setFilteredAnimals] = useState(animals);
+
+  // Sincronizar filteredAnimals cuando animals cambie
+  useEffect(() => {
+    setFilteredAnimals(animals);
+  }, [animals]);
 
   return (
     <main className="bg-gray-200 py-10 px-6">
@@ -32,9 +49,17 @@ export default function AdoptMain() {
           <p className="pt-2 text-gray-500">{content.subtitle}</p>
         </div>
       </motion.section>
-      <AdoptListFilter dogs={dogsData} onFilterChange={setFilteredDogs} />
+      <AdoptListFilter animals={animals} onFilterChange={setFilteredAnimals} />
 
-      <AdoptCards filteredDogs={filteredDogs} />
+      {isError ? (
+        <div className="max-w-6xl mx-auto text-red-500 font-semibold mb-6">
+          {params?.lang === "es-mx"
+            ? "Error al cargar los datos de las mascotas."
+            : "Error loading pet data."}
+        </div>
+      ) : (
+        <AdoptCards animals={filteredAnimals} isLoading={isPending} />
+      )}
     </main>
   );
 }

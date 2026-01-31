@@ -4,10 +4,20 @@ import { motion } from "framer-motion";
 import AdoptCards from "@/components/ui/AdoptCards";
 import { getNewArrivalsContent } from "@/lib/i18n/home/new-arrivals";
 import { useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getAllAnimals } from "@/api/api";
 
 export default function NewArrivals() {
   const params = useParams<{ lang?: string }>();
   const { content } = getNewArrivalsContent(params?.lang);
+
+  const { data, isError, isPending } = useQuery({
+    queryKey: ["animals"],
+    queryFn: getAllAnimals,
+  });
+
+  const animals = Array.isArray(data?.animals) ? data.animals : [];
+
   return (
     <motion.section
       className="py-20 px-4 max-w-6xl mx-auto"
@@ -28,7 +38,15 @@ export default function NewArrivals() {
         </div>
       </article>
 
-      <AdoptCards />
+      {isError ? (
+        <div className="text-center py-10 text-red-500">
+          {params?.lang === "es-mx"
+            ? "Error al cargar los datos de las mascotas."
+            : "Error loading pet data."}
+        </div>
+      ) : (
+        <AdoptCards animals={animals} isLoading={isPending} />
+      )}
     </motion.section>
   );
 }
