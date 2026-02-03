@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { CakeIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import type { DogsDataType } from "@/db/dogs";
@@ -17,6 +17,7 @@ export default function AdoptCards({
   animals,
   isLoading = false,
 }: AdoptCardsProps) {
+  const router = useRouter();
   const pathname = usePathname();
   const params = useParams<{ lang?: string }>();
 
@@ -75,12 +76,25 @@ export default function AdoptCards({
                   </p>
                 </div>
                 <div className="p-4 border-t border-gray-200 text-center">
-                  <Link
-                    href={`/${params?.lang}/adopt/${dog.id}/info`}
-                    className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-800 transition-colors duration-300 font-bold cursor-pointer"
-                  >
-                    {content.button} {dog.name}
-                  </Link>
+                  {dog.availableForAdoption === "pending" ? (
+                    <button
+                      disabled
+                      className="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed font-bold"
+                    >
+                      {params?.lang === "es-mx"
+                        ? "Adopción en proceso"
+                        : "Adoption Pending"}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        router.push(`/${params?.lang}/adopt/${dog.id}/info`)
+                      }
+                      className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-800 transition-colors duration-300 font-bold cursor-pointer"
+                    >
+                      {content.button} {dog.name}
+                    </button>
+                  )}
                 </div>
               </div>
             ))

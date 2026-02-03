@@ -36,7 +36,7 @@ export default function SuccessVolunteerPage() {
             <h1 className="text-3xl sm:text-4xl font-bold mb-2">
               {content.thanksHeading}
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed max-w-md">
+            <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed max-w-md animate-pulse">
               {content.thanksMessage}
             </p>
           </div>
