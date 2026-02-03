@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { dogsData } from "@/db/dogs";
+import { useQuery } from "@tanstack/react-query";
 import type { DogsDataType } from "@/db/dogs";
 import {
   CakeIcon,
@@ -12,16 +12,20 @@ import {
   PaintBrushIcon,
 } from "@heroicons/react/20/solid";
 import { getAnimalInfo } from "@/lib/i18n/adopt/animal-info";
+import { getAnimalById } from "@/api/api";
 
 export default function AnimalInfo() {
   const params = useParams<{ lang?: string; slug?: string }>();
   const { slug } = params;
 
-  const dog: DogsDataType | undefined = dogsData.find(
-    (d) => d.id === Number(slug)
-  );
-
   const { content } = getAnimalInfo(params?.lang);
+
+  const { data } = useQuery({
+    queryKey: ["animal", slug],
+    queryFn: () => getAnimalById(Number(slug)),
+  });
+
+  const dog = data as DogsDataType | undefined;
 
   const genderKeyMap: Record<string, keyof typeof content.gender> = {
     Macho: "genderMale",
@@ -49,15 +53,15 @@ export default function AnimalInfo() {
   const attributeBadges = [
     {
       label: content.label.kids,
-      value: dog?.attributes.goodWithKids,
+      value: dog?.goodWithKids,
     },
     {
       label: content.label.dogs,
-      value: dog?.attributes.goodWithDogs,
+      value: dog?.goodWithDogs,
     },
     {
       label: content.label.houseTrained,
-      value: dog?.attributes.houseTrained,
+      value: dog?.homeTrained,
     },
   ];
 
@@ -102,7 +106,7 @@ export default function AnimalInfo() {
               &larr; {content.backLink}
             </Link>
             <Image
-              src={dog?.imageUrl || "/placeholder-dog.png"}
+              src={dog?.media?.[0]?.url || "/placeholder-dog.png"}
               alt={dog?.name || "Dog Image"}
               width={500}
               height={500}

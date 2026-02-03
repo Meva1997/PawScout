@@ -1,16 +1,43 @@
 "use client";
 
+import { useActionState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { getContactFormContent } from "@/lib/i18n/contact/contact-form";
+import { contactFormAction } from "@/actions/contact/contact-form-action";
+import { toast } from "react-toastify";
 
 export default function ContactForm() {
   const params = useParams<{ lang?: string }>();
   const { content } = getContactFormContent(params?.lang);
 
+  const [state, dispatch, isPending] = useActionState(contactFormAction, {
+    errors: [],
+    success: "",
+  });
+
+  useEffect(() => {
+    if (state.errors.length > 0) {
+      state.errors.forEach((error) => {
+        toast.error(error);
+      });
+    }
+    if (state.success) {
+      if (params?.lang === "es-mx") {
+        toast.success("Mensaje enviado con éxito");
+      } else {
+        toast.success(state.success || "Message sent successfully!");
+      }
+    }
+  }, [state, params?.lang]);
+
   return (
-    <form action="" className="bg-white p-6 rounded-lg shadow-md w-full">
+    <form
+      action={dispatch}
+      className="bg-white p-6 rounded-lg shadow-md w-full"
+    >
       <h3 className="font-bold text-xl">{content.heading}</h3>
       <p className="text-gray-500">{content.description}</p>
+      <input type="hidden" name="lang" value={params?.lang || "en"} />
       <div className="flex flex-col pt-4 gap-4 md:flex-row">
         <div className="flex-1 md:mr-2">
           <label
@@ -23,7 +50,7 @@ export default function ContactForm() {
             type="text"
             id="name"
             name="name"
-            required
+            defaultValue={(state.formData?.name as string) || ""}
             className="rounded-xl border-2 px-2 py-1 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 w-full outline-none"
             placeholder={content.fields.name.placeholder}
           />
@@ -39,7 +66,7 @@ export default function ContactForm() {
             type="text"
             id="lastName"
             name="lastName"
-            required
+            defaultValue={(state.formData?.lastName as string) || ""}
             className="rounded-xl border-2 px-2 py-1 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 w-full outline-none"
             placeholder={content.fields.lastName.placeholder}
           />
@@ -52,7 +79,8 @@ export default function ContactForm() {
             type="email"
             id="email"
             name="email"
-            required
+            inputMode="email"
+            defaultValue={(state.formData?.email as string) || ""}
             className="rounded-xl border-2 px-2 py-1 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 w-full outline-none mt-2"
             placeholder={content.fields.email.placeholder}
           />
@@ -62,8 +90,14 @@ export default function ContactForm() {
           <select
             name="subject"
             id="subject"
+            defaultValue={(state.formData?.subject as string) || ""}
             className="rounded-xl border-2 px-2 py-1 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 w-full outline-none mt-2"
           >
+            <option value="" disabled>
+              {params?.lang === "es-mx"
+                ? "Selecciona un asunto"
+                : "Select a subject"}
+            </option>
             {content.subject.options.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -77,16 +111,21 @@ export default function ContactForm() {
             id="message"
             name="message"
             rows={4}
-            required
+            defaultValue={(state.formData?.message as string) || ""}
             className="rounded-xl border-2 px-2 py-1 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 w-full outline-none mt-2"
             placeholder={content.message.placeholder}
           ></textarea>
         </label>
         <button
           type="submit"
-          className="bg-emerald-600 text-white font-bold py-2 px-4 rounded-xl hover:bg-emerald-800 transition-all cursor-pointer"
+          disabled={isPending}
+          className="bg-emerald-600 text-white font-bold py-2 px-4 rounded-xl hover:bg-emerald-800 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {content.submitLabel}
+          {isPending
+            ? params.lang === "es-mx"
+              ? "Enviando..."
+              : "Sending..."
+            : content.submitLabel}
         </button>
       </div>
     </form>

@@ -1,32 +1,61 @@
 "use client";
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useActionState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { getAdoptFormContent } from "@/lib/i18n/adopt/adopt-form";
+import { toast } from "react-toastify";
+import { adoptFormAction } from "@/actions/adopt/adopt-form-action";
 
 type FormAdoptProps = {
   slug: number;
 };
 
 export default function FormAdopt({ slug }: FormAdoptProps) {
+  const router = useRouter();
   const params = useParams<{ lang?: string }>();
   const { content } = getAdoptFormContent(params?.lang);
   const { fields } = content;
+
+  const formDispatchWithId = adoptFormAction.bind(null, slug);
+  const [state, dispatch, isPending] = useActionState(formDispatchWithId, {
+    errors: [],
+    success: "",
+  });
+
+  useEffect(() => {
+    if (state.errors.length > 0) {
+      state.errors.forEach((error) => {
+        toast.error(error);
+      });
+    }
+    if (state.success) {
+      if (params?.lang === "es-mx") {
+        toast.success("Formulario de adopción enviado con éxito");
+      } else if (params?.lang === "en") {
+        toast.success(state.success || "Adoption form submitted successfully!");
+      }
+
+      router.push(`/${params?.lang || "en"}/adopt/${slug}/adopt-form/success`);
+    }
+  }, [state, params?.lang, router]);
+
   return (
     <section className="bg-white p-6 rounded-lg">
       <h2 className="font-bold text-2xl py-8">{content.personalInfoTitle}</h2>
 
-      <form action="" className="space-y-4">
+      <form action={dispatch} className="space-y-4">
         <section className="grid md:grid-cols-2 gap-8">
           <div className="mb-4">
             <p className="font-semibold pb-2 text-gray-600">
               {fields.firstName.label}
             </p>
             <input type="hidden" name="slug" value={slug} />
+            <input type="hidden" name="lang" value={params?.lang || "en"} />
             <input
               type="text"
               inputMode="text"
-              name="firstname"
+              name="applicantName"
+              defaultValue={(state.formData?.applicantName as string) || ""}
               placeholder={fields.firstName.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -38,7 +67,8 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
             <input
               type="text"
               inputMode="text"
-              name="lastname"
+              name="applicantLastName"
+              defaultValue={(state.formData?.applicantLastName as string) || ""}
               placeholder={fields.lastName.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -53,6 +83,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
               type="email"
               inputMode="email"
               name="email"
+              defaultValue={(state.formData?.email as string) || ""}
               placeholder={fields.email.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -65,6 +96,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
               type="text"
               inputMode="text"
               name="phone"
+              defaultValue={(state.formData?.phone as string) || ""}
               placeholder={fields.phone.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -79,6 +111,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
               type="text"
               inputMode="text"
               name="address"
+              defaultValue={(state.formData?.address as string) || ""}
               placeholder={fields.address.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -91,6 +124,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
               type="text"
               inputMode="text"
               name="city"
+              defaultValue={(state.formData?.city as string) || ""}
               placeholder={fields.city.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -101,6 +135,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
               type="text"
               inputMode="text"
               name="state"
+              defaultValue={(state.formData?.state as string) || ""}
               placeholder={fields.state.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -110,7 +145,8 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
             <input
               type="text"
               inputMode="numeric"
-              name="postalCode"
+              name="zipCode"
+              defaultValue={(state.formData?.zipCode as string) || ""}
               placeholder={fields.postalCode.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -121,7 +157,8 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
             <p>{fields.birthDate.label}</p>
             <input
               type="date"
-              name="birthDate"
+              name="birthdate"
+              defaultValue={(state.formData?.birthdate as string) || ""}
               inputMode="numeric"
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -132,6 +169,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
               type="text"
               inputMode="text"
               name="occupation"
+              defaultValue={(state.formData?.occupation as string) || ""}
               placeholder={fields.occupation.placeholder}
               className="border border-gray-500 rounded-lg p-2 w-full"
             />
@@ -144,8 +182,9 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
           <h3 className="text-2xl font-bold">{content.interests.title}</h3>
 
           <textarea
-            name="interests"
-            id="interests"
+            name="reasonForAdoption"
+            id="reasonForAdoption"
+            defaultValue={(state.formData?.reasonForAdoption as string) || ""}
             className="border border-gray-500 rounded-lg p-2 w-full"
             placeholder={content.interests.placeholder}
             rows={4}
@@ -159,8 +198,9 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
           <h3 className="text-2xl font-bold">{content.experience.title}</h3>
 
           <textarea
-            name="experience"
-            id="experience"
+            name="experienceWithPets"
+            id="experienceWithPets"
+            defaultValue={(state.formData?.experienceWithPets as string) || ""}
             className="border border-gray-500 rounded-lg p-2 w-full"
             placeholder={content.experience.placeholder}
             rows={4}
@@ -177,11 +217,21 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
           </p>
           <div className="grid md:grid-cols-2 gap-4 mb-4">
             <label className="text-gray-600 font-semibold flex items-center gap-2">
-              <input type="radio" name="housingType" value="house" />
+              <input
+                type="radio"
+                name="homeType"
+                value="house"
+                defaultChecked={state.formData?.homeType === "house"}
+              />
               {content.homeInfo.housingOptions.house}
             </label>
             <label className="text-gray-600 font-semibold flex items-center gap-2">
-              <input type="radio" name="housingType" value="apartment" />
+              <input
+                type="radio"
+                name="homeType"
+                value="apartment"
+                defaultChecked={state.formData?.homeType === "apartment"}
+              />
               {content.homeInfo.housingOptions.apartment}
             </label>
           </div>
@@ -189,7 +239,8 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
             {content.homeInfo.householdLabel}
           </p>
           <textarea
-            name="householdMembers"
+            name="whoLivesInHouse"
+            defaultValue={(state.formData?.whoLivesInHouse as string) || ""}
             rows={4}
             className="border border-gray-500 rounded-lg p-2 w-full"
             placeholder={content.homeInfo.householdPlaceholder}
@@ -197,7 +248,11 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
         </section>
         <section className="pt-10">
           <div className="flex items-center gap-4 justify-center">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              name="agreeToTerms"
+              defaultChecked={state.formData?.agreeToTerms === true}
+            />
             <p className="text-gray-400">
               {content.terms.text}{" "}
               <span className="underline text-emerald-600 font-bold">
@@ -208,12 +263,14 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
           </div>
           {/* TODO: Implement form submission logic. Change Link to button and handle form submission */}
           <div className="mt-10 justify-center flex w-2/3 mx-auto">
-            <Link
-              href={`/${params?.lang}/adopt/${slug}/adopt-form/success`}
+            <button
+              type="submit"
+              disabled={isPending}
+              // onClick={() => router.push(`/${params?.lang}/adopt/${slug}/adopt-form/success`)}
               className="mt-6 bg-emerald-500 p-4 rounded-lg text-center font-black hover:bg-emerald-700 transition-colors cursor-pointer w-full"
             >
               {content.terms.buttonLabel}
-            </Link>
+            </button>
           </div>
         </section>
       </form>

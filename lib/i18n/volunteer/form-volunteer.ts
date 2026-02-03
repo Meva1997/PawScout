@@ -109,7 +109,7 @@ const volunteerFormContent: Record<
       heading: "Experiencia y habilidades",
       questions: {
         motivation: "¿Por qué quieres ser voluntario?",
-        skills: "¿Habilidades especiales? (opcional)",
+        skills: "¿Habilidades especiales? (Ninguna? Escribe 'Ninguna')",
       },
       placeholders: {
         motivation: "Escribe aquí...",
@@ -180,7 +180,7 @@ const volunteerFormContent: Record<
       heading: "Experience & skills",
       questions: {
         motivation: "Why do you want to volunteer?",
-        skills: "Special skills? (optional)",
+        skills: "Special skills? (None? Write 'None')",
       },
       placeholders: {
         motivation: "Write here...",

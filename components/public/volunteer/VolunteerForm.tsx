@@ -1,18 +1,46 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useActionState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { UserIcon, HeartIcon, BookOpenIcon } from "@heroicons/react/20/solid";
 import { CalendarIcon, IdentificationIcon } from "@heroicons/react/24/outline";
+import { toast } from "react-toastify";
 import { getVolunteerFormContent } from "@/lib/i18n/volunteer/form-volunteer";
+import { volunteerFormAction } from "@/actions/volunteer/volunteer-form-action";
 
 export default function VolunteerForm() {
+  const router = useRouter();
   const params = useParams<{ lang?: string }>();
   const langParam = typeof params?.lang === "string" ? params.lang : undefined;
   const { content } = getVolunteerFormContent(langParam);
 
+  const [state, dispatch, isPending] = useActionState(volunteerFormAction, {
+    errors: [],
+    success: "",
+  });
+
+  useEffect(() => {
+    if (state.errors.length > 0) {
+      state.errors.forEach((error) => {
+        toast.error(error);
+      });
+    }
+    if (state.success) {
+      if (params?.lang === "es-mx") {
+        toast.success("Formulario de voluntariado enviado con éxito");
+      } else {
+        toast.success(
+          state.success || "Volunteer form submitted successfully!",
+        );
+      }
+      router.push(`/${params?.lang || "en"}/volunteer/form/success`);
+    }
+  }, [state, params?.lang, router]);
+
   return (
     <article className="max-w-5xl mx-auto p-8 bg-white rounded-2xl shadow-xl">
-      <form action="">
+      <form action={dispatch} className="space-y-4">
+        <input type="hidden" name="lang" value={params?.lang || "en"} />
         <section>
           <h2 className="font-bold text-2xl pb-6">
             <UserIcon className="h-10 inline-block mr-2 text-emerald-600" />
@@ -23,16 +51,16 @@ export default function VolunteerForm() {
 
           <div className="grid grid-cols-2">
             <div className="flex flex-col mb-4 mr-4">
-              <label htmlFor="firstName" className="mb-2 font-semibold">
+              <label htmlFor="name" className="mb-2 font-semibold">
                 {content.personal.fields.firstName.label}
               </label>
               <input
                 type="text"
-                id="firstName"
-                name="firstName"
+                id="name"
+                name="name"
+                defaultValue={(state.formData?.name as string) || ""}
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full"
                 placeholder={content.personal.fields.firstName.placeholder}
-                required
               />
             </div>
             <div className="flex flex-col mb-4">
@@ -43,9 +71,9 @@ export default function VolunteerForm() {
                 type="text"
                 id="lastName"
                 name="lastName"
+                defaultValue={(state.formData?.lastName as string) || ""}
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full"
                 placeholder={content.personal.fields.lastName.placeholder}
-                required
               />
             </div>
             <div className="flex flex-col mb-4 mr-4">
@@ -56,9 +84,9 @@ export default function VolunteerForm() {
                 type="email"
                 id="email"
                 name="email"
+                defaultValue={(state.formData?.email as string) || ""}
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full"
                 placeholder={content.personal.fields.email.placeholder}
-                required
               />
             </div>
             <div className="flex flex-col mb-4">
@@ -69,9 +97,9 @@ export default function VolunteerForm() {
                 type="tel"
                 id="phone"
                 name="phone"
+                defaultValue={(state.formData?.phone as string) || ""}
                 className="border border-gray-300 p-2 rounded-full bg-gray-100"
                 placeholder={content.personal.fields.phone.placeholder}
-                required
               />
             </div>
           </div>
@@ -90,8 +118,11 @@ export default function VolunteerForm() {
               <label key={day.value} className="flex items-center">
                 <input
                   type="checkbox"
-                  name="days"
+                  name="availableDays"
                   value={day.value}
+                  defaultChecked={state.formData?.availableDays?.includes(
+                    day.value,
+                  )}
                   className="mr-2"
                 />
                 {day.label}
@@ -103,9 +134,15 @@ export default function VolunteerForm() {
               {content.availability.preferredLabel}
             </p>
             <select
-              name="preferredTime"
+              name="availability"
+              defaultValue={state.formData?.availability?.[0] || ""}
               className="border border-gray-300 bg-gray-100 p-2 rounded-full w-full max-w-xs"
             >
+              <option value="" disabled>
+                {params?.lang === "es-mx"
+                  ? "Selecciona una opción"
+                  : "Select an option"}
+              </option>
               {content.availability.preferredOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -127,8 +164,11 @@ export default function VolunteerForm() {
               <label key={area.value} className="flex items-center mb-4">
                 <input
                   type="checkbox"
-                  name="areas"
+                  name="areasOfInterest"
                   value={area.value}
+                  defaultChecked={state.formData?.areasOfInterest?.includes(
+                    area.value,
+                  )}
                   className="mr-2"
                 />
                 {area.label}
@@ -148,9 +188,10 @@ export default function VolunteerForm() {
               {content.experience.questions.motivation}
             </p>
             <textarea
-              name="textVolunteer"
-              id="textVolunteer"
+              name="whyVolunteer"
+              id="whyVolunteer"
               rows={4}
+              defaultValue={(state.formData?.whyVolunteer as string) || ""}
               className="border border-gray-300 bg-gray-100 p-2 rounded-lg w-full h-32 mt-2"
               placeholder={content.experience.placeholders.motivation}
             ></textarea>
@@ -160,6 +201,7 @@ export default function VolunteerForm() {
             <textarea
               name="specialSkills"
               id="specialSkills"
+              defaultValue={(state.formData?.specialSkills as string) || ""}
               className="border border-gray-300 bg-gray-100 p-2 rounded-lg w-full h-10 mt-2"
               placeholder={content.experience.placeholders.skills}
             ></textarea>
@@ -178,6 +220,9 @@ export default function VolunteerForm() {
               <input
                 type="text"
                 name="emergencyContactName"
+                defaultValue={
+                  (state.formData?.emergencyContactName as string) || ""
+                }
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full w-full max-w-3xl mt-2"
                 placeholder={content.emergency.placeholders.name}
               />
@@ -187,6 +232,9 @@ export default function VolunteerForm() {
               <input
                 type="tel"
                 name="emergencyContactPhone"
+                defaultValue={
+                  (state.formData?.emergencyContactPhone as string) || ""
+                }
                 className="border border-gray-300 bg-gray-100 p-2 rounded-full w-full max-w-3xl mt-2"
                 placeholder={content.emergency.placeholders.phone}
               />
@@ -198,7 +246,12 @@ export default function VolunteerForm() {
 
         <section>
           <div className="flex items-center justify-center max-w-lg mx-auto gap-4">
-            <input type="checkbox" className="mr-2" name="terms" />
+            <input
+              type="checkbox"
+              className="mr-2"
+              name="privacyAgreement"
+              defaultChecked={state.formData?.privacyAgreement === true}
+            />
             <p className="text-gray-400">
               {content.terms.text}{" "}
               <span className="text-emerald-600 font-bold">
@@ -207,11 +260,18 @@ export default function VolunteerForm() {
               .
             </p>
           </div>
+
+          <input type="hidden" name="date" value={new Date().toISOString()} />
           <button
             type="submit"
-            className="mt-8 bg-emerald-500 text-black font-bold px-6 py-3 rounded-full hover:bg-emerald-700 transition-colors duration-300 mx-auto block cursor-pointer"
+            disabled={isPending}
+            className="mt-8 bg-emerald-500 text-black font-bold px-6 py-3 rounded-full hover:bg-emerald-700 transition-colors duration-300 mx-auto block cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {content.submitLabel}
+            {isPending
+              ? params?.lang === "es-mx"
+                ? "Enviando..."
+                : "Submitting..."
+              : content.submitLabel}
           </button>
           <p className="text-center mt-6 text-gray-400">{content.reviewText}</p>
         </section>
