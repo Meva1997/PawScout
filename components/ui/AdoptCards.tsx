@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { CakeIcon } from "@heroicons/react/20/solid";
@@ -54,7 +53,7 @@ export default function AdoptCards({
                   alt={dog.name}
                   width={400}
                   height={300}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-50 object-cover"
                 />
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-gray-900">
