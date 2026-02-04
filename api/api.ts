@@ -23,3 +23,17 @@ export async function getAnimalById(id: number) {
   const json = await req.json();
   return json;
 }
+
+export async function getAdminStats(token: string) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard`;
+
+  const req = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = await req.json();
+  return json;
+}
