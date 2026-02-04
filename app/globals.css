@@ -4,3 +4,47 @@ body {
   font-family: var(--font-google-sans-flex), sans-serif, system-ui, -apple-system,
   "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+
+/* Swiper Navigation Buttons - Custom positioning */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #10b981 !important; /* emerald-500 */
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px !important;
+}
+
+/* Evitar que los botones se salgan del contenedor */
+.swiper-button-next {
+  right: 10px !important;
+}
+
+.swiper-button-prev {
+  left: 10px !important;
+}
+
+/* Opcional: Fondo semi-transparente para mejor visibilidad */
+.swiper-button-next,
+.swiper-button-prev {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Estilo para thumbnail activo */
+.swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.swiper-slide-thumb-active > div {
+  border-color: #10b981 !important; /* emerald-500 */
+}

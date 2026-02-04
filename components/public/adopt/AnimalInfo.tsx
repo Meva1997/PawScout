@@ -1,10 +1,8 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import type { DogsDataType } from "@/db/dogs";
 import {
   CakeIcon,
   QuestionMarkCircleIcon,
@@ -12,9 +10,13 @@ import {
   PaintBrushIcon,
 } from "@heroicons/react/20/solid";
 import { getAnimalInfo } from "@/lib/i18n/adopt/animal-info";
+import type { DogsDataType } from "@/db/dogs";
 import { getAnimalById } from "@/api/api";
+import SwiperCarousel from "@/components/ui/SwiperCarousel";
 
 export default function AnimalInfo() {
+  const router = useRouter();
+
   const params = useParams<{ lang?: string; slug?: string }>();
   const { slug } = params;
 
@@ -97,24 +99,16 @@ export default function AnimalInfo() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.4 }}
       >
-        <article className="grid md:grid-cols-2 gap-6">
-          <figure className="flex flex-col">
+        <article className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4">
+          <figure className="flex flex-col mx-auto w-full max-w-2xl lg:max-w-none">
             <Link
-              href="/adopt"
+              href={`/${params?.lang}/adopt`}
               className="text-emerald-600 font-bold mb-2 hover:text-emerald-800"
             >
               &larr; {content.backLink}
             </Link>
-            <Image
-              src={dog?.media?.[0]?.url || "/placeholder-dog.png"}
-              alt={dog?.name || "Dog Image"}
-              width={500}
-              height={500}
-              className="w-full h-auto rounded-lg"
-            />
-            <figcaption className="sr-only">
-              Galería de imágenes del perro seleccionado
-            </figcaption>
+            {/* Image gallery with thumbnails */}
+            <SwiperCarousel dog={dog} />
           </figure>
           <motion.div
             className="flex flex-col"
@@ -174,13 +168,16 @@ export default function AnimalInfo() {
               </p>
             </section>
             <section className="mt-6 bg-emerald-500 p-4 rounded-lg text-center font-black hover:bg-emerald-700 transition-colors cursor-pointer">
-              <Link
-                href={`/${params?.lang}/adopt/${dog?.id}/adopt-form`}
+              <button
+                onClick={() =>
+                  router.push(`/${params?.lang}/adopt/${dog?.id}/adopt-form`)
+                }
                 role="button"
                 aria-label={`Aplicar para adoptar a ${dog?.name}`}
+                className="cursor-pointer"
               >
                 {content.linkToAdopt} -&gt;{" "}
-              </Link>
+              </button>
             </section>
           </motion.div>
         </article>
