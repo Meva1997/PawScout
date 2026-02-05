@@ -261,7 +261,7 @@ export default function FormAdopt({ slug }: FormAdoptProps) {
               {content.terms.suffix}
             </p>
           </div>
-          {/* TODO: Implement form submission logic. Change Link to button and handle form submission */}
+
           <div className="mt-10 justify-center flex w-2/3 mx-auto">
             <button
               type="submit"

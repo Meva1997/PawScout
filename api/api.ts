@@ -136,3 +136,31 @@ export async function deleteAnimal(token: string, animalId: number) {
   const json = await req.json();
   return json;
 }
+
+export async function getAdoptionRequests(token: string) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/admin/adoptions`;
+
+  const req = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = await req.json();
+  return json;
+}
+
+export async function getAdoptionRequestById(token: string, requestId: number) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/adopt/${requestId}`;
+
+  const req = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = await req.json();
+  return json;
+}

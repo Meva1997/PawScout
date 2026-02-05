@@ -115,5 +115,11 @@ export const getAdoptSchema = (lang: string = "en") => {
       message: messages.agreeToTerms.required,
     }),
     date: z.string(),
+    status: z.string(),
   });
+};
+
+export type AdoptSchemaType = z.infer<ReturnType<typeof getAdoptSchema>> & {
+  id: number;
+  status?: "pending" | "approved" | "rejected";
 };
