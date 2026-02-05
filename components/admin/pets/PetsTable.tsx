@@ -1,94 +1,106 @@
-type AnimalInfo = {
-  name: string;
-  species: string;
-  age: string;
-  location: string;
-  status: string;
-};
+import { getAllAnimals } from "@/api/api";
+import { DogsDataType } from "@/db/dogs";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
 const tableHeaders = [
   "Imagen",
   "Nombre",
   "Especie / Edad",
-  "Ubicación",
   "Status",
   "Acciones",
 ];
 
-const animalInfo: AnimalInfo[] = [
-  {
-    name: "Max",
-    species: "Perro",
-    age: "3 años",
-    location: "Cuarto numero 5",
-    status: "Adoptado",
-  },
-  {
-    name: "Luna",
-    species: "Gato",
-    age: "2 años",
-    location: "Cuarto numero 3",
-    status: "Disponible",
-  },
-  {
-    name: "Charlie",
-    species: "Perro",
-    age: "4 años",
-    location: "Cuarto numero 1",
-    status: "Adoptado",
-  },
-  {
-    name: "Bella",
-    species: "Gato",
-    age: "1 año",
-    location: "Cuarto numero 4",
-    status: "Disponible",
-  },
-];
+type PetsTableProps = {
+  onEditAnimal: (animal: DogsDataType) => void;
+  onDeleteAnimal: (animal: DogsDataType) => void;
+  // token?: string;
+};
 
-export default function PetsTable() {
-  function getStatusClass(status: string) {
-    switch (status) {
-      case "Adoptado":
-        return "text-green-500";
-      case "Disponible":
-        return "text-yellow-500";
-      default:
-        return "text-gray-500";
+export default function PetsTable({
+  onEditAnimal,
+  onDeleteAnimal,
+  // token,
+}: PetsTableProps) {
+  const { data, isError, isLoading } = useQuery({
+    queryKey: ["animals"],
+    queryFn: getAllAnimals,
+  });
+
+  const animals: DogsDataType[] = Array.isArray(data?.animals)
+    ? data.animals
+    : [];
+
+  const statusBadge = (available: string) => {
+    if (available === "available") {
+      return "text-green-500";
+    } else if (available === "adopted") {
+      return "text-red-500";
+    } else {
+      return "text-yellow-500";
     }
+  };
+
+  if (isError) {
+    return (
+      <div className="text-center py-10 text-red-500 animate-pulse">
+        Error al cargar los datos de las mascotas.
+      </div>
+    );
   }
+
+  if (isLoading) {
+    return (
+      <div className="text-center py-10 text-white/60 animate-pulse">
+        Cargando datos de las mascotas...
+      </div>
+    );
+  }
+
   return (
     <>
       {/* Mobile-friendly cards */}
       <div className="space-y-4 md:hidden">
-        {animalInfo.map((animal, index) => (
+        {animals.map((animal) => (
           <article
-            key={`${animal.name}-${index}`}
+            key={`${animal.id}`}
             className="rounded-2xl border border-white/10 bg-white/5/20 p-4 text-white/80"
           >
             <div className="flex items-center gap-3">
-              <div className="size-14 rounded-xl bg-white/10"></div>
+              <div className="size-14 rounded-xl bg-white/10">
+                <Image
+                  src={animal.media?.[0]?.url}
+                  alt={animal.name}
+                  width={56}
+                  height={56}
+                  className="w-full h-full object-cover rounded-xl"
+                />
+              </div>
               <div>
                 <p className="text-lg font-semibold text-white">
                   {animal.name}
                 </p>
                 <p className="text-sm text-white/60">
-                  {animal.species} · {animal.age}
+                  {animal.breed} · {animal.age}
                 </p>
               </div>
             </div>
             <div className="mt-4 space-y-2 text-sm">
-              <p>
-                <span className="text-white/50">Ubicación:</span>{" "}
-                {animal.location}
+              <p className={statusBadge(animal.availableForAdoption)}>
+                {animal.availableForAdoption}
               </p>
-              <p className={getStatusClass(animal.status)}>{animal.status}</p>
             </div>
             <div className="mt-4 flex items-center gap-4 text-sm">
-              <button className="text-[#19e6b3] hover:underline hover:cursor-pointer">
+              <button
+                onClick={() => onEditAnimal(animal)}
+                className="text-[#19e6b3] hover:underline hover:cursor-pointer"
+              >
                 Editar
               </button>
-              <button className="text-red-500 hover:underline hover:cursor-pointer">
+              <button
+                onClick={() => onDeleteAnimal(animal)}
+                className="text-red-500 hover:underline hover:cursor-pointer"
+              >
                 Eliminar
               </button>
             </div>
@@ -110,28 +122,44 @@ export default function PetsTable() {
               </tr>
             </thead>
             <tbody>
-              {animalInfo.map((animal, index) => (
+              {animals.map((animal) => (
                 <tr
-                  key={`${animal.name}-desktop-${index}`}
+                  key={`${animal.id}-desktop`}
                   className="border-b border-white/10 hover:bg-white/5"
                 >
                   <td className="py-3 px-4">
-                    <div className="size-12 rounded-lg bg-white/10"></div>
+                    <div className="size-12 rounded-lg bg-white/10">
+                      <Image
+                        src={animal.media?.[0]?.url}
+                        alt={animal.name}
+                        width={48}
+                        height={48}
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                    </div>
                   </td>
                   <td className="py-3 px-4">{animal.name}</td>
                   <td className="py-3 px-4">
-                    {animal.species} / {animal.age}
+                    {animal.breed} / {animal.age}
                   </td>
-                  <td className="py-3 px-4">{animal.location}</td>
-                  <td className={`py-3 px-4 ${getStatusClass(animal.status)}`}>
-                    {animal.status}
+
+                  <td
+                    className={`py-3 px-4 ${statusBadge(animal.availableForAdoption)}`}
+                  >
+                    {animal.availableForAdoption}
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex flex-col gap-1">
-                      <button className="text-sm text-[#19e6b3] hover:underline hover:cursor-pointer">
+                      <button
+                        onClick={() => onEditAnimal(animal)}
+                        className="text-sm text-[#19e6b3] hover:underline hover:cursor-pointer"
+                      >
                         Editar
                       </button>
-                      <button className="text-sm text-red-500 hover:underline hover:cursor-pointer">
+                      <button
+                        onClick={() => onDeleteAnimal(animal)}
+                        className="text-red-500 hover:underline hover:cursor-pointer"
+                      >
                         Eliminar
                       </button>
                     </div>

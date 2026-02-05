@@ -30,14 +30,14 @@ export default function AnimalInfo() {
   const dog = data as DogsDataType | undefined;
 
   const genderKeyMap: Record<string, keyof typeof content.gender> = {
-    Macho: "genderMale",
-    Hembra: "genderFemale",
+    Male: "genderMale",
+    Female: "genderFemale",
   };
 
   const sizeKeyMap: Record<string, keyof typeof content.size> = {
-    Pequeño: "small",
-    Mediano: "medium",
-    Grande: "large",
+    Small: "small",
+    Medium: "medium",
+    Large: "large",
   };
 
   const translateGender = (value?: string) => {
@@ -163,7 +163,7 @@ export default function AnimalInfo() {
               <h2 className="text-2xl font-bold mb-4">
                 {content.about} {dog?.name} ✨
               </h2>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 leading-relaxed wrap-break-word">
                 {dog?.longDescription}
               </p>
             </section>

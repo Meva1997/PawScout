@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { CakeIcon } from "@heroicons/react/20/solid";
@@ -54,7 +53,7 @@ export default function AdoptCards({
                   alt={dog.name}
                   width={400}
                   height={300}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-50 object-cover"
                 />
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-gray-900">
@@ -75,27 +74,35 @@ export default function AdoptCards({
                     {content.genderValues[dog.gender] ?? dog.gender}
                   </p>
                 </div>
-                <div className="p-4 border-t border-gray-200 text-center">
-                  {dog.availableForAdoption === "pending" ? (
-                    <button
-                      disabled
-                      className="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed font-bold"
-                    >
-                      {params?.lang === "es-mx"
-                        ? "Adopción en proceso"
-                        : "Adoption Pending"}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() =>
-                        router.push(`/${params?.lang}/adopt/${dog.id}/info`)
-                      }
-                      className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-800 transition-colors duration-300 font-bold cursor-pointer"
-                    >
-                      {content.button} {dog.name}
-                    </button>
-                  )}
-                </div>
+                {dog.availableForAdoption === "adopted" ? (
+                  <div className="text-center bg-red-400 border border-red-600 rounded-2xl px-4 py-2 w-2/3 mx-auto my-4">
+                    <span className="text-white font-bold">
+                      {params?.lang === "es-mx" ? "Adoptado" : "Adopted"}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="p-4 border-t border-gray-200 text-center">
+                    {dog.availableForAdoption === "pending" ? (
+                      <button
+                        disabled
+                        className="bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed font-bold"
+                      >
+                        {params?.lang === "es-mx"
+                          ? "Adopción en proceso"
+                          : "Adoption Pending"}
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          router.push(`/${params?.lang}/adopt/${dog.id}/info`)
+                        }
+                        className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-800 transition-colors duration-300 font-bold cursor-pointer"
+                      >
+                        {content.button} {dog.name}
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             ))
           )}
