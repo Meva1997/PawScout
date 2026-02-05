@@ -78,3 +78,61 @@ export async function uploadMultipleImages(token: string, files: FileList) {
   const json = await req.json();
   return json;
 }
+
+export async function updateAnimal(
+  token: string,
+  animalId: number,
+  animalData: CreateAnimalFormData,
+) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/animals/${animalId}`;
+
+  const req = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(animalData),
+  });
+
+  const json = await req.json();
+  return json;
+}
+
+export async function deleteImage(
+  token: string,
+  publicId: string,
+  resourceType: string = "image",
+) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/media/delete`;
+
+  const req = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      public_id: publicId,
+      resource_type: resourceType,
+    }),
+  });
+
+  const json = await req.json();
+  return json;
+}
+
+export async function deleteAnimal(token: string, animalId: number) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/animals/${animalId}`;
+
+  const req = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const json = await req.json();
+  return json;
+}

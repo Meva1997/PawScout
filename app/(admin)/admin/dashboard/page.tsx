@@ -82,7 +82,7 @@ export default async function page() {
             <ul className="space-y-4">
               {animals.map((animal) => (
                 <li
-                  key={animal.name}
+                  key={animal.id}
                   className="flex justify-between border-b border-white/10 pb-2"
                 >
                   <div>

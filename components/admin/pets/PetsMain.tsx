@@ -1,9 +1,11 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import type { DogsDataType } from "@/db/dogs";
 import PetsTable from "@/components/admin/pets/PetsTable";
 import NewPetForm from "@/components/admin/pets/NewPetForm";
+import ConfirmModalDelete from "@/components/ui/ConfirmModalDelete";
 
 type PetsMainProps = {
   token: string;
@@ -21,13 +23,26 @@ function PetsPageContent({ token }: PetsMainProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isCreatingPet = searchParams.get("modal") === "new";
+  const isEditingPet = searchParams.get("modal") === "edit";
+
+  const [animalToEdit, setAnimalToEdit] = useState<DogsDataType | null>(null);
 
   const handleCloseModal = () => {
     router.push("/admin/pets");
+    setAnimalToEdit(null);
   };
 
   const handleOpenModal = () => {
     router.push("/admin/pets?modal=new");
+  };
+
+  const handleEditAnimal = (animal: DogsDataType) => {
+    setAnimalToEdit(animal);
+    router.push("/admin/pets?modal=edit");
+  };
+
+  const handleDeleteAnimal = (animal: DogsDataType) => {
+    router.push(`/admin/pets?modal=delete&animalId=${animal.id}`);
   };
 
   return (
@@ -52,18 +67,25 @@ function PetsPageContent({ token }: PetsMainProps) {
         </article>
       </section>
       <section className="space-y-6">
-        <PetsTable />
+        <PetsTable
+          onEditAnimal={handleEditAnimal}
+          onDeleteAnimal={handleDeleteAnimal}
+          // token={token}
+        />
       </section>
 
-      {/* Form add new pet */}
-      {isCreatingPet && (
+      {/* Form add/edit pet */}
+      {(isCreatingPet || isEditingPet) && (
         <NewPetForm
-          isOpen={isCreatingPet}
+          isOpen={isCreatingPet || isEditingPet}
           onCloseAction={handleCloseModal}
           token={token}
+          animalToEdit={isEditingPet ? animalToEdit : null}
         />
       )}
-      <div className="hidden"></div>
+
+      {/* Modal de confirmación para eliminar */}
+      <ConfirmModalDelete token={token} />
     </>
   );
 }

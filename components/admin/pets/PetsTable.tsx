@@ -11,7 +11,17 @@ const tableHeaders = [
   "Acciones",
 ];
 
-export default function PetsTable() {
+type PetsTableProps = {
+  onEditAnimal: (animal: DogsDataType) => void;
+  onDeleteAnimal: (animal: DogsDataType) => void;
+  // token?: string;
+};
+
+export default function PetsTable({
+  onEditAnimal,
+  onDeleteAnimal,
+  // token,
+}: PetsTableProps) {
   const { data, isError, isLoading } = useQuery({
     queryKey: ["animals"],
     queryFn: getAllAnimals,
@@ -81,10 +91,16 @@ export default function PetsTable() {
               </p>
             </div>
             <div className="mt-4 flex items-center gap-4 text-sm">
-              <button className="text-[#19e6b3] hover:underline hover:cursor-pointer">
+              <button
+                onClick={() => onEditAnimal(animal)}
+                className="text-[#19e6b3] hover:underline hover:cursor-pointer"
+              >
                 Editar
               </button>
-              <button className="text-red-500 hover:underline hover:cursor-pointer">
+              <button
+                onClick={() => onDeleteAnimal(animal)}
+                className="text-red-500 hover:underline hover:cursor-pointer"
+              >
                 Eliminar
               </button>
             </div>
@@ -106,9 +122,9 @@ export default function PetsTable() {
               </tr>
             </thead>
             <tbody>
-              {animals.map((animal, index) => (
+              {animals.map((animal) => (
                 <tr
-                  key={`${animal.name}-desktop-${index}`}
+                  key={`${animal.id}-desktop`}
                   className="border-b border-white/10 hover:bg-white/5"
                 >
                   <td className="py-3 px-4">
@@ -134,10 +150,16 @@ export default function PetsTable() {
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex flex-col gap-1">
-                      <button className="text-sm text-[#19e6b3] hover:underline hover:cursor-pointer">
+                      <button
+                        onClick={() => onEditAnimal(animal)}
+                        className="text-sm text-[#19e6b3] hover:underline hover:cursor-pointer"
+                      >
                         Editar
                       </button>
-                      <button className="text-sm text-red-500 hover:underline hover:cursor-pointer">
+                      <button
+                        onClick={() => onDeleteAnimal(animal)}
+                        className="text-red-500 hover:underline hover:cursor-pointer"
+                      >
                         Eliminar
                       </button>
                     </div>

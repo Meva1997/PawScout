@@ -1,6 +1,7 @@
 export type DogsDataType = {
   id: number;
   name: string;
+  type: string;
   age: number;
   size: string;
   breed: string;
@@ -13,5 +14,5 @@ export type DogsDataType = {
   homeTrained: boolean;
   // };
   availableForAdoption: string;
-  media: { url: string }[];
+  media: { url: string; public_id: string; resource_type: string }[];
 };
