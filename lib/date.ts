@@ -5,7 +5,7 @@ export function formatDate(dateString: string): string {
     month: "long",
     day: "numeric",
   };
-  return date.toLocaleDateString(undefined, options);
+  return date.toLocaleDateString("es-MX", options);
 }
 
 export function formatDateTime(dateString: string): string {
@@ -17,5 +17,5 @@ export function formatDateTime(dateString: string): string {
     hour: "2-digit",
     minute: "2-digit",
   };
-  return date.toLocaleDateString(undefined, options);
+  return date.toLocaleDateString("es-MX", options);
 }
