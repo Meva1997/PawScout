@@ -6,6 +6,7 @@ import type { DogsDataType } from "@/db/dogs";
 import PetsTable from "@/components/admin/pets/PetsTable";
 import NewPetForm from "@/components/admin/pets/NewPetForm";
 import ConfirmModalDelete from "@/components/ui/ConfirmModalDelete";
+import { deleteAnimal } from "@/api/api";
 
 type PetsMainProps = {
   token: string;
@@ -85,7 +86,14 @@ function PetsPageContent({ token }: PetsMainProps) {
       )}
 
       {/* Modal de confirmación para eliminar */}
-      <ConfirmModalDelete token={token} />
+      <ConfirmModalDelete
+        token={token}
+        entityName="animal"
+        entityNamePlural="este animal"
+        deleteFnAction={deleteAnimal}
+        queryKey="animals"
+        idParamName="animalId"
+      />
     </>
   );
 }

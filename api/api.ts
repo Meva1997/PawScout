@@ -1,4 +1,5 @@
 import { CreateAnimalFormData } from "@/schemas/dashboard-schema";
+import { VolunteerSchemaType } from "@/schemas/volunteer-schema";
 
 export async function getAllAnimals() {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/animals`;
@@ -161,6 +162,84 @@ export async function getAdoptionRequestById(token: string, requestId: number) {
       Authorization: `Bearer ${token}`,
     },
   });
+  const json = await req.json();
+  return json;
+}
+
+export async function getAllVolunteers(token: string) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/volunteer`;
+
+  const req = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = await req.json();
+  return json;
+}
+
+export async function getVolunteerById(token: string, volunteerId: number) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/volunteer/${volunteerId}`;
+
+  const req = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = await req.json();
+  return json;
+}
+
+export async function postVolunteer(volunteerData: VolunteerSchemaType) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/volunteer`;
+
+  const req = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(volunteerData),
+  });
+
+  const json = await req.json();
+  return json;
+}
+
+export async function deleteVolunteer(token: string, volunteerId: number) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/volunteer/${volunteerId}`;
+
+  const req = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const json = await req.json();
+  return json;
+}
+
+export async function updateVolunteer(
+  token: string,
+  volunteerId: number,
+  volunteerData: VolunteerSchemaType,
+) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/volunteer/${volunteerId}`;
+
+  const req = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(volunteerData),
+  });
+
   const json = await req.json();
   return json;
 }

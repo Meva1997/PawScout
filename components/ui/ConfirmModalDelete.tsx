@@ -8,13 +8,24 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { deleteAnimal } from "@/api/api";
 
 type ConfirmModalDeleteProps = {
   token: string;
+  entityName: string; // "animal", "voluntario", etc.
+  entityNamePlural?: string; // "animales", "voluntarios" para invalidar queries
+  deleteFnAction: (token: string, id: number) => Promise<unknown>;
+  queryKey: string | string[]; // query key para invalidar
+  idParamName?: string; // nombre del parámetro en la URL (default: "id")
 };
 
-export default function ConfirmModalDelete({ token }: ConfirmModalDeleteProps) {
+export default function ConfirmModalDelete({
+  token,
+  entityName,
+  entityNamePlural,
+  deleteFnAction,
+  queryKey,
+  idParamName = "id",
+}: ConfirmModalDeleteProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -30,23 +41,24 @@ export default function ConfirmModalDelete({ token }: ConfirmModalDeleteProps) {
   };
 
   const mutation = useMutation({
-    mutationFn: (animalId: number) => deleteAnimal(token, animalId),
+    mutationFn: (id: number) => deleteFnAction(token, id),
 
     onSuccess: async () => {
-      // Refrescar la lista de animales después de eliminar
-      await queryClient.invalidateQueries({ queryKey: ["animals"] });
+      // Refrescar la lista después de eliminar
+      const key = typeof queryKey === "string" ? [queryKey] : queryKey;
+      await queryClient.invalidateQueries({ queryKey: key });
       handleClose();
     },
     onError: (error) => {
-      console.error("Error al eliminar el animal:", error);
+      console.error(`Error al eliminar ${entityName}:`, error);
     },
   });
 
   const handleDelete = () => {
-    const animalId = searchParams.get("animalId");
-    if (!animalId) return;
+    const id = searchParams.get(idParamName);
+    if (!id) return;
 
-    mutation.mutate(Number(animalId));
+    mutation.mutate(Number(id));
   };
 
   return (
@@ -56,30 +68,33 @@ export default function ConfirmModalDelete({ token }: ConfirmModalDeleteProps) {
         onClose={handleClose}
         className="relative z-50"
       >
-        <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-          <DialogPanel className="max-w-lg space-y-4 border bg-gray-800 p-12 rounded-2xl  shadow-lg">
+        <div className="fixed inset-0 flex w-screen items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <DialogPanel className="max-w-lg space-y-4 border border-white/10 bg-gray-800 p-12 rounded-2xl shadow-lg">
             <DialogTitle className="font-bold text-2xl text-red-600">
-              Eliminar Animal
+              Eliminar {entityName}
             </DialogTitle>
             <Description className="text-gray-300 mb-4">
-              Esto hara que{" "}
+              Esto hará que{" "}
               <span className="font-bold text-red-600">permanentemente</span>{" "}
-              elimine el animal de la base de datos.
+              elimine {entityNamePlural || `este ${entityName}`} de la base de
+              datos.
             </Description>
             <p className="text-gray-300 mb-4">
-              ¿Estás seguro de que deseas eliminar este animal? Esta acción no
-              se puede deshacer.
+              ¿Estás seguro de que deseas eliminar{" "}
+              {entityNamePlural || `este ${entityName}`}? Esta acción no se
+              puede deshacer.
             </p>
-            <div className="flex  gap-4">
+            <div className="flex gap-4">
               <button
                 onClick={handleClose}
-                className="px-4 py-2 bg-gray-700 rounded-md cursor-pointer text-white"
+                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md cursor-pointer text-white transition"
               >
                 Cancelar
               </button>
               <button
                 onClick={handleDelete}
-                className="px-4 py-2 bg-red-600 border border-red-800 rounded-md text-white cursor-pointer"
+                disabled={mutation.isPending}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 border border-red-800 rounded-md text-white cursor-pointer transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {mutation.isPending ? "Eliminando..." : "Eliminar"}
               </button>
