@@ -11,11 +11,8 @@ export default function page() {
           </h1>
           <p>Ajusta las configuraciones de tu página aquí.</p>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-3">
           <LogOutButton />
-          <button className="bg-emerald-500 text-white px-4 py-2 rounded-2xl hover:bg-emerald-600 transition cursor-pointer font-semibold">
-            Guardar cambios
-          </button>
         </div>
       </section>
 

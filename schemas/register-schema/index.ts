@@ -54,3 +54,18 @@ export const registerSchema = getRegisterSchema("es-mx");
 export const successSchema = z.object({
   success: z.string(),
 });
+
+export const getEmailSubscriptionSchema = (lang: string = "en") => {
+  const messages = {
+    email: {
+      invalid:
+        lang === "es-mx"
+          ? "Correo electrónico inválido o vacío"
+          : "Invalid email address or empty",
+    },
+  };
+
+  return z.object({
+    email: z.email(messages.email.invalid),
+  });
+};

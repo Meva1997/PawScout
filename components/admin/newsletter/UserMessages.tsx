@@ -1,37 +1,34 @@
+"use client";
+import { getContactMessages } from "@/api/api";
+import PendingSpinner from "@/components/ui/PendingSpinner";
+import { formatDate } from "@/lib/date";
+import { ContactMessageResponse } from "@/schemas/contact-schema";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const tableHeaders = ["Nombre", "Asunto", "Mensaje", "Fecha", "Acciones"];
 
-type MessageData = {
-  id: number;
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-  date: string;
+type UserMessagesProps = {
+  token: string;
 };
 
-const messageData: MessageData[] = [
-  {
-    id: 1,
-    name: "Juan Pérez",
-    email: "juan.perez@email.com",
-    subject: "Interesado en el boletín",
-    message: ' " Hola, me gustaría suscribirme al boletín de PawScout. " ',
-    date: "18-01-26",
-  },
-  {
-    id: 2,
-    name: "María López",
-    email: "maria.lopez@email.com",
-    subject: "Consulta sobre adopción",
-    message: ' " Quisiera saber más sobre el proceso de adopción. " ',
-    date: "20-02-15",
-  },
-];
-
-export default function UserMessages() {
+export default function UserMessages({ token }: UserMessagesProps) {
   const router = useRouter();
+
+  const { data, isPending, isError } = useQuery<ContactMessageResponse>({
+    queryKey: ["userMessages"],
+    queryFn: () => getContactMessages(token),
+  });
+
+  const messageData = data?.contact_messages || [];
+
+  if (isPending) {
+    return <PendingSpinner />;
+  }
+
+  if (isError) {
+    return <p className="text-red-500">Error al cargar los mensajes.</p>;
+  }
 
   return (
     <>
@@ -47,7 +44,6 @@ export default function UserMessages() {
             </tr>
           </thead>
           <tbody className="text-center">
-            {/* Example row */}
             {messageData.map((message) => (
               <tr
                 key={message.id}
@@ -60,12 +56,13 @@ export default function UserMessages() {
                   </p>
                 </td>
                 <td className="px-4 py-2 font-bold text-white">
-                  {message.subject}
+                  {message.subject.charAt(0).toUpperCase() +
+                    message.subject.slice(1)}
                 </td>
                 <td className="px-4 py-2 wrap-break-word ">
                   {message.message}
                 </td>
-                <td className="px-4 py-2">{message.date}</td>
+                <td className="px-4 py-2">{formatDate(message.date)}</td>
                 <td className="px-4 py-2 gap-4 flex flex-col">
                   <button className="text-red-500 hover:underline hover:cursor-pointer">
                     Eliminar
@@ -74,7 +71,7 @@ export default function UserMessages() {
                     className="text-blue-500 hover:underline hover:cursor-pointer"
                     onClick={() =>
                       router.push(
-                        `/admin/newsletter/message/${message.id}/details`
+                        `/admin/newsletter/message/${message.id}/details`,
                       )
                     }
                   >

@@ -243,3 +243,81 @@ export async function updateVolunteer(
   const json = await req.json();
   return json;
 }
+
+export async function getShelterSettings() {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/admin/settings`;
+
+  const req = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  });
+
+  if (!req.ok) {
+    throw new Error("Failed to fetch shelter settings");
+  }
+
+  const json = await req.json();
+  return { settings: json };
+}
+
+export async function getContactMessages(token: string) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/contact`;
+
+  const req = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!req.ok) {
+    throw new Error("Failed to fetch contact messages");
+  }
+
+  const json = await req.json();
+  return json;
+}
+
+export async function getContactMessaegById(token: string, messageId: number) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/contact/${messageId}`;
+
+  const req = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!req.ok) {
+    throw new Error("Failed to fetch contact message details");
+  }
+
+  const json = await req.json();
+  return json;
+}
+
+export async function getSubs() {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/subs`;
+
+  const req = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+  });
+
+  if (!req.ok) {
+    throw new Error("Failed to fetch subscribers");
+  }
+
+  const json = await req.json();
+  return json;
+}

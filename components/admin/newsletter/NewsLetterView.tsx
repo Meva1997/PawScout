@@ -3,9 +3,13 @@ import { useState } from "react";
 import UserMessages from "./UserMessages";
 import NewsSubscribers from "./NewsSubscribers";
 
-export default function NewsLetterView() {
+type NewsLetterViewProps = {
+  token: string;
+};
+
+export default function NewsLetterView({ token }: NewsLetterViewProps) {
   const [activeTab, setActiveTab] = useState<"messages" | "subscribers">(
-    "messages"
+    "messages",
   );
 
   return (
@@ -34,7 +38,7 @@ export default function NewsLetterView() {
           </button>
         </nav>
       </div>
-      {activeTab === "messages" && <UserMessages />}
+      {activeTab === "messages" && <UserMessages token={token} />}
       {activeTab === "subscribers" && <NewsSubscribers />}
     </>
   );

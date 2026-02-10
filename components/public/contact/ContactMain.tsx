@@ -1,6 +1,7 @@
 "use client";
 
 import type { ComponentType, SVGProps } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { useParams } from "next/navigation";
 import ContactForm from "@/components/public/contact/ContactForm";
@@ -20,6 +21,8 @@ import {
   type ContactMethodIconKey,
   type MissionIconKey,
 } from "@/lib/i18n/contact/contact-main";
+import { getShelterSettings } from "@/api/api";
+import { Settings } from "@/schemas/settings-schema";
 
 const contactIconMap: Record<
   ContactMethodIconKey,
@@ -43,6 +46,35 @@ export default function ContactMain() {
   const params = useParams<{ lang?: string }>();
   const { content } = getContactMainContent(params?.lang);
 
+  const { data, isLoading } = useQuery({
+    queryKey: ["shelterSettings"],
+    queryFn: () => getShelterSettings(),
+  });
+
+  const settings: Settings | undefined = data?.settings;
+
+  // Helper function to get contact details
+  const getContactDetail = (detailKey: "phone" | "email" | "address") => {
+    if (!settings) return null;
+
+    switch (detailKey) {
+      case "phone":
+        return settings.shelter_phone || null; // Return null if phone is not available
+      case "email":
+        return settings.shelter_email || null;
+      case "address":
+        const addressParts = [
+          settings.shelter_address,
+          settings.city,
+          settings.state,
+          settings.zip_code,
+        ].filter(Boolean); // Filter out any undefined, null, or empty parts
+        return addressParts.length > 0 ? addressParts.join(", ") : null;
+      default:
+        return null;
+    }
+  };
+
   return (
     <main className="bg-gray-200 py-10">
       <motion.article
@@ -59,9 +91,14 @@ export default function ContactMain() {
       <article className="grid lg:grid-cols-3 w-3/4 lg:w-full my-20 px-4 gap-6 max-w-6xl mx-auto text-center">
         {content.contactMethods.map((method, index) => {
           const Icon = contactIconMap[method.iconKey];
+          const detail = getContactDetail(method.detailKey);
+
+          // Skip rendering if no data available for this method
+          if (!detail && !isLoading) return null;
+
           return (
             <motion.section
-              key={`${method.title}-${method.detail}`}
+              key={`${method.title}-${method.detailKey}`}
               className="md:col-span-1 p-6 bg-white rounded-lg shadow-lg"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -71,9 +108,18 @@ export default function ContactMain() {
                 <Icon className="h-16 inline-block mr-2 bg-gray-200 p-2 rounded-full" />
                 {method.title}
               </h2>
-              <p className="mb-2 font-bold text-lg">{method.detail}</p>
-              {method.info && (
-                <p className="mb-2 text-gray-600 text-sm">{method.info}</p>
+              {isLoading ? (
+                <div className="animate-pulse">
+                  <div className="h-6 bg-gray-200 rounded w-3/4 mx-auto mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
+                </div>
+              ) : (
+                <>
+                  <p className="mb-2 font-bold text-lg">{detail}</p>
+                  {method.info && (
+                    <p className="text-gray-600 text-sm">{method.info}</p>
+                  )}
+                </>
               )}
             </motion.section>
           );
