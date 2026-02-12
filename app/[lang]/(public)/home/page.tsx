@@ -4,15 +4,24 @@ import HowWorks from "@/components/public/home/HowWorks";
 import NewArrivals from "@/components/public/home/NewArrivals";
 import Testimonials from "@/components/public/home/Testimonials";
 import type { Metadata } from "next";
+import { ErrorNotification } from "@/components/ui/ErrorNotification";
 
 export const metadata: Metadata = {
   title: "PawScout - Home",
   description: "Encuentra tu mascota ideal para adoptar con PawScout",
 };
 
-export default function page() {
+type Props = {
+  searchParams: Promise<{ error?: string }>;
+};
+
+export default async function page({ searchParams }: Props) {
+  const params = await searchParams;
+  const error = params.error;
+
   return (
     <main className="bg-gray-200 py-10">
+      {error === "backend-unavailable" && <ErrorNotification />}
       <div className="px-6">
         <HeroSection />
       </div>

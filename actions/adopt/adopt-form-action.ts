@@ -72,46 +72,59 @@ export async function adoptFormAction(
     };
   }
 
-  const url = `${process.env.API_URL}/adopt/${adoptionData.animalId}`;
-  const req = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(validatedData.data),
-  });
+  try {
+    const url = `${process.env.API_URL}/adopt/${adoptionData.animalId}`;
+    const req = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(validatedData.data),
+    });
 
-  if (!req.ok) {
-    // Si la respuesta no es OK, intentar parsear el error
-    try {
-      const json = await req.json();
-      const detail = json.detail || "Error al enviar la solicitud";
-      return {
-        errors: [detail],
-        success: "",
-        formData: adoptionData,
-      };
-    } catch {
-      // Si no se puede parsear JSON, es un error HTML del servidor
-      return {
-        errors: [
-          adoptionData.lang === "es-mx"
-            ? "Error del servidor. Por favor intenta más tarde."
-            : "Server error. Please try again later.",
-        ],
-        success: "",
-        formData: adoptionData,
-      };
+    if (!req.ok) {
+      // Si la respuesta no es OK, intentar parsear el error
+      try {
+        const json = await req.json();
+        const detail = json.detail || "Error al enviar la solicitud";
+        return {
+          errors: [detail],
+          success: "",
+          formData: adoptionData,
+        };
+      } catch {
+        // Si no se puede parsear JSON, es un error HTML del servidor
+        return {
+          errors: [
+            adoptionData.lang === "es-mx"
+              ? "Error del servidor. Por favor intenta más tarde."
+              : "Server error. Please try again later.",
+          ],
+          success: "",
+          formData: adoptionData,
+        };
+      }
     }
+
+    const json = await req.json();
+    const success = json.success;
+
+    revalidatePath("/adopt");
+
+    return {
+      errors: [],
+      success,
+    };
+  } catch (error) {
+    // Network error or backend unavailable
+    return {
+      errors: [
+        adoptionData.lang === "es-mx"
+          ? "No se pudo conectar con el servidor. Por favor verifica tu conexión e intenta nuevamente."
+          : "Unable to connect to server. Please check your connection and try again.",
+      ],
+      success: "",
+      formData: adoptionData,
+    };
   }
-
-  const json = await req.json();
-  const success = json.success;
-
-  revalidatePath("/adopt");
-
-  return {
-    errors: [],
-    success,
-  };
 }

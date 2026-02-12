@@ -39,13 +39,13 @@ export default function NewArrivals() {
       </article>
 
       {isError ? (
-        <div className="text-center py-10 text-red-500">
+        <div className="text-center pl-10 py-10 my-10 text-red-500 text-2xl">
           {params?.lang === "es-mx"
             ? "Error al cargar los datos de las mascotas."
             : "Error loading pet data."}
         </div>
       ) : (
-        <AdoptCards animals={animals} isLoading={isPending} />
+        <AdoptCards animals={animals} isLoading={isPending} isError={isError} />
       )}
     </motion.section>
   );

@@ -15,24 +15,29 @@ export const verifySession = cache(async () => {
     redirect("/login");
   }
 
-  const url = `${process.env.API_URL}/users/me`;
-  const req = await fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  try {
+    const url = `${process.env.API_URL}/users/me`;
+    const req = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  const session = await req.json();
+    const session = await req.json();
 
-  const result = sessionSchema.safeParse(session);
+    const result = sessionSchema.safeParse(session);
 
-  if (!result.success) {
-    redirect("/login");
+    if (!result.success) {
+      redirect("/login");
+    }
+
+    return {
+      user: result.data,
+      isAuth: true,
+    };
+  } catch (error) {
+    // Backend unavailable or network error - redirect to home with error message
+    redirect("/?error=backend-unavailable");
   }
-
-  return {
-    user: result.data,
-    isAuth: true,
-  };
 });

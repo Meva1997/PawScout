@@ -78,25 +78,60 @@ export async function login(prevState: ActionStateType, formData: FormData) {
     }
   }
 
-  const req = await fetch(`${process.env.API_URL}/users/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: login.data?.email as string,
-      password: login.data?.password as string,
-    }),
-  });
+  try {
+    const req = await fetch(`${process.env.API_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: login.data?.email as string,
+        password: login.data?.password as string,
+      }),
+    });
 
-  const json = await req.json();
-  const detail = json.detail;
+    const json = await req.json();
+    const detail = json.detail;
 
-  if (detail) {
-    const translatedError = translateBackendError(detail, loginData.lang);
+    if (detail) {
+      const translatedError = translateBackendError(detail, loginData.lang);
+
+      return {
+        errors: [translatedError],
+        success: "",
+        formData: {
+          email: loginData.email as string,
+          password: loginData.password as string,
+        },
+      };
+    }
+
+    const success = json.success;
+
+    const cookie = await cookies();
+
+    // Delete old session (if exists) and set new token
+    cookie.delete("pawscout_token");
+
+    cookie.set({
+      name: "pawscout_token",
+      value: json.access_token,
+      httpOnly: true,
+      path: "/",
+    });
 
     return {
-      errors: [translatedError],
+      errors: [],
+      success,
+    };
+  } catch (error) {
+    // Network error or backend unavailable
+    return {
+      errors: [
+        loginData.lang === "es-mx"
+          ? "No se pudo conectar con el servidor. Por favor verifica tu conexión e intenta nuevamente."
+          : "Unable to connect to server. Please check your connection and try again.",
+      ],
       success: "",
       formData: {
         email: loginData.email as string,
@@ -104,23 +139,4 @@ export async function login(prevState: ActionStateType, formData: FormData) {
       },
     };
   }
-
-  const success = json.success;
-
-  const cookie = await cookies();
-
-  // Delete old session (if exists) and set new token
-  cookie.delete("pawscout_token");
-
-  cookie.set({
-    name: "pawscout_token",
-    value: json.access_token,
-    httpOnly: true,
-    path: "/",
-  });
-
-  return {
-    errors: [],
-    success,
-  };
 }

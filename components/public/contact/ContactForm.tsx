@@ -93,7 +93,7 @@ export default function ContactForm() {
             defaultValue={(state.formData?.subject as string) || ""}
             className="rounded-xl border-2 px-2 py-1 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 w-full outline-none mt-2"
           >
-            <option value="" disabled>
+            <option value="">
               {params?.lang === "es-mx"
                 ? "Selecciona un asunto"
                 : "Select a subject"}
