@@ -27,40 +27,52 @@ export async function subscribeEmailAction(
     };
   }
 
-  const url = `${process.env.API_URL}/subs`;
-  const req = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(validatedData.data),
-  });
+  try {
+    const url = `${process.env.API_URL}/subs`;
+    const req = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(validatedData.data),
+    });
 
-  if (!req.ok) {
-    try {
-      const json = await req.json();
-      const detail = json.detail || "Error al suscribir el correo";
-      return {
-        errors: [detail],
-        success: "",
-      };
-    } catch {
-      return {
-        errors: [
-          emailData.lang === "es-mx"
-            ? "Error al suscribir el correo"
-            : "Error subscribing the email",
-        ],
-        success: "",
-      };
+    if (!req.ok) {
+      try {
+        const json = await req.json();
+        const detail = json.detail || "Error al suscribir el correo";
+        return {
+          errors: [detail],
+          success: "",
+        };
+      } catch {
+        return {
+          errors: [
+            emailData.lang === "es-mx"
+              ? "Error al suscribir el correo"
+              : "Error subscribing the email",
+          ],
+          success: "",
+        };
+      }
     }
+
+    const json = await req.json();
+    const success = json.success;
+
+    return {
+      errors: [],
+      success,
+    };
+  } catch (error) {
+    // Network error or backend unavailable
+    return {
+      errors: [
+        emailData.lang === "es-mx"
+          ? "No se pudo conectar con el servidor. Por favor verifica tu conexión e intenta nuevamente."
+          : "Unable to connect to server. Please check your connection and try again.",
+      ],
+      success: "",
+    };
   }
-
-  const json = await req.json();
-  const success = json.success;
-
-  return {
-    errors: [],
-    success,
-  };
 }
