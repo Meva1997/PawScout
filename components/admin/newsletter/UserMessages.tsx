@@ -1,10 +1,11 @@
 "use client";
-import { getContactMessages } from "@/api/api";
+import { deleteContactMessage, getContactMessages } from "@/api/api";
 import PendingSpinner from "@/components/ui/PendingSpinner";
 import { formatDate } from "@/lib/date";
 import { ContactMessageResponse } from "@/schemas/contact-schema";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import ConfirmModalDelete from "@/components/ui/ConfirmModalDelete";
 
 const tableHeaders = ["Nombre", "Asunto", "Mensaje", "Fecha", "Acciones"];
 
@@ -22,6 +23,27 @@ export default function UserMessages({ token }: UserMessagesProps) {
 
   const messageData = data?.contact_messages || [];
 
+  const handleDeleteClick = (messageId: number) => {
+    router.push(`?modal=delete&id=${messageId}`);
+  };
+
+  const translateSubject = (subject: string) => {
+    switch (subject) {
+      case "Rescue":
+        return "Rescate";
+      case "Adoption":
+        return "Adopción";
+      case "Volunteering":
+        return "Voluntariado";
+      case "Donations":
+        return "Donaciones";
+      case "Others":
+        return "Otros";
+      default:
+        return subject;
+    }
+  };
+
   if (isPending) {
     return <PendingSpinner />;
   }
@@ -32,57 +54,86 @@ export default function UserMessages({ token }: UserMessagesProps) {
 
   return (
     <>
-      <article className="my-6  max-w-7xl mx-auto table-auto rounded-2xl overflow-x-auto">
-        <table>
-          <thead className=" text-center">
-            <tr>
-              {tableHeaders.map((header) => (
-                <th key={header} className="px-4 py-2 text-white/70">
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {messageData.map((message) => (
-              <tr
-                key={message.id}
-                className="border-b border-white/10 hover:bg-white/5"
-              >
-                <td className="px-4 py-2 flex flex-col">
-                  <p className="font-bold text-white text-lg">{message.name}</p>
-                  <p className="text-white/70 wrap-break-word">
-                    {message.email}
-                  </p>
-                </td>
-                <td className="px-4 py-2 font-bold text-white">
-                  {message.subject.charAt(0).toUpperCase() +
-                    message.subject.slice(1)}
-                </td>
-                <td className="px-4 py-2 wrap-break-word ">
-                  {message.message}
-                </td>
-                <td className="px-4 py-2">{formatDate(message.date)}</td>
-                <td className="px-4 py-2 gap-4 flex flex-col">
-                  <button className="text-red-500 hover:underline hover:cursor-pointer">
-                    Eliminar
-                  </button>
-                  <button
-                    className="text-blue-500 hover:underline hover:cursor-pointer"
-                    onClick={() =>
-                      router.push(
-                        `/admin/newsletter/message/${message.id}/details`,
-                      )
-                    }
+      <article className="my-6 max-w-7xl mx-auto">
+        <div className="w-full overflow-x-auto rounded-3xl border border-white/15 bg-white/5 backdrop-blur-sm">
+          <table className="w-full table-auto border-separate border-spacing-0">
+            <thead>
+              <tr className="bg-white/5">
+                {tableHeaders.map((header) => (
+                  <th
+                    key={header}
+                    className="border-b border-white/15 px-6 py-4 text-center text-xs font-semibold uppercase tracking-[0.14em] text-white/60"
                   >
-                    Detalles
-                  </button>
-                </td>
+                    {header}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {messageData.map((message) => (
+                <tr key={message.id} className="transition hover:bg-white/10">
+                  <td className="border-b border-white/10 px-6 py-4">
+                    <div className="flex flex-col items-start">
+                      <span className="font-semibold text-white text-base">
+                        {message.name}
+                      </span>
+                      <span className="text-sm text-white/60 break-all">
+                        {message.email}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="border-b border-white/10 px-6 py-4">
+                    <span className="inline-flex items-center rounded-full border border-blue-500/40 bg-blue-500/20 px-3 py-1 text-sm font-semibold text-blue-400">
+                      {translateSubject(
+                        message.subject.charAt(0).toUpperCase() +
+                          message.subject.slice(1),
+                      )}
+                    </span>
+                  </td>
+                  <td className="border-b border-white/10 px-6 py-4 max-w-md">
+                    <p className="text-white/80 line-clamp-2 text-sm">
+                      {message.message}
+                    </p>
+                  </td>
+                  <td className="border-b border-white/10 px-6 py-4 text-center">
+                    <span className="text-white/80 font-medium text-sm">
+                      {formatDate(message.date)}
+                    </span>
+                  </td>
+                  <td className="border-b border-white/10 px-6 py-4">
+                    <div className="flex flex-col items-center gap-2">
+                      <button
+                        className="w-full rounded-xl bg-blue-500 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-blue-600 cursor-pointer"
+                        onClick={() =>
+                          router.push(
+                            `/admin/newsletter/message/${message.id}/details`,
+                          )
+                        }
+                      >
+                        Detalles
+                      </button>
+                      <button
+                        className="w-full rounded-xl bg-red-500 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-red-600 cursor-pointer"
+                        onClick={() => handleDeleteClick(message.id)}
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </article>
+
+      <ConfirmModalDelete
+        token={token}
+        entityName="mensaje"
+        entityNamePlural="este mensaje"
+        deleteFnAction={deleteContactMessage}
+        queryKey={["userMessages"]}
+      />
     </>
   );
 }

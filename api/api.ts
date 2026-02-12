@@ -303,6 +303,25 @@ export async function getContactMessaegById(token: string, messageId: number) {
   return json;
 }
 
+export async function deleteContactMessage(token: string, messageId: number) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/contact/${messageId}`;
+
+  const req = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!req.ok) {
+    throw new Error("Failed to delete contact message");
+  }
+
+  const json = await req.json();
+  return json;
+}
+
 export async function getSubs() {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/subs`;
 
