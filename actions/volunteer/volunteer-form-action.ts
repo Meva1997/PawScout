@@ -62,42 +62,55 @@ export async function volunteerFormAction(
     };
   }
 
-  const url = `${process.env.API_URL}/volunteer`;
-  const req = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(validatedData.data),
-  });
+  try {
+    const url = `${process.env.API_URL}/volunteer`;
+    const req = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(validatedData.data),
+    });
 
-  if (!req.ok) {
-    try {
-      const json = await req.json();
-      const detail = json.detail || "Error al enviar la solicitud";
-      return {
-        errors: [detail],
-        success: "",
-        formData: volunteerData,
-      };
-    } catch {
-      return {
-        errors: [
-          volunteerData.lang === "es-mx"
-            ? "Error del servidor. Por favor intenta más tarde."
-            : "Server error. Please try again later.",
-        ],
-        success: "",
-        formData: volunteerData,
-      };
+    if (!req.ok) {
+      try {
+        const json = await req.json();
+        const detail = json.detail || "Error al enviar la solicitud";
+        return {
+          errors: [detail],
+          success: "",
+          formData: volunteerData,
+        };
+      } catch {
+        return {
+          errors: [
+            volunteerData.lang === "es-mx"
+              ? "Error del servidor. Por favor intenta más tarde."
+              : "Server error. Please try again later.",
+          ],
+          success: "",
+          formData: volunteerData,
+        };
+      }
     }
+
+    const json = await req.json();
+    const success = json.success;
+
+    return {
+      errors: [],
+      success,
+    };
+  } catch (error) {
+    // Network error or backend unavailable
+    return {
+      errors: [
+        volunteerData.lang === "es-mx"
+          ? "No se pudo conectar con el servidor. Por favor verifica tu conexión e intenta nuevamente."
+          : "Unable to connect to server. Please check your connection and try again.",
+      ],
+      success: "",
+      formData: volunteerData,
+    };
   }
-
-  const json = await req.json();
-  const success = json.success;
-
-  return {
-    errors: [],
-    success,
-  };
 }

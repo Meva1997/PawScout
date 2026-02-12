@@ -10,11 +10,13 @@ import AnimalsInfoSkeleton from "@/components/skeletons/AnimalsInfoSkeleton";
 type AdoptCardsProps = {
   animals?: DogsDataType[];
   isLoading?: boolean;
+  isError?: boolean;
 };
 
 export default function AdoptCards({
   animals,
   isLoading = false,
+  isError = false,
 }: AdoptCardsProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -36,6 +38,34 @@ export default function AdoptCards({
         <article className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
           {isLoading ? (
             <AnimalsInfoSkeleton />
+          ) : isError ? (
+            <div className="col-span-full text-center py-16">
+              <div className="max-w-md mx-auto bg-red-50 border-2 border-red-200 rounded-2xl p-8">
+                <svg
+                  fill="none"
+                  stroke="currentColor"
+                  className="mx-auto h-16 w-16 text-red-400 mb-4"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3"
+                    strokeWidth={2}
+                  />
+                </svg>
+                <h3 className="text-xl font-bold text-red-600 mb-2">
+                  {params?.lang === "es-mx"
+                    ? "Error al cargar las mascotas"
+                    : "Error loading pets"}
+                </h3>
+                <p className="text-gray-600">
+                  {params?.lang === "es-mx"
+                    ? "No se pudieron cargar los datos. Por favor, intenta recargar la página."
+                    : "Unable to load data. Please try reloading the page."}
+                </p>
+              </div>
+            </div>
           ) : filteredAnimals?.length === 0 ? (
             <div className="text-center text-gray-500 col-span-full animate-pulse">
               {params?.lang === "es-mx"

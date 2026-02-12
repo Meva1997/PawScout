@@ -55,7 +55,7 @@ export default function EmailSubscription() {
         <article>
           <form
             action={dispatch}
-            className="mt-8 flex flex-col md:flex-row justify-center max-w-lg mx-auto gap-6"
+            className="mt-8 flex flex-col md:flex-row justify-center max-w-xl mx-auto gap-6"
           >
             <input
               type="email"

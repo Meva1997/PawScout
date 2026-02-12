@@ -46,30 +46,45 @@ export default function ContactMain() {
   const params = useParams<{ lang?: string }>();
   const { content } = getContactMainContent(params?.lang);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["shelterSettings"],
     queryFn: () => getShelterSettings(),
   });
 
   const settings: Settings | undefined = data?.settings;
 
+  // Fallback data when backend is unavailable
+  const fallbackData = {
+    phone: params?.lang === "es-mx" ? "+52 123 456 7890" : "+1 (555) 123-4567",
+    email: "contacto@pawscout.org",
+    address:
+      params?.lang === "es-mx"
+        ? "Av. Principal 123, Ciudad, Estado, CP 12345"
+        : "123 Main Street, City, State, ZIP 12345",
+  };
+
   // Helper function to get contact details
   const getContactDetail = (detailKey: "phone" | "email" | "address") => {
-    if (!settings) return null;
+    // If there's an error or no settings, return fallback data
+    if (isError || !settings) {
+      return fallbackData[detailKey];
+    }
 
     switch (detailKey) {
       case "phone":
-        return settings.shelter_phone || null; // Return null if phone is not available
+        return settings.shelter_phone || fallbackData.phone;
       case "email":
-        return settings.shelter_email || null;
+        return settings.shelter_email || fallbackData.email;
       case "address":
         const addressParts = [
           settings.shelter_address,
           settings.city,
           settings.state,
           settings.zip_code,
-        ].filter(Boolean); // Filter out any undefined, null, or empty parts
-        return addressParts.length > 0 ? addressParts.join(", ") : null;
+        ].filter(Boolean);
+        return addressParts.length > 0
+          ? addressParts.join(", ")
+          : fallbackData.address;
       default:
         return null;
     }
@@ -93,9 +108,6 @@ export default function ContactMain() {
           const Icon = contactIconMap[method.iconKey];
           const detail = getContactDetail(method.detailKey);
 
-          // Skip rendering if no data available for this method
-          if (!detail && !isLoading) return null;
-
           return (
             <motion.section
               key={`${method.title}-${method.detailKey}`}
@@ -118,6 +130,13 @@ export default function ContactMain() {
                   <p className="mb-2 font-bold text-lg">{detail}</p>
                   {method.info && (
                     <p className="text-gray-600 text-sm">{method.info}</p>
+                  )}
+                  {isError && (
+                    <p className="text-xs text-amber-600 mt-2 italic">
+                      {params?.lang === "es-mx"
+                        ? "⚠️ Información temporal"
+                        : "⚠️ Temporary information"}
+                    </p>
                   )}
                 </>
               )}

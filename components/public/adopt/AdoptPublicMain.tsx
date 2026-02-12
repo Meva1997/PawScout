@@ -51,15 +51,11 @@ export default function AdoptPublicMain() {
       </motion.section>
       <AdoptListFilter animals={animals} onFilterChange={setFilteredAnimals} />
 
-      {isError ? (
-        <div className="max-w-6xl mx-auto text-red-500 font-semibold mb-6">
-          {params?.lang === "es-mx"
-            ? "Error al cargar los datos de las mascotas."
-            : "Error loading pet data."}
-        </div>
-      ) : (
-        <AdoptCards animals={filteredAnimals} isLoading={isPending} />
-      )}
+      <AdoptCards
+        animals={filteredAnimals}
+        isLoading={isPending}
+        isError={isError}
+      />
     </main>
   );
 }
