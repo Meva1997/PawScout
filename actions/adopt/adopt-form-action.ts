@@ -1,6 +1,7 @@
 "use server";
 
 import { getAdoptSchema } from "@/schemas/adopt-schema";
+import { revalidatePath } from "next/cache";
 
 type AdoptionFormData = {
   animalId: number;
@@ -20,6 +21,7 @@ type AdoptionFormData = {
   whoLivesInHouse: FormDataEntryValue | null;
   agreeToTerms: boolean;
   date: string;
+  status: string;
   lang: string;
 };
 
@@ -54,6 +56,7 @@ export async function adoptFormAction(
     whoLivesInHouse: formData.get("whoLivesInHouse"),
     agreeToTerms: formData.get("agreeToTerms") === "on",
     date: new Date().toISOString(),
+    status: "pending",
     lang: (formData.get("lang") as string) || "en",
   };
 
@@ -104,6 +107,8 @@ export async function adoptFormAction(
 
   const json = await req.json();
   const success = json.success;
+
+  revalidatePath("/adopt");
 
   return {
     errors: [],

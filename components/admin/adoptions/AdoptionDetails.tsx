@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import type { AdoptSchemaType } from "@/schemas/adopt-schema";
 import Image from "next/image";
+import PendingSpinner from "@/components/ui/PendingSpinner";
 
 export default function AdoptionDetails({ token }: { token: string }) {
   const params = useParams<{ slug: string }>();
@@ -35,8 +36,9 @@ export default function AdoptionDetails({ token }: { token: string }) {
 
   if (isPending) {
     return (
-      <div className="max-w-6xl mx-auto text-white font-semibold my-6 animate-pulse text-center">
+      <div className="max-w-6xl mx-auto text-white font-semibold my-6 pt-10 animate-pulse text-center">
         Cargando solicitud de adopción...
+        <PendingSpinner />
       </div>
     );
   }

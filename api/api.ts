@@ -321,3 +321,49 @@ export async function getSubs() {
   const json = await req.json();
   return json;
 }
+
+export async function updateAdoptionStatus(
+  token: string,
+  applicationId: number,
+  status: "approved" | "pending" | "rejected",
+) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/adopt/${applicationId}/status`;
+
+  const req = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ status }),
+  });
+
+  if (!req.ok) {
+    throw new Error("Failed to update adoption status");
+  }
+
+  const json = await req.json();
+  return json;
+}
+
+export async function deleteAdoptionRequest(
+  token: string,
+  applicationId: number,
+) {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/adopt/${applicationId}`;
+
+  const req = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!req.ok) {
+    throw new Error("Failed to delete adoption request");
+  }
+
+  const json = await req.json();
+  return json;
+}
