@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useCallback, useMemo } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import AdoptionsFilter from "@/components/admin/adoptions/AdoptionsFilter";
 import AdoptionsTable from "@/components/admin/adoptions/AdoptionsTable";
-import NewAdoptForm from "@/components/admin/adoptions/NewAdoptForm";
+// import NewAdoptForm from "@/components/admin/adoptions/NewAdoptForm";
 import { useQuery } from "@tanstack/react-query";
 import { getAdoptionRequests } from "@/api/api";
 import type { AdoptSchemaType } from "@/schemas/adopt-schema";
@@ -14,9 +13,6 @@ type AdoptMainProps = {
 };
 
 export default function AdoptMain({ token }: AdoptMainProps) {
-  const router = useRouter();
-  const params = useSearchParams();
-  const isCreatingAdoption = params.get("modal") === "new";
   const [activeFilter, setActiveFilter] = useState<string>("All Requests");
 
   const { data, isError, isPending } = useQuery({
@@ -40,14 +36,6 @@ export default function AdoptMain({ token }: AdoptMainProps) {
     );
   }, [activeFilter, requests]);
 
-  const handleCloseModal = () => {
-    router.push("/admin/adoptions");
-  };
-
-  const handleOpenModal = () => {
-    router.push("/admin/adoptions?modal=new");
-  };
-
   const handleFilterChange = useCallback((filter: string) => {
     setActiveFilter(filter);
   }, []);
@@ -63,22 +51,7 @@ export default function AdoptMain({ token }: AdoptMainProps) {
             Administra las solicitudes de adopción recibidas de los usuarios
           </p>
         </article>
-        <article>
-          <button
-            className="rounded-2xl bg-[#19e6b3] px-3 py-3 text-sm font-semibold text-[#0c1412] transition hover:bg-[#16caa0] cursor-pointer"
-            onClick={handleOpenModal}
-          >
-            + Agregar Nueva Adopción
-          </button>
-        </article>
       </section>
-
-      {isCreatingAdoption && (
-        <NewAdoptForm
-          isOpen={isCreatingAdoption}
-          onCloseAction={handleCloseModal}
-        />
-      )}
 
       {/* Filter / controls */}
       <section className="mt-6 rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] max-w-6xl mx-auto">
@@ -95,6 +68,7 @@ export default function AdoptMain({ token }: AdoptMainProps) {
           requests={filteredRequests}
           isError={isError}
           isPending={isPending}
+          token={token}
         />
       </section>
     </>
