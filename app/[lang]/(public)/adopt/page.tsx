@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AdoptMain from "@/components/public/adopt/AdoptMain";
+import AdoptMain from "@/components/public/adopt/AdoptPublicMain";
 
 export const metadata: Metadata = {
   title: "PawScout - Adoptar",

@@ -6,7 +6,8 @@ type MissionIconKey = "compassion" | "integrity" | "community";
 type ContactMethod = {
   iconKey: ContactMethodIconKey;
   title: string;
-  detail: string;
+  label: string;
+  detailKey: "phone" | "email" | "address";
   info?: string;
 };
 
@@ -36,19 +37,22 @@ const contactMainContent: Record<HeroContentKey, ContactMainContent> = {
       {
         iconKey: "phone",
         title: "Teléfono",
-        detail: "+1 (555) 123-4567",
+        label: "Llámanos",
+        detailKey: "phone",
         info: "Lunes a sábado: 9:00 AM - 6:00 PM",
       },
       {
         iconKey: "email",
         title: "Email",
-        detail: "contacto@pawscout.com",
+        label: "Escríbenos",
+        detailKey: "email",
         info: "Mándanos tus consultas y te responderemos a la brevedad.",
       },
       {
         iconKey: "visit",
         title: "Visítanos",
-        detail: "123 Calle Principal, Ciudad, País",
+        label: "Nuestra ubicación",
+        detailKey: "address",
       },
     ],
     mission: {
@@ -85,19 +89,22 @@ const contactMainContent: Record<HeroContentKey, ContactMainContent> = {
       {
         iconKey: "phone",
         title: "Phone",
-        detail: "+1 (555) 123-4567",
+        label: "Call us",
+        detailKey: "phone",
         info: "Monday to Saturday: 9:00 AM - 6:00 PM",
       },
       {
         iconKey: "email",
         title: "Email",
-        detail: "contact@pawscout.com",
+        label: "Email us",
+        detailKey: "email",
         info: "Send us your questions and we'll reply shortly.",
       },
       {
         iconKey: "visit",
         title: "Visit us",
-        detail: "123 Main Street, City, Country",
+        label: "Our location",
+        detailKey: "address",
       },
     ],
     mission: {

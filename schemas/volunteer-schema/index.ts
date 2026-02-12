@@ -83,7 +83,7 @@ export const getVolunteerSchema = (lang: string = "en") => {
   return z.object({
     name: z.string().min(1, messages.name.required),
     lastName: z.string().min(1, messages.lastName.required),
-    email: z.string().email(messages.email.invalid),
+    email: z.email(messages.email.invalid),
     phone: z
       .string()
       .regex(
@@ -114,4 +114,11 @@ export const getVolunteerSchema = (lang: string = "en") => {
     }),
     date: z.string(),
   });
+};
+
+export type VolunteerSchemaType = z.infer<
+  ReturnType<typeof getVolunteerSchema>
+> & {
+  id: number;
+  status: "pending" | "accepted" | "rejected";
 };

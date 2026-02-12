@@ -1,31 +1,36 @@
+import { cookies } from "next/headers";
 import { verifySession } from "@/lib/auth/dal";
+import { getAdminStats, getAllAnimals } from "@/api/api";
+import { DashboardSchema } from "@/schemas/dashboard-schema";
+import { DogsDataType } from "@/db/dogs";
 
-export default function page() {
-  type Stat = {
-    title: string;
-    value: number;
-  };
+type Stat = {
+  title: string;
+  value: number;
+};
 
-  type Animal = {
-    name: string;
-    type: string;
-    dateAdded: string;
-  };
+export default async function page() {
+  await verifySession();
+
+  // Recuperar el token de la cookie
+  const cookieStore = await cookies();
+  const token = cookieStore.get("pawscout_token")?.value;
+
+  // Si no hay token, verifySession ya debería haber redirigido
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  const adminStats: DashboardSchema = await getAdminStats(token);
+  const animalsResponse = await getAllAnimals();
+  const animals: DogsDataType[] = animalsResponse.animals;
 
   const generalStats: Stat[] = [
-    { title: "Animales en total", value: 128 },
-    { title: "Adopciones este mes", value: 34 },
-    { title: "Peticiones pendientes", value: 12 },
-    { title: "Donaciones", value: 8 },
+    { title: "Animales en total", value: adminStats.stats.total_animals },
+    { title: "Adopciones este mes", value: adminStats.stats.total_adoptions },
+    { title: "Usuarios", value: adminStats.stats.total_users },
+    { title: "Voluntarios", value: adminStats.stats.total_volunteers },
   ];
-
-  const recentlyAddedAnimals: Animal[] = [
-    { name: "Max", type: "Perro", dateAdded: "2024-06-10" },
-    { name: "Luna", type: "Gato", dateAdded: "2024-06-12" },
-    { name: "Charlie", type: "Perro", dateAdded: "2024-06-14" },
-  ];
-
-  verifySession();
 
   return (
     <>
@@ -72,19 +77,26 @@ export default function page() {
           <div className="rounded-2xl space-y-6 border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
             {/* Placeholder for recent activities list */}
             <h3 className=" text-lg font-semibold text-white">
-              Actividades Recientes
+              Animales agregados recientemente
             </h3>
             <ul className="space-y-4">
-              {recentlyAddedAnimals.map((animal) => (
+              {animals.map((animal) => (
                 <li
-                  key={animal.name}
+                  key={animal.id}
                   className="flex justify-between border-b border-white/10 pb-2"
                 >
                   <div>
                     <p className="font-semibold text-white">{animal.name}</p>
-                    <p className="text-sm text-white/60">
-                      {animal.type} - Añadido el {animal.dateAdded}
-                    </p>
+                    <p className="text-sm text-white/60">{animal.breed}</p>
+                  </div>
+                  <div className="flex flex-col justify-end">
+                    <span className="text-white/80 text-sm">
+                      ID: {animal.id}
+                    </span>
+                    {/*TODO: Add date field to animal data */}
+                    <span className="text-white/80 text-sm">
+                      Date added: {/* Placeholder date */}2024-06-01
+                    </span>
                   </div>
                 </li>
               ))}

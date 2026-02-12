@@ -3,6 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { getShelterSettings } from "@/api/api";
+import Image from "next/image";
+import { Settings } from "@/schemas/settings-schema";
 
 type NavItem = {
   href: string;
@@ -70,6 +74,13 @@ export default function HomeHeaderClient({ user }: HomeHeaderClientProps) {
     router.push(nextPath);
   };
 
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["settingsInfo"],
+    queryFn: async () => getShelterSettings(),
+  });
+
+  const settings: Settings | undefined = data?.settings;
+
   return (
     <motion.header
       className="flex items-center justify-between p-4 bg-white max-w-6xl mx-auto"
@@ -78,8 +89,29 @@ export default function HomeHeaderClient({ user }: HomeHeaderClientProps) {
       transition={{ duration: 0.6 }}
     >
       <Link href={`/${currentLang}/home`}>
-        <h1 className="font-bold text-2xl">
-          <span className="md:pr-4 lg:pr-0">🐾</span> PawScout
+        <h1 className="font-bold text-2xl flex items-center gap-2">
+          <span className="md:pr-4 lg:pr-2">
+            {isPending ? (
+              <span className="animate-pulse">Logo</span>
+            ) : isError || !settings?.logo_url ? (
+              "🐾"
+            ) : (
+              <Image
+                src={settings.logo_url}
+                alt="Logo"
+                width={40}
+                height={40}
+                loading="eager"
+              />
+            )}
+          </span>
+          {isPending ? (
+            <span className="animate-pulse">Refugio...</span>
+          ) : isError ? (
+            "PawScout"
+          ) : (
+            settings?.shelter_name || "PawScout"
+          )}
         </h1>
       </Link>
 

@@ -1,17 +1,33 @@
-const subscribeers = [
-  { email: "email@email.com" },
-  { email: "example@example.com" },
-  { email: "test@test.com" },
-  { email: "user@domain.com" },
-  { email: "newuser@newdomain.com" },
-];
+"use client";
+
+import { getSubs } from "@/api/api";
+import PendingSpinner from "@/components/ui/PendingSpinner";
+import { useQuery } from "@tanstack/react-query";
+
 export default function NewsSubscribers() {
+  const { data, isError, isPending } = useQuery({
+    queryKey: ["newsletter-subscribers"],
+    queryFn: () => getSubs(),
+  });
+
+  if (isError) {
+    return (
+      <div className="my-6  max-w-7xl mx-auto table-auto rounded-2xl overflow-x-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-2 text-center">
+        <p className="text-white">Error al cargar los suscriptores.</p>
+      </div>
+    );
+  }
+
+  if (isPending) {
+    return <PendingSpinner />;
+  }
+
   return (
     <>
       <article className="my-6  max-w-7xl mx-auto table-auto rounded-2xl overflow-x-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-2 text-center">
-        {subscribeers.map((subscriber, index) => (
+        {data?.map((subscriber: { email: string }, id: number) => (
           <div
-            key={`${subscriber.email}-${index}`}
+            key={`${subscriber.email}-${id}`}
             className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white wrap-break-word"
           >
             {subscriber.email}

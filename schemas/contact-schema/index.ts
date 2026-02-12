@@ -49,3 +49,13 @@ export const getContactSchema = (lang: string = "en") => {
     date: z.string(),
   });
 };
+
+export type ContactData = z.infer<ReturnType<typeof getContactSchema>>;
+
+export type ContactMessage = ContactData & {
+  id: number;
+};
+
+export type ContactMessageResponse = {
+  contact_messages: ContactMessage[];
+};

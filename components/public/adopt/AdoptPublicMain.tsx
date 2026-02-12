@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 import { getAdoptHeroContents } from "@/lib/i18n/adopt/adopt-hero";
 import { useState, useEffect, useMemo } from "react";
 
-export default function AdoptMain() {
+export default function AdoptPublicMain() {
   const params = useParams<{ lang?: string }>();
   const { content } = getAdoptHeroContents(params?.lang);
 
