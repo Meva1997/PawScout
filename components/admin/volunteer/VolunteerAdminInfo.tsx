@@ -45,31 +45,31 @@ export default function VolunteerAdminInfo({
 
   function statusBadgeText(status: string) {
     const statusMap: { [key: string]: string } = {
-      accepted: "Aceptado",
-      pending: "Pendiente",
-      rejected: "Rechazado",
+      accepted: "Accepted",
+      pending: "Pending",
+      rejected: "Rejected",
     };
     return statusMap[status.toLowerCase()] || status;
   }
 
   function dictionaryDays(day: string) {
     const daysMap: { [key: string]: string } = {
-      monday: "Lunes",
-      tuesday: "Martes",
-      wednesday: "Miércoles",
-      thursday: "Jueves",
-      friday: "Viernes",
-      saturday: "Sábado",
-      sunday: "Domingo",
+      monday: "Monday",
+      tuesday: "Tuesday",
+      wednesday: "Wednesday",
+      thursday: "Thursday",
+      friday: "Friday",
+      saturday: "Saturday",
+      sunday: "Sunday",
     };
     return daysMap[day.toLowerCase()] || day;
   }
 
   function dictionaryAvailability(slot: string) {
     const availabilityMap: { [key: string]: string } = {
-      morning: "Mañana",
-      afternoon: "Tarde",
-      evening: "Noche",
+      morning: "Morning",
+      afternoon: "Afternoon",
+      evening: "Evening",
     };
     return availabilityMap[slot.toLowerCase()] || slot;
   }
@@ -77,7 +77,7 @@ export default function VolunteerAdminInfo({
   if (isError) {
     return (
       <div className="max-w-6xl mx-auto text-red-500 font-semibold mb-6 text-center">
-        Error al cargar los detalles del voluntario.
+        Error loading volunteer details.
       </div>
     );
   }
@@ -85,7 +85,7 @@ export default function VolunteerAdminInfo({
   if (isLoading) {
     return (
       <div className="max-w-6xl mx-auto text-white/60 font-semibold mb-6 text-center animate-pulse mt-20">
-        Cargando detalles del voluntario...
+        Loading volunteer details...
       </div>
     );
   }
@@ -110,7 +110,7 @@ export default function VolunteerAdminInfo({
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          Regresar a la lista de voluntarios
+          Back to volunteer list
         </Link>
       </div>
 
@@ -119,7 +119,7 @@ export default function VolunteerAdminInfo({
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-white/60">
               <span className="size-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Voluntario #{volunteer.id}
+              Volunteer #{volunteer.id}
             </div>
             <h1 className="text-4xl font-black tracking-tight">
               {volunteer.name} {volunteer.lastName}
@@ -138,7 +138,7 @@ export default function VolunteerAdminInfo({
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              Registrado el {formatDate(volunteer.date)}
+              Registered on {formatDate(volunteer.date)}
             </div>
           </div>
           <div className="flex flex-col items-center gap-4 sm:flex-row">
@@ -151,7 +151,7 @@ export default function VolunteerAdminInfo({
               onClick={handleEditClick}
               className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 hover:border-[#19e6b3]/50 cursor-pointer"
             >
-              Editar
+              Edit
             </button>
           </div>
         </div>
@@ -176,13 +176,13 @@ export default function VolunteerAdminInfo({
               </svg>
             </div>
             <h2 className="text-xl font-bold text-white">
-              Información Personal
+              Personal Information
             </h2>
           </div>
           <div className="mt-6 space-y-4">
             <div className="rounded-xl border border-white/10 bg-white/5 p-4">
               <p className="text-xs uppercase tracking-wider text-white/50 mb-1">
-                Nombre Completo
+                Full Name
               </p>
               <p className="text-white font-semibold">{`${volunteer.name} ${volunteer.lastName}`}</p>
             </div>
@@ -196,7 +196,7 @@ export default function VolunteerAdminInfo({
             </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-4">
               <p className="text-xs uppercase tracking-wider text-white/50 mb-1">
-                Teléfono
+                Phone
               </p>
               <p className="text-white font-semibold">{volunteer.phone}</p>
             </div>
@@ -220,12 +220,12 @@ export default function VolunteerAdminInfo({
                 />
               </svg>
             </div>
-            <h2 className="text-xl font-bold text-white">Disponibilidad</h2>
+            <h2 className="text-xl font-bold text-white">Availability</h2>
           </div>
           <div className="space-y-6">
             <div>
               <p className="text-sm font-medium uppercase tracking-wider text-white/50 mb-3">
-                Días disponibles
+                Available Days
               </p>
               <div className="flex flex-wrap gap-2">
                 {volunteer.availableDays.map((day) => (
@@ -240,7 +240,7 @@ export default function VolunteerAdminInfo({
             </div>
             <div>
               <p className="text-sm font-medium uppercase tracking-wider text-white/50 mb-3">
-                Horario preferido
+                Preferred Schedule
               </p>
               <div className="space-y-2">
                 {volunteer.availability.map((slot) => (
@@ -283,7 +283,7 @@ export default function VolunteerAdminInfo({
               />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-white">Áreas de interés</h2>
+          <h2 className="text-xl font-bold text-white">Areas of Interest</h2>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {volunteer.areasOfInterest.map((area) => (
@@ -301,7 +301,7 @@ export default function VolunteerAdminInfo({
         <article className="rounded-3xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/5 p-6 backdrop-blur shadow-xl">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-3xl">💭</span>
-            <h2 className="text-xl font-bold text-white">Motivación</h2>
+            <h2 className="text-xl font-bold text-white">Motivation</h2>
           </div>
           <p className="mt-4 text-white/80 leading-relaxed border-l-4 border-emerald-500/50 pl-4 italic">
             &quot;{volunteer.whyVolunteer}&quot;
@@ -310,11 +310,11 @@ export default function VolunteerAdminInfo({
         <article className="rounded-3xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/5 p-6 backdrop-blur shadow-xl">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-3xl">⭐</span>
-            <h2 className="text-xl font-bold text-white">Habilidades</h2>
+            <h2 className="text-xl font-bold text-white">Skills</h2>
           </div>
           <p className="mt-4 text-white/80 leading-relaxed">
             {volunteer.specialSkills || (
-              <span className="text-white/50 italic">Sin información</span>
+              <span className="text-white/50 italic">No information</span>
             )}
           </p>
         </article>
@@ -338,13 +338,13 @@ export default function VolunteerAdminInfo({
             </svg>
           </div>
           <h2 className="text-xl font-bold text-white">
-            Contacto de emergencia
+            Emergency Contact
           </h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-xl border border-white/10 bg-white/5 p-4">
             <p className="text-xs uppercase tracking-wider text-white/50 mb-1">
-              Nombre
+              Name
             </p>
             <p className="text-white font-semibold">
               {volunteer.emergencyContactName}
@@ -352,7 +352,7 @@ export default function VolunteerAdminInfo({
           </div>
           <div className="rounded-xl border border-white/10 bg-white/5 p-4">
             <p className="text-xs uppercase tracking-wider text-white/50 mb-1">
-              Teléfono
+              Phone
             </p>
             <p className="text-white font-semibold">
               {volunteer.emergencyContactPhone}
@@ -378,7 +378,7 @@ export default function VolunteerAdminInfo({
               />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-white">Autorizaciones</h2>
+          <h2 className="text-xl font-bold text-white">Authorizations</h2>
         </div>
         <div className="flex items-start gap-4 rounded-xl border border-white/10 bg-white/5 p-5">
           <div
@@ -423,13 +423,13 @@ export default function VolunteerAdminInfo({
               className={`font-semibold ${volunteer.privacyAgreement ? "text-emerald-400" : "text-red-400"}`}
             >
               {volunteer.privacyAgreement
-                ? "✓ Términos aceptados"
-                : "✗ Pendiente de aceptación"}
+                ? "✓ Terms Accepted"
+                : "✗ Pending Acceptance"}
             </p>
             <p className="mt-1 text-sm text-white/70 leading-relaxed">
               {volunteer.privacyAgreement
-                ? "El voluntario aceptó los términos y condiciones junto con la política de privacidad."
-                : "Pendiente de aceptar términos y condiciones."}
+                ? "The volunteer accepted the terms and conditions along with the privacy policy."
+                : "Pending acceptance of terms and conditions."}
             </p>
           </div>
         </div>

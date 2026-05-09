@@ -152,7 +152,7 @@ export default function NewPetForm({
       if (!imageToDelete) return;
 
       try {
-        setLoadingMessage("Eliminando imagen...");
+        setLoadingMessage("Deleting image...");
         await deleteImage(
           token,
           imageToDelete.public_id,
@@ -165,7 +165,7 @@ export default function NewPetForm({
       } catch (error) {
         console.error("Error eliminando imagen:", error);
         setLoadingMessage("");
-        alert("Error al eliminar la imagen. Intenta de nuevo.");
+        alert("Error deleting image. Please try again.");
       }
       return;
     }
@@ -213,7 +213,7 @@ export default function NewPetForm({
 
       // Agregar las nuevas imágenes subidas
       if (selectedFiles.length > 0) {
-        setLoadingMessage(`Subiendo ${selectedFiles.length} imagen(es)...`);
+        setLoadingMessage(`Uploading ${selectedFiles.length} image(s)...`);
         const dataTransfer = new DataTransfer();
         selectedFiles.forEach((file) => dataTransfer.items.add(file));
         const uploadedMedia = await uploadMultipleImages(
@@ -225,7 +225,7 @@ export default function NewPetForm({
 
       // Paso 2: Crear o actualizar el animal
       setLoadingMessage(
-        isEditMode ? "Actualizando animal..." : "Creando animal...",
+        isEditMode ? "Updating animal..." : "Creating animal...",
       );
       const animalData = {
         name: data.name,
@@ -267,7 +267,7 @@ export default function NewPetForm({
     if (!hasExistingImages && !hasNewImages) {
       setError("media", {
         type: "manual",
-        message: "Debes seleccionar al menos una imagen",
+        message: "You must select at least one image",
       });
       return;
     }
@@ -290,11 +290,11 @@ export default function NewPetForm({
               className="w-full max-w-md rounded-xl bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
             >
               <DialogTitle as="h3" className="text-xl font-medium text-white">
-                {isEditMode ? "Editar Animal" : "Agregar Nuevo Animal"}{" "}
+                {isEditMode ? "Edit Animal" : "Add New Animal"}{" "}
                 {Object.keys(errors).length > 0 && (
                   <span className="text-red-500">
                     {" "}
-                    - Por favor corrige los errores{" "}
+                    - Please fix the errors{" "}
                   </span>
                 )}
               </DialogTitle>
@@ -313,9 +313,9 @@ export default function NewPetForm({
                     className="block text-sm/6 text-white/50"
                   >
                     {errors.name ? (
-                      <span className="text-red-500">* Nombre:</span>
+                      <span className="text-red-500">* Name:</span>
                     ) : (
-                      "Nombre:"
+                      "Name:"
                     )}
                   </label>
                   <input
@@ -337,9 +337,9 @@ export default function NewPetForm({
                     className="block text-sm/6 text-white/50"
                   >
                     {errors.type ? (
-                      <span className="text-red-500">* Tipo de Animal:</span>
+                      <span className="text-red-500">* Animal Type:</span>
                     ) : (
-                      "Tipo de Animal:"
+                      "Animal Type:"
                     )}
                   </label>
                   <select
@@ -347,9 +347,9 @@ export default function NewPetForm({
                     className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white/80 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                     {...register("type", { required: true })}
                   >
-                    <option value="">Selecciona un tipo</option>
-                    <option value="Dog">Perro</option>
-                    <option value="Cat">Gato</option>
+                    <option value="">Select a type</option>
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
                   </select>
                 </div>
 
@@ -359,9 +359,9 @@ export default function NewPetForm({
                     className="block text-sm/6 text-white/50"
                   >
                     {errors.breed ? (
-                      <span className="text-red-500">* Raza:</span>
+                      <span className="text-red-500">* Breed:</span>
                     ) : (
-                      "Raza:"
+                      "Breed:"
                     )}
                   </label>
                   <input
@@ -383,9 +383,9 @@ export default function NewPetForm({
                     className="block text-sm/6 text-white/50"
                   >
                     {errors.age ? (
-                      <span className="text-red-500">* Edad:</span>
+                      <span className="text-red-500">* Age:</span>
                     ) : (
-                      "Edad:"
+                      "Age:"
                     )}
                   </label>
                   <input
@@ -405,9 +405,9 @@ export default function NewPetForm({
                     className="block text-sm/6 text-white/50"
                   >
                     {errors.gender ? (
-                      <span className="text-red-500">* Género:</span>
+                      <span className="text-red-500">* Gender:</span>
                     ) : (
-                      "Género:"
+                      "Gender:"
                     )}
                   </label>
                   <select
@@ -415,9 +415,9 @@ export default function NewPetForm({
                     id="gender"
                     className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white/80 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                   >
-                    <option value="">Selecciona un género</option>
-                    <option value="Male">Macho</option>
-                    <option value="Female">Hembra</option>
+                    <option value="">Select a gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                   </select>
                 </div>
 
@@ -427,9 +427,9 @@ export default function NewPetForm({
                     className="block text-sm/6 text-white/50"
                   >
                     {errors.size ? (
-                      <span className="text-red-500">* Tamaño:</span>
+                      <span className="text-red-500">* Size:</span>
                     ) : (
-                      "Tamaño:"
+                      "Size:"
                     )}
                   </label>
                   <select
@@ -437,10 +437,10 @@ export default function NewPetForm({
                     id="size"
                     className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white/80 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                   >
-                    <option value="">Selecciona un tamaño</option>
-                    <option value="Small">Pequeño</option>
-                    <option value="Medium">Mediano</option>
-                    <option value="Large">Grande</option>
+                    <option value="">Select a size</option>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
                   </select>
                 </div>
 
@@ -450,9 +450,9 @@ export default function NewPetForm({
                     className="block text-sm/6 text-white/50"
                   >
                     {errors.shortDescription ? (
-                      <span className="text-red-500">* Descripción Corta:</span>
+                      <span className="text-red-500">* Short Description:</span>
                     ) : (
-                      "Descripción Corta:"
+                      "Short Description:"
                     )}
                   </label>
                   <input
@@ -474,10 +474,10 @@ export default function NewPetForm({
                   >
                     {errors.longDescription ? (
                       <span className="text-red-500">
-                        * Descripción Completa:
+                        * Full Description:
                       </span>
                     ) : (
-                      "Descripción Completa:"
+                      "Full Description:"
                     )}
                   </label>
                   <textarea
@@ -488,7 +488,7 @@ export default function NewPetForm({
                     })}
                     rows={4}
                     className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white/80 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
-                    placeholder="Descripción detallada del animal..."
+                    placeholder="Detailed animal description..."
                   ></textarea>
                 </div>
 
@@ -499,10 +499,10 @@ export default function NewPetForm({
                   >
                     {errors.availableForAdoption ? (
                       <span className="text-red-500">
-                        * Estado de Adopción:
+                        * Adoption Status:
                       </span>
                     ) : (
-                      "Estado de Adopción:"
+                      "Adoption Status:"
                     )}
                   </label>
                   <select
@@ -510,23 +510,23 @@ export default function NewPetForm({
                     id="availableForAdoption"
                     className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white/80 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                   >
-                    <option value="">Selecciona un estado</option>
-                    <option value="available">Disponible</option>
-                    <option value="adopted">Adoptado</option>
-                    <option value="pending">Pendiente</option>
+                    <option value="">Select a status</option>
+                    <option value="available">Available</option>
+                    <option value="adopted">Adopted</option>
+                    <option value="pending">Pending</option>
                   </select>
                 </div>
 
                 {/* Checkboxes para características */}
                 <div className="space-y-3">
-                  <p className="text-sm/6 text-white/50">Características:</p>
+                  <p className="text-sm/6 text-white/50">Characteristics:</p>
                   <label className="flex items-center gap-2 text-white/80 cursor-pointer">
                     <input
                       type="checkbox"
                       {...register("goodWithKids")}
                       className="rounded border-white/10 bg-white/5 text-[#19e6b3] focus:ring-[#19e6b3]"
                     />
-                    <span className="text-sm">Bueno con niños</span>
+                    <span className="text-sm">Good with kids</span>
                   </label>
                   <label className="flex items-center gap-2 text-white/80 cursor-pointer">
                     <input
@@ -534,7 +534,7 @@ export default function NewPetForm({
                       {...register("goodWithDogs")}
                       className="rounded border-white/10 bg-white/5 text-[#19e6b3] focus:ring-[#19e6b3]"
                     />
-                    <span className="text-sm">Bueno con otros perros</span>
+                    <span className="text-sm">Good with other dogs</span>
                   </label>
                   <label className="flex items-center gap-2 text-white/80 cursor-pointer">
                     <input
@@ -542,7 +542,7 @@ export default function NewPetForm({
                       {...register("homeTrained")}
                       className="rounded border-white/10 bg-white/5 text-[#19e6b3] focus:ring-[#19e6b3]"
                     />
-                    <span className="text-sm">Entrenado para casa</span>
+                    <span className="text-sm">House trained</span>
                   </label>
                 </div>
 
@@ -551,24 +551,24 @@ export default function NewPetForm({
                   className="block text-sm/6 text-white/50"
                 >
                   {errors.media ? (
-                    <span className="text-red-500">* Imágenes:</span>
+                    <span className="text-red-500">* Images:</span>
                   ) : (
-                    "Imágenes:"
+                    "Images:"
                   )}
                 </label>
                 <div className="mt-1 w-full rounded-xl border border-dashed border-white/20 bg-white/5 p-5 text-center text-white/70">
                   <p className="text-sm font-medium">
-                    Arrastra y suelta tus fotos aquí
+                    Drag and drop your photos here
                   </p>
                   <p className="text-xs text-white/50">
-                    Formatos JPG o PNG hasta 5MB
+                    JPG or PNG formats up to 5MB
                   </p>
                   <div className="mt-4">
                     <label
                       htmlFor="media"
                       className="inline-flex items-center gap-2 rounded-md bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-inner shadow-white/10 cursor-pointer hover:bg-white/20 focus:outline focus:outline-[#19e6b3]"
                     >
-                      Seleccionar archivos
+                      Select files
                     </label>
                     <input
                       id="media"
@@ -586,8 +586,8 @@ export default function NewPetForm({
                 {imagePreviews.length > 0 && (
                   <div className="mt-4">
                     <p className="text-sm font-medium text-white/70 mb-2">
-                      Previsualizaciones ({imagePreviews.length} imagen
-                      {imagePreviews.length > 1 ? "es" : ""}):
+                      Previews ({imagePreviews.length} image
+                      {imagePreviews.length > 1 ? "s" : ""}):
                     </p>
                     <div className="grid grid-cols-3 gap-3">
                       {imagePreviews.map((preview, index) => (
@@ -622,17 +622,17 @@ export default function NewPetForm({
                     disabled={createAnimalMutation.isPending}
                   >
                     {createAnimalMutation.isPending
-                      ? loadingMessage || "Procesando..."
+                      ? loadingMessage || "Processing..."
                       : isEditMode
-                        ? "Actualizar"
-                        : "Agregar"}
+                        ? "Update"
+                        : "Add"}
                   </Button>
                   <Button
                     className="inline-flex items-center gap-2 rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white data-hover:bg-red-800 data-open:bg-red-800 cursor-pointer"
                     onClick={handleClose}
                     type="button"
                   >
-                    Cancelar
+                    Cancel
                   </Button>
                 </div>
               </form>

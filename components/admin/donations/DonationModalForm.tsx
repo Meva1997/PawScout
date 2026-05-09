@@ -29,14 +29,14 @@ export default function DonationModalForm({
               className="w-full max-w-md rounded-xl bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
             >
               <DialogTitle as="h3" className="text-xl font-medium text-white">
-                Agregar Nueva Donación
+                Add New Donation
               </DialogTitle>
               <form action="" className="my-4 space-y-4">
                 <label
                   htmlFor="donorName"
                   className="mt-2 text-sm/6 text-white/50"
                 >
-                  Nombre del Donante:
+                  Donor Name:
                 </label>
                 <input
                   type="text"
@@ -45,7 +45,7 @@ export default function DonationModalForm({
                   className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white/80 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                 />
                 <label htmlFor="date" className="mt-2 text-sm/6 text-white/50">
-                  Fecha de la Donación:
+                  Donation Date:
                 </label>
                 <input
                   type="date"
@@ -57,7 +57,7 @@ export default function DonationModalForm({
                   htmlFor="amount"
                   className="mt-2 text-sm/6 text-white/50"
                 >
-                  Monto de la Donación:
+                  Donation Amount:
                 </label>
                 <input
                   type="number"
@@ -69,15 +69,15 @@ export default function DonationModalForm({
                   htmlFor="paymentMethod"
                   className="mt-2 text-sm/6 text-white/50"
                 >
-                  Método de Pago:
+                  Payment Method:
                 </label>
                 <select
                   name="paymentMethod"
                   id="paymentMethod"
                   className="mt-1 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white/80 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                 >
-                  <option value="cash">Efectivo</option>
-                  <option value="bankTransfer">Transferencia Bancaria</option>
+                  <option value="cash">Cash</option>
+                  <option value="bankTransfer">Bank Transfer</option>
                 </select>
 
                 {/*Hidden status field since it will be 'completed' by default*/}
@@ -92,14 +92,14 @@ export default function DonationModalForm({
                     }}
                     type="submit"
                   >
-                    Agregar
+                    Add
                   </Button>
                   <Button
                     className="inline-flex items-center gap-2 rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white data-hover:bg-red-800 data-open:bg-red-800 cursor-pointer"
                     onClick={handleClose}
                     type="button"
                   >
-                    Cancelar
+                    Cancel
                   </Button>
                 </div>
               </form>

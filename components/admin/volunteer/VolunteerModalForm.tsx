@@ -7,22 +7,22 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
 const daysOfWeek = [
-  { label: "Lunes", value: "monday" },
-  { label: "Martes", value: "tuesday" },
-  { label: "Miércoles", value: "wednesday" },
-  { label: "Jueves", value: "thursday" },
-  { label: "Viernes", value: "friday" },
-  { label: "Sábado", value: "saturday" },
-  { label: "Domingo", value: "sunday" },
+  { label: "Monday", value: "monday" },
+  { label: "Tuesday", value: "tuesday" },
+  { label: "Wednesday", value: "wednesday" },
+  { label: "Thursday", value: "thursday" },
+  { label: "Friday", value: "friday" },
+  { label: "Saturday", value: "saturday" },
+  { label: "Sunday", value: "sunday" },
 ];
 
 const areaOfInterest = [
-  { label: "Cuidado de animales", value: "Cuidado de animales" },
-  { label: "Planificación de eventos", value: "Planificación de eventos" },
-  { label: "Recaudación de fondos", value: "Recaudación de fondos" },
-  { label: "Apoyo administrativo", value: "Apoyo administrativo" },
-  { label: "Alcance comunitario", value: "Alcance comunitario" },
-  { label: "Otro", value: "Otro" },
+  { label: "Animal Care", value: "Cuidado de animales" },
+  { label: "Event Planning", value: "Planificación de eventos" },
+  { label: "Fundraising", value: "Recaudación de fondos" },
+  { label: "Administrative Support", value: "Apoyo administrativo" },
+  { label: "Community Outreach", value: "Alcance comunitario" },
+  { label: "Other", value: "Otro" },
 ];
 
 type VolunteerModalFormProps = {
@@ -93,7 +93,7 @@ export default function VolunteerModalForm({
     },
     onError: (error) => {
       console.error(
-        `Error al ${isEditMode ? "actualizar" : "agregar"} el voluntario:`,
+        `Error ${isEditMode ? "updating" : "adding"} volunteer:`,
         error,
       );
     },
@@ -126,7 +126,7 @@ export default function VolunteerModalForm({
             className="w-full max-w-4xl rounded-xl bg-[#0c1412] p-6 text-white backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0 my-8"
           >
             <DialogTitle as="h3" className="text-xl font-semibold text-white">
-              {isEditMode ? "Editar Voluntario" : "Agregar Nuevo Voluntario"}
+              {isEditMode ? "Edit Volunteer" : "Add New Volunteer"}
             </DialogTitle>
 
             <form
@@ -135,7 +135,7 @@ export default function VolunteerModalForm({
             >
               <section className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/5 p-6">
                 <p className="text-lg font-semibold text-white/90">
-                  👤 Información Personal
+                  👤 Personal Information
                 </p>
                 <div className="mt-6 grid gap-4 md:grid-cols-2">
                   <div className="space-y-1">
@@ -145,16 +145,16 @@ export default function VolunteerModalForm({
                           {errors.name.message}
                         </span>
                       ) : (
-                        "Nombre"
+                        "Name"
                       )}
                     </label>
                     <input
                       type="text"
                       id="name"
-                      placeholder="Juan"
+                      placeholder="John"
                       className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white/90 placeholder:text-white/30 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                       {...register("name", {
-                        required: "El nombre es obligatorio",
+                        required: "Name is required",
                       })}
                     />
                   </div>
@@ -165,16 +165,16 @@ export default function VolunteerModalForm({
                           {errors.lastName.message}
                         </span>
                       ) : (
-                        "Apellido"
+                        "Last Name"
                       )}
                     </label>
                     <input
                       type="text"
                       id="lastName"
-                      placeholder="Pérez"
+                      placeholder="Smith"
                       className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white/90 placeholder:text-white/30 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                       {...register("lastName", {
-                        required: "El apellido es obligatorio",
+                        required: "Last name is required",
                       })}
                     />
                   </div>
@@ -185,7 +185,7 @@ export default function VolunteerModalForm({
                           {errors.email.message}
                         </span>
                       ) : (
-                        "Correo Electrónico"
+                        "Email"
                       )}
                     </label>
                     <input
@@ -194,7 +194,7 @@ export default function VolunteerModalForm({
                       placeholder="email@email.com"
                       className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white/90 placeholder:text-white/30 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                       {...register("email", {
-                        required: "El correo electrónico es obligatorio",
+                        required: "Email is required",
                       })}
                     />
                   </div>
@@ -205,7 +205,7 @@ export default function VolunteerModalForm({
                           {errors.phone.message}
                         </span>
                       ) : (
-                        "Teléfono"
+                        "Phone"
                       )}
                     </label>
                     <input
@@ -214,7 +214,7 @@ export default function VolunteerModalForm({
                       placeholder="123-456-7890"
                       className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white/90 placeholder:text-white/30 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                       {...register("phone", {
-                        required: "El teléfono es obligatorio",
+                        required: "Phone is required",
                       })}
                     />
                   </div>
@@ -228,13 +228,13 @@ export default function VolunteerModalForm({
                       {errors.availableDays.message}
                     </span>
                   ) : (
-                    "📅 Disponibilidad"
+                    "📅 Availability"
                   )}
                 </p>
                 <div className="mt-6 space-y-6">
                   <div>
                     <p className="mb-3 text-sm font-medium uppercase tracking-wider text-white/50">
-                      Días disponibles
+                      Available Days
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {daysOfWeek.map((day) => (
@@ -245,7 +245,7 @@ export default function VolunteerModalForm({
                           <input
                             type="checkbox"
                             {...register("availableDays", {
-                              required: "Seleccione al menos un día",
+                              required: "Select at least one day",
                             })}
                             value={day.value}
                             className="peer sr-only"
@@ -264,7 +264,7 @@ export default function VolunteerModalForm({
                           {errors.availability.message}
                         </span>
                       ) : (
-                        "Horario preferido"
+                        "Preferred Schedule"
                       )}
                     </p>
                     <div className="grid gap-3 sm:grid-cols-3">
@@ -272,7 +272,7 @@ export default function VolunteerModalForm({
                         <input
                           type="checkbox"
                           {...register("availability", {
-                            required: "Seleccione al menos un horario",
+                            required: "Select at least one time slot",
                           })}
                           value="morning"
                           className="peer sr-only"
@@ -280,7 +280,7 @@ export default function VolunteerModalForm({
                         <div className="flex items-center gap-3 rounded-xl border-2 border-white/10 bg-white/5 p-4 transition-all duration-200 peer-checked:border-[#19e6b3] peer-checked:bg-[#19e6b3]/10 peer-checked:shadow-[0_0_20px_rgba(25,230,179,0.2)] group-hover:border-white/30">
                           <span className="text-2xl">☀️</span>
                           <span className="font-semibold text-white/70 peer-checked:text-[#19e6b3]">
-                            Mañana
+                            Morning
                           </span>
                         </div>
                       </label>
@@ -288,7 +288,7 @@ export default function VolunteerModalForm({
                         <input
                           type="checkbox"
                           {...register("availability", {
-                            required: "Seleccione al menos un horario",
+                            required: "Select at least one time slot",
                           })}
                           value="afternoon"
                           className="peer sr-only"
@@ -296,7 +296,7 @@ export default function VolunteerModalForm({
                         <div className="flex items-center gap-3 rounded-xl border-2 border-white/10 bg-white/5 p-4 transition-all duration-200 peer-checked:border-[#19e6b3] peer-checked:bg-[#19e6b3]/10 peer-checked:shadow-[0_0_20px_rgba(25,230,179,0.2)] group-hover:border-white/30">
                           <span className="text-2xl">🌤️</span>
                           <span className="font-semibold text-white/70 peer-checked:text-[#19e6b3]">
-                            Tarde
+                            Afternoon
                           </span>
                         </div>
                       </label>
@@ -304,7 +304,7 @@ export default function VolunteerModalForm({
                         <input
                           type="checkbox"
                           {...register("availability", {
-                            required: "Seleccione al menos un horario",
+                            required: "Select at least one time slot",
                           })}
                           value="evening"
                           className="peer sr-only"
@@ -312,7 +312,7 @@ export default function VolunteerModalForm({
                         <div className="flex items-center gap-3 rounded-xl border-2 border-white/10 bg-white/5 p-4 transition-all duration-200 peer-checked:border-[#19e6b3] peer-checked:bg-[#19e6b3]/10 peer-checked:shadow-[0_0_20px_rgba(25,230,179,0.2)] group-hover:border-white/30">
                           <span className="text-2xl">🌙</span>
                           <span className="font-semibold text-white/70 peer-checked:text-[#19e6b3]">
-                            Noche
+                            Evening
                           </span>
                         </div>
                       </label>
@@ -328,7 +328,7 @@ export default function VolunteerModalForm({
                       {errors.areasOfInterest.message}
                     </span>
                   ) : (
-                    "🎯 Áreas de interés"
+                    "🎯 Areas of Interest"
                   )}
                 </p>
                 <div className="mt-6 grid gap-3 md:grid-cols-2">
@@ -340,7 +340,7 @@ export default function VolunteerModalForm({
                       <input
                         type="checkbox"
                         {...register("areasOfInterest", {
-                          required: "Seleccione al menos un área de interés",
+                          required: "Select at least one area of interest",
                         })}
                         value={area.value}
                         className="peer sr-only"
@@ -356,10 +356,10 @@ export default function VolunteerModalForm({
               {isEditMode && (
                 <section className="rounded-2xl border-2 border-emerald-500/20 bg-linear-to-br from-emerald-500/5 via-transparent to-emerald-500/10 p-6">
                   <p className="text-lg font-semibold text-white/90 mb-1">
-                    🔄 Estado del Voluntario
+                    🔄 Volunteer Status
                   </p>
                   <p className="text-xs text-white/50 mb-6">
-                    Cambia el estado de aprobación del voluntario
+                    Change the volunteer&apos;s approval status
                   </p>
                   <div className="grid gap-3 sm:grid-cols-3">
                     <label className="group relative cursor-pointer">
@@ -384,7 +384,7 @@ export default function VolunteerModalForm({
                           />
                         </svg>
                         <span className="font-semibold text-white/70 peer-checked:text-yellow-400 transition-colors">
-                          Pendiente
+                          Pending
                         </span>
                       </div>
                     </label>
@@ -410,7 +410,7 @@ export default function VolunteerModalForm({
                           />
                         </svg>
                         <span className="font-semibold text-white/70 peer-checked:text-emerald-400 transition-colors">
-                          Aceptado
+                          Accepted
                         </span>
                       </div>
                     </label>
@@ -436,7 +436,7 @@ export default function VolunteerModalForm({
                           />
                         </svg>
                         <span className="font-semibold text-white/70 peer-checked:text-red-400 transition-colors">
-                          Rechazado
+                          Rejected
                         </span>
                       </div>
                     </label>
@@ -452,16 +452,16 @@ export default function VolunteerModalForm({
                         {errors.whyVolunteer.message}
                       </span>
                     ) : (
-                      "💭 Motivación"
+                      "💭 Motivation"
                     )}
                   </p>
                   <textarea
                     id="motivation"
                     {...register("whyVolunteer", {
-                      required: "La motivación es obligatoria",
+                      required: "Motivation is required",
                     })}
                     rows={5}
-                    placeholder="Describe por qué desea participar como voluntario..."
+                    placeholder="Describe why you want to volunteer..."
                     className="mt-4 w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white/90 placeholder:text-white/40 focus:border-[#19e6b3] focus:outline-none focus:ring-2 focus:ring-[#19e6b3]/50 transition-all"
                   ></textarea>
                 </div>
@@ -472,16 +472,16 @@ export default function VolunteerModalForm({
                         {errors.specialSkills.message}
                       </span>
                     ) : (
-                      "⭐ Habilidades"
+                      "⭐ Skills"
                     )}
                   </p>
                   <textarea
                     id="specialSkills"
                     rows={5}
-                    placeholder="Lista de habilidades relevantes (ej. recaudación, entrenamiento, eventos)..."
+                    placeholder="List of relevant skills (e.g., fundraising, training, events)..."
                     className="mt-4 w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white/90 placeholder:text-white/40 focus:border-[#19e6b3] focus:outline-none focus:ring-2 focus:ring-[#19e6b3]/50 transition-all"
                     {...register("specialSkills", {
-                      required: "Las habilidades son obligatorias",
+                      required: "Skills are required",
                     })}
                   ></textarea>
                 </div>
@@ -494,7 +494,7 @@ export default function VolunteerModalForm({
                       {errors.emergencyContactName.message}
                     </span>
                   ) : (
-                    "🚨 Contacto de emergencia"
+                    "🚨 Emergency Contact"
                   )}
                 </p>
                 <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -508,17 +508,17 @@ export default function VolunteerModalForm({
                           {errors.emergencyContactName.message}
                         </span>
                       ) : (
-                        "Nombre de contacto"
+                        "Contact Name"
                       )}
                     </label>
                     <input
                       type="text"
                       id="emergencyContactName"
-                      placeholder="Nombre de contacto"
+                      placeholder="Contact Name"
                       className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white/90 placeholder:text-white/30 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
                       {...register("emergencyContactName", {
                         required:
-                          "El nombre del contacto de emergencia es obligatorio",
+                          "Emergency contact name is required",
                       })}
                     />
                   </div>
@@ -532,7 +532,7 @@ export default function VolunteerModalForm({
                           {errors.emergencyContactPhone.message}
                         </span>
                       ) : (
-                        "Teléfono de contacto"
+                        "Contact Phone"
                       )}
                     </label>
                     <input
@@ -540,7 +540,7 @@ export default function VolunteerModalForm({
                       id="emergencyContactPhone"
                       {...register("emergencyContactPhone", {
                         required:
-                          "El teléfono del contacto de emergencia es obligatorio",
+                          "Emergency contact phone is required",
                       })}
                       placeholder="123-456-7890"
                       className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white/90 placeholder:text-white/30 focus:border-[#19e6b3] focus:outline-none focus:ring-1 focus:ring-[#19e6b3]"
@@ -560,7 +560,7 @@ export default function VolunteerModalForm({
                         type="checkbox"
                         id="terms"
                         {...register("privacyAgreement", {
-                          required: "Debe aceptar los términos y condiciones",
+                          required: "You must accept the terms and conditions",
                         })}
                         className="peer sr-only"
                       />
@@ -586,12 +586,12 @@ export default function VolunteerModalForm({
                       htmlFor="terms"
                       className="cursor-pointer text-sm text-white/80 leading-relaxed"
                     >
-                      Confirmo que el voluntario es mayor de edad y acepta los
+                      I confirm that the volunteer is of legal age and accepts the
                       <span className="text-[#19e6b3] font-semibold">
                         {" "}
-                        términos y condiciones{" "}
+                        terms and conditions{" "}
                       </span>
-                      junto con la política de privacidad.
+                      along with the privacy policy.
                     </label>
                     {errors.privacyAgreement && (
                       <p className="mt-2 text-xs text-red-500">
@@ -629,7 +629,7 @@ export default function VolunteerModalForm({
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         />
                       </svg>
-                      Guardando...
+                      Saving...
                     </>
                   ) : (
                     <>
@@ -646,7 +646,7 @@ export default function VolunteerModalForm({
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      {isEditMode ? "Actualizar Registro" : "Guardar Registro"}
+                      {isEditMode ? "Update Record" : "Save Record"}
                     </>
                   )}
                 </Button>
@@ -668,7 +668,7 @@ export default function VolunteerModalForm({
                       d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
-                  Cancelar
+                  Cancel
                 </Button>
               </div>
             </form>

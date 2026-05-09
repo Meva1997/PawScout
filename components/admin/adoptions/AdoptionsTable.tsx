@@ -18,12 +18,12 @@ type AdoptionsTableProps = {
 };
 
 const tableHeaders = [
-  "Solicitante",
+  "Applicant",
   "Email",
   "Animal ID",
   "Status",
-  "Fecha",
-  "Acciones",
+  "Date",
+  "Actions",
 ];
 
 export default function AdoptionsTable({
@@ -68,7 +68,7 @@ export default function AdoptionsTable({
     },
     onError: () => {
       setUpdatingId(null);
-      alert("Error al actualizar el estado de la adopción");
+      alert("Error updating adoption status");
     },
   });
 
@@ -87,7 +87,7 @@ export default function AdoptionsTable({
   if (isError) {
     return (
       <div className="max-w-6xl mx-auto text-red-500 font-semibold mb-6 text-center">
-        Error al cargar las solicitudes de adopción.
+        Error loading adoption requests.
       </div>
     );
   }
@@ -96,7 +96,7 @@ export default function AdoptionsTable({
     return (
       <>
         <div className="max-w-6xl mx-auto text-white font-semibold my-6 animate-pulse text-center">
-          Cargando solicitudes de adopción...
+          Loading adoption requests...
           <PendingSpinner />
         </div>
       </>
@@ -109,7 +109,7 @@ export default function AdoptionsTable({
         <div className="space-y-4 md:hidden">
           {requests.length === 0 ? (
             <div className="text-center py-10 text-red-500 font-semibold">
-              No hay solicitudes de adopción en este momento.
+              No adoption requests at this time.
             </div>
           ) : (
             requests.map((request) => (
@@ -119,7 +119,7 @@ export default function AdoptionsTable({
               >
                 <header className="flex flex-col gap-1">
                   <p className="text-sm uppercase tracking-[0.25em] text-white/40">
-                    Solicitud #{request.id}
+                    Request #{request.id}
                   </p>
                   <p className="text-xl font-semibold">
                     {request.applicantName} {request.applicantLastName}
@@ -127,15 +127,15 @@ export default function AdoptionsTable({
                   <p className="text-white/70">Animal ID: {request.animalId}</p>
                   <p className={statusColors(request.status)}>
                     {request.status === "approved"
-                      ? "Aprobado"
+                      ? "Approved"
                       : request.status === "rejected"
-                        ? "Rechazado"
-                        : "Pendiente"}
+                        ? "Rejected"
+                        : "Pending"}
                   </p>
                 </header>
                 <dl className="mt-4 grid grid-cols-2 gap-4 text-sm text-white/70">
                   <div>
-                    <dt className="text-white/50">Fecha</dt>
+                    <dt className="text-white/50">Date</dt>
                     <dd>{request.date}</dd>
                   </div>
                   <div>
@@ -148,7 +148,7 @@ export default function AdoptionsTable({
                     href={`adoptions/${request.id}/details`}
                     className="flex-1 w-1/3 rounded-2xl bg-blue-500 px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-blue-600"
                   >
-                    Detalles
+                    Details
                   </Link>
                   <select
                     value={request.status}
@@ -158,15 +158,15 @@ export default function AdoptionsTable({
                     disabled={updatingId === request.id}
                     className="rounded-xl bg-green-500 px-2 py-1.5 font-semibold text-white transition hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <option value="pending">Pendiente</option>
-                    <option value="approved">Aprobado</option>
-                    <option value="rejected">Rechazado</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
                   </select>
                   <button
                     onClick={() => handleDeleteClick(request.id as number)}
                     className="rounded-xl bg-red-500 px-3 py-1.5 font-semibold text-white transition hover:bg-red-600 cursor-pointer"
                   >
-                    Eliminar
+                    Delete
                   </button>
                 </div>
               </article>
@@ -196,7 +196,7 @@ export default function AdoptionsTable({
                       colSpan={tableHeaders.length}
                       className="py-10 text-center text-red-500 font-semibold"
                     >
-                      No hay solicitudes de adopción en este momento.
+                      No adoption requests at this time.
                     </td>
                   </tr>
                 </tbody>
@@ -213,7 +213,7 @@ export default function AdoptionsTable({
                             {request.applicantName} {request.applicantLastName}
                           </span>
                           <span className="text-xs text-white/50">
-                            Solicitud #{request.id}
+                            Request #{request.id}
                           </span>
                         </div>
                       </td>
@@ -230,10 +230,10 @@ export default function AdoptionsTable({
                           className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold capitalize ${statusBadge(request.status)}`}
                         >
                           {request.status === "approved"
-                            ? "Aprobado"
+                            ? "Approved"
                             : request.status === "rejected"
-                              ? "Rechazado"
-                              : "Pendiente"}
+                              ? "Rejected"
+                              : "Pending"}
                         </span>
                       </td>
 
@@ -246,7 +246,7 @@ export default function AdoptionsTable({
                             href={`adoptions/${request.id}/details`}
                             className="rounded-xl bg-blue-500 px-3 py-1.5 font-semibold text-white transition hover:bg-blue-600 cursor-pointer"
                           >
-                            Detalles
+                            Details
                           </Link>
                           <select
                             value={request.status}
@@ -259,15 +259,15 @@ export default function AdoptionsTable({
                             disabled={updatingId === request.id}
                             className="rounded-xl bg-green-500 px-2 py-1.5 font-semibold text-white transition hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                           >
-                            <option value="pending">Pendiente</option>
-                            <option value="approved">Aprobado</option>
-                            <option value="rejected">Rechazado</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
                           </select>
                           <button
                             className="rounded-xl bg-red-500 px-3 py-1.5 font-semibold text-white transition hover:bg-red-600 cursor-pointer"
                             onClick={() => handleDeleteClick(request.id as number)}
                           >
-                            Eliminar
+                            Delete
                           </button>
                         </div>
                       </td>
@@ -282,8 +282,8 @@ export default function AdoptionsTable({
 
       <ConfirmModalDelete
         token={token}
-        entityName="solicitud de adopción"
-        entityNamePlural="esta solicitud"
+        entityName="adoption request"
+        entityNamePlural="this request"
         deleteFnAction={deleteAdoptionRequest}
         queryKey={["adoptionRequests"]}
       />

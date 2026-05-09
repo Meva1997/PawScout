@@ -45,10 +45,10 @@ export default function AdoptMain({ token }: AdoptMainProps) {
       <section className="my-10 flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
         <article>
           <h1 className="text-3xl font-bold text-white">
-            Solicitudes de Adopción
+            Adoption Requests
           </h1>
           <p className="mt-2 text-white/70">
-            Administra las solicitudes de adopción recibidas de los usuarios
+            Manage adoption requests submitted by users
           </p>
         </article>
       </section>

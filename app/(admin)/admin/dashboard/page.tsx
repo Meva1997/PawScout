@@ -12,11 +12,9 @@ type Stat = {
 export default async function page() {
   await verifySession();
 
-  // Recuperar el token de la cookie
   const cookieStore = await cookies();
   const token = cookieStore.get("pawscout_token")?.value;
 
-  // Si no hay token, verifySession ya debería haber redirigido
   if (!token) {
     throw new Error("No authentication token found");
   }
@@ -26,10 +24,10 @@ export default async function page() {
   const animals: DogsDataType[] = animalsResponse.animals;
 
   const generalStats: Stat[] = [
-    { title: "Animales en total", value: adminStats.stats.total_animals },
-    { title: "Adopciones este mes", value: adminStats.stats.total_adoptions },
-    { title: "Usuarios", value: adminStats.stats.total_users },
-    { title: "Voluntarios", value: adminStats.stats.total_volunteers },
+    { title: "Total Animals", value: adminStats.stats.total_animals },
+    { title: "Adoptions This Month", value: adminStats.stats.total_adoptions },
+    { title: "Users", value: adminStats.stats.total_users },
+    { title: "Volunteers", value: adminStats.stats.total_volunteers },
   ];
 
   return (
@@ -37,13 +35,13 @@ export default async function page() {
       <section className="my-6 flex items-center justify-between">
         <article>
           <h1 className="text-3xl font-bold text-white">
-            Panel de Administración
+            Administration Panel
           </h1>
-          <p>Bienvenido al panel de administración de PawScout.</p>
+          <p>Welcome to the PawScout administration panel.</p>
         </article>
         <article>
           <button className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/80 hover:bg-white/10 transition-all hover:cursor-pointer">
-            Ultimos 30 días ▼
+            Last 30 Days ▼
           </button>
         </article>
       </section>
@@ -64,20 +62,19 @@ export default async function page() {
         <article className="md:col-span-2 flex flex-col">
           <div className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] mb-6 p-6">
             <h2 className="text-xl font-semibold text-white">
-              Actividad Reciente de adopciones
+              Recent Adoption Activity
             </h2>
-            <p>Variaciones en las adopciones de los ultimos meses.</p>
+            <p>Adoption trends over the past months.</p>
             <div>
               {/* Placeholder for chart or data visualization TODO:Chart */}
               <div className="mt-6 h-48 bg-white/10 rounded-2xl flex items-center justify-center text-white/50">
-                [Gráfico de Actividad de Adopciones]
+                [Adoption Activity Chart]
               </div>
             </div>
           </div>
           <div className="rounded-2xl space-y-6 border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-            {/* Placeholder for recent activities list */}
             <h3 className=" text-lg font-semibold text-white">
-              Animales agregados recientemente
+              Recently Added Animals
             </h3>
             <ul className="space-y-4">
               {animals.map((animal) => (
@@ -108,28 +105,28 @@ export default async function page() {
         <article className=" flex flex-col col-span-1 mx-auto w-full">
           <div className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] mb-6 p-6 ">
             <h3 className="text-xl font-semibold text-white">
-              Estadísticas de Donaciones
+              Donation Statistics
             </h3>
-            <p>Resumen de las donaciones recibidas.</p>
+            <p>Summary of donations received.</p>
             <div>
               {/* Placeholder for chart or data visualization TODO:Chart */}
               <div className="mt-6 h-48 bg-white/10 rounded-2xl flex items-center justify-center text-white/50">
-                [Gráfico de Estadísticas de Donaciones]
+                [Donation Statistics Chart]
               </div>
             </div>
           </div>
           {/*Urgent cases section*/}
           <div className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] mb-6 p-6 ">
-            <h3 className="text-xl font-semibold text-white">Casos Urgentes</h3>
-            <p>Animales que necesitan atención inmediata.</p>
+            <h3 className="text-xl font-semibold text-white">Urgent Cases</h3>
+            <p>Animals that need immediate attention.</p>
             <ul className="mt-4 space-y-4">
               <li className="flex justify-between">
-                <span>Perro herido encontrado en la calle</span>
-                <span className="text-red-500 font-semibold">¡Urgente!</span>
+                <span>Injured dog found on the street</span>
+                <span className="text-red-500 font-semibold">Urgent!</span>
               </li>
               <li className="flex justify-between">
-                <span>Gato enfermo necesita medicación</span>
-                <span className="text-red-500 font-semibold">¡Urgente!</span>
+                <span>Sick cat needs medication</span>
+                <span className="text-red-500 font-semibold">Urgent!</span>
               </li>
             </ul>
           </div>

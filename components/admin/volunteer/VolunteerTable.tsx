@@ -23,9 +23,9 @@ function statusBadgeColor(status: string) {
 
 function statusBadgeText(status: string) {
   const statusMap: { [key: string]: string } = {
-    accepted: "Aceptado",
-    pending: "Pendiente",
-    rejected: "Rechazado",
+    accepted: "Accepted",
+    pending: "Pending",
+    rejected: "Rejected",
   };
   return statusMap[status.toLowerCase()] || status;
 }
@@ -45,7 +45,7 @@ export default function VolunteerTable({
     <>
       {volunteers.length === 0 ? (
         <div className="text-center text-white/70 py-10 animate-pulse">
-          No hay voluntarios registrados.
+          No volunteers registered.
         </div>
       ) : (
         <>
@@ -66,13 +66,13 @@ export default function VolunteerTable({
                 <p className="text-sm text-white/70">{volunteer.email}</p>
                 <div className="mt-4 grid grid-cols-1 gap-2 text-sm text-white/80">
                   <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                    <span className="text-white/50">Teléfono</span>
+                    <span className="text-white/50">Phone</span>
                     <span className="font-semibold text-white">
                       {volunteer.phone}
                     </span>
                   </div>
                   <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                    <span className="text-white/50">Registro</span>
+                    <span className="text-white/50">Registration</span>
                     <span className="font-semibold text-white">
                       {formatDate(volunteer.date)}
                     </span>
@@ -87,11 +87,11 @@ export default function VolunteerTable({
               <table className="min-w-180 w-full table-auto border-collapse text-center">
                 <thead>
                   <tr className="text-xs uppercase tracking-[0.3em] text-white/40">
-                    <th className="px-4 py-3">Nombre</th>
-                    <th className="px-4 py-3">Correo Electrónico</th>
-                    <th className="px-4 py-3">Teléfono</th>
-                    <th className="px-4 py-3">Fecha de Registro</th>
-                    <th className="px-4 py-3">Estado</th>
+                    <th className="px-4 py-3">Name</th>
+                    <th className="px-4 py-3">Email</th>
+                    <th className="px-4 py-3">Phone</th>
+                    <th className="px-4 py-3">Registration Date</th>
+                    <th className="px-4 py-3">Status</th>
                     <th className="px-4 py-3">Info</th>
                   </tr>
                 </thead>
@@ -125,13 +125,13 @@ export default function VolunteerTable({
                           href={`/admin/volunteers/${volunteer.id}/details`}
                           className="rounded-2xl bg-[#19e6b3] px-3 py-2 text-sm font-semibold text-[#0c1412] transition hover:bg-[#16caa0] cursor-pointer"
                         >
-                          Detalles
+                          Details
                         </Link>
                         <button
                           className="mt-2 rounded-2xl  bg-red-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-red-800 cursor-pointer"
                           onClick={() => handleDeleteClick(volunteer.id)}
                         >
-                          Eliminar
+                          Delete
                         </button>
                       </td>
                     </tr>
@@ -145,8 +145,8 @@ export default function VolunteerTable({
 
       <ConfirmModalDelete
         token={token}
-        entityName="voluntario"
-        entityNamePlural="este voluntario"
+        entityName="volunteer"
+        entityNamePlural="this volunteer"
         deleteFnAction={deleteVolunteer}
         queryKey="volunteers"
         idParamName="id"

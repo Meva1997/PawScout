@@ -15,7 +15,7 @@ export default async function Page() {
             href="/admin/newsletter"
             className="text-emerald-400 hover:underline hover:cursor-pointer transition-all"
           >
-            &larr; Volver a Mensajes
+            &larr; Back to Messages
           </Link>
         </nav>
       </section>

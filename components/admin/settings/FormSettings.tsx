@@ -93,11 +93,11 @@ export default function FormSettings() {
 
     if (result.success) {
       // Check if no changes were detected
-      const isNoChanges = result.message?.includes("No se detectaron cambios");
+      const isNoChanges = result.message?.toLowerCase().includes("no changes");
 
       setMessage({
         type: isNoChanges ? "info" : "success",
-        text: result.message || "Configuración actualizada exitosamente",
+        text: result.message || "Settings updated successfully",
       });
 
       if (!isNoChanges) {
@@ -106,7 +106,7 @@ export default function FormSettings() {
     } else {
       setMessage({
         type: "error",
-        text: result.error || "Error al actualizar",
+        text: result.error || "Error updating settings",
       });
     }
 
@@ -116,7 +116,7 @@ export default function FormSettings() {
   if (isFetching) {
     return (
       <div className="max-w-6xl mx-auto text-center py-10">
-        <p className="text-white animate-pulse">Cargando configuración...</p>
+        <p className="text-white animate-pulse">Loading settings...</p>
       </div>
     );
   }
@@ -141,7 +141,7 @@ export default function FormSettings() {
         <section className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] max-w-6xl mx-auto">
           <div className="border-b border-gray-200 pb-4">
             <h2 className="text-white text-xl font-semibold">
-              Detalles del refugio
+              Shelter Details
             </h2>
           </div>
           {/*Shelter Logo */}
@@ -154,7 +154,7 @@ export default function FormSettings() {
                   htmlFor="shelter_name"
                   className="block text-sm font-medium text-white"
                 >
-                  Nombre del Refugio
+                  Shelter Name
                 </label>
                 <input
                   type="text"
@@ -163,7 +163,7 @@ export default function FormSettings() {
                   value={formData.shelter_name}
                   onChange={handleChange}
                   className="mt-1 block w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
-                  placeholder="Nombre del Refugio"
+                  placeholder="Shelter Name"
                 />
               </div>
             </div>
@@ -174,13 +174,13 @@ export default function FormSettings() {
         <section className="my-10 rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] max-w-6xl mx-auto">
           <div className="border-b border-gray-200 pb-4">
             <h2 className="text-white text-lg font-medium">
-              Ubicación y contacto
+              Location &amp; Contact
             </h2>
           </div>
           <div className="flex space-x-6 mt-6">
             <label htmlFor="shelter_email" className="flex-1">
               <span className="block text-sm font-medium text-white mb-1">
-                Correo electrónico de contacto
+                Contact Email
               </span>
               <input
                 type="email"
@@ -194,7 +194,7 @@ export default function FormSettings() {
             </label>
             <label htmlFor="shelter_phone" className="flex-1">
               <span className="block text-sm font-medium text-white mb-1">
-                Número de teléfono de contacto
+                Contact Phone Number
               </span>
               <input
                 type="tel"
@@ -210,7 +210,7 @@ export default function FormSettings() {
           <div className="mt-6">
             <label htmlFor="shelter_address">
               <span className="block text-sm font-medium text-white mb-1">
-                Dirección
+                Address
               </span>
               <input
                 type="text"
@@ -227,7 +227,7 @@ export default function FormSettings() {
             <div className="col-span-2">
               <label htmlFor="city">
                 <span className="block text-sm font-medium text-white mb-1">
-                  Ciudad
+                  City
                 </span>
                 <input
                   type="text"
@@ -236,7 +236,7 @@ export default function FormSettings() {
                   value={formData.city}
                   onChange={handleChange}
                   className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
-                  placeholder="Ciudad"
+                  placeholder="City"
                 />
               </label>
             </div>
@@ -244,7 +244,7 @@ export default function FormSettings() {
               <div className="flex-1">
                 <label htmlFor="state">
                   <span className="block text-sm font-medium text-white mb-1">
-                    Estado
+                    State
                   </span>
                   <input
                     type="text"
@@ -253,14 +253,14 @@ export default function FormSettings() {
                     value={formData.state}
                     onChange={handleChange}
                     className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/50 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
-                    placeholder="Estado"
+                    placeholder="State"
                   />
                 </label>
               </div>
               <div className="flex-1">
                 <label htmlFor="zip_code">
                   <span className="block text-sm font-medium text-white mb-1">
-                    Código Postal
+                    Postal Code
                   </span>
                   <input
                     type="text"
@@ -283,7 +283,7 @@ export default function FormSettings() {
             disabled={isLoading}
             className="bg-emerald-500 text-white px-6 py-2 rounded-2xl hover:bg-emerald-600 transition cursor-pointer font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Guardando..." : "Guardar cambios"}
+            {isLoading ? "Saving..." : "Save Changes"}
           </button>
         </div>
       </form>

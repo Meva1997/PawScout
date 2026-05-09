@@ -50,9 +50,9 @@ function PetsPageContent({ token }: PetsMainProps) {
     <>
       <section className="my-10 flex items-center justify-between ">
         <article>
-          <h1 className="text-3xl font-bold text-white">Gestión de Animales</h1>
+          <h1 className="text-3xl font-bold text-white">Animal Management</h1>
           <p className="mt-2 text-white/70">
-            Administra la información de los animales en el refugio.
+            Manage the animal information in the shelter.
           </p>
         </article>
         <article className="flex flex-col items-center w-full space-y-4 md:flex-row md:space-y-0 md:justify-end md:w-auto">
@@ -60,10 +60,10 @@ function PetsPageContent({ token }: PetsMainProps) {
             onClick={handleOpenModal}
             className="rounded-2xl bg-[#19e6b3] px-3 py-3 text-sm font-semibold text-[#0c1412] transition hover:bg-[#16caa0]"
           >
-            + Agregar Nuevo Animal
+            + Add New Animal
           </button>
           <button className="ml-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-            Filtros
+            Filters
           </button>
         </article>
       </section>
@@ -85,11 +85,10 @@ function PetsPageContent({ token }: PetsMainProps) {
         />
       )}
 
-      {/* Modal de confirmación para eliminar */}
       <ConfirmModalDelete
         token={token}
         entityName="animal"
-        entityNamePlural="este animal"
+        entityNamePlural="this animal"
         deleteFnAction={deleteAnimal}
         queryKey="animals"
         idParamName="animalId"
