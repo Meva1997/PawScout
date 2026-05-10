@@ -37,7 +37,7 @@ export default function AdoptionsFilter({
     <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
       <div>
         <p className="text-xs uppercase tracking-[0.4em] text-white/40">
-          Filtro rápido
+          Quick Filter
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {filterButtons.map((button) => (

@@ -14,7 +14,7 @@ export default async function Page() {
           className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.35em] text-white/50 transition hover:text-[#19e6b3]"
         >
           <span aria-hidden>←</span>
-          Volver a solicitudes
+          Back to Requests
         </Link>
       </section>
 

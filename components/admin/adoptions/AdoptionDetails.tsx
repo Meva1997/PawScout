@@ -29,7 +29,7 @@ export default function AdoptionDetails({ token }: { token: string }) {
   if (isError) {
     return (
       <div className="max-w-6xl mx-auto text-red-500 font-semibold mb-6 text-center">
-        Error al cargar la solicitud de adopción.
+        Error loading adoption request.
       </div>
     );
   }
@@ -37,7 +37,7 @@ export default function AdoptionDetails({ token }: { token: string }) {
   if (isPending) {
     return (
       <div className="max-w-6xl mx-auto text-white font-semibold my-6 pt-10 animate-pulse text-center">
-        Cargando solicitud de adopción...
+        Loading adoption request...
         <PendingSpinner />
       </div>
     );
@@ -54,7 +54,7 @@ export default function AdoptionDetails({ token }: { token: string }) {
                 href="/admin/adoptions"
                 className="font-semibold text-white/70 hover:text-white"
               >
-                Solicitudes
+                Requests
               </Link>
               <span>/</span>
               <span className="text-white">
@@ -65,7 +65,7 @@ export default function AdoptionDetails({ token }: { token: string }) {
               <div className="flex flex-col gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-[0.4em] text-white/40">
-                    Perfil del Solicitante
+                    Applicant Profile
                   </p>
                   <h1 className="text-3xl font-black leading-tight tracking-tight text-white md:text-4xl">
                     {request.applicantName} {request.applicantLastName}
@@ -93,9 +93,9 @@ export default function AdoptionDetails({ token }: { token: string }) {
                     ></span>
                     {request.status}
                   </span>
-                  <span>{`ID de Solicitud: ${request.id}`}</span>
+                  <span>{`Request ID: ${request.id}`}</span>
                   <span>•</span>
-                  <span>{`Enviado el: ${new Date(request.date).toLocaleDateString("es-MX", { year: "numeric", month: "long", day: "numeric" })}`}</span>
+                  <span>{`Submitted on: ${new Date(request.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}`}</span>
                 </div>
               </div>
               {/* <div className="flex flex-wrap gap-3">
@@ -128,7 +128,7 @@ export default function AdoptionDetails({ token }: { token: string }) {
               </article>
               <article className=" rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <p className="text-xs uppercase tracking-[0.35em] text-white/40">
-                  Contacto
+                  Contact
                 </p>
                 <div className="mt-4 flex flex-col gap-4">
                   <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left">
@@ -141,7 +141,7 @@ export default function AdoptionDetails({ token }: { token: string }) {
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left">
                     <p className="text-[11px] uppercase tracking-[0.35em] text-white/40">
-                      Teléfono
+                      Phone
                     </p>
                     <p className="text-sm font-semibold text-white">
                       {request.phone}
@@ -149,7 +149,7 @@ export default function AdoptionDetails({ token }: { token: string }) {
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left">
                     <p className="text-[11px] uppercase tracking-[0.35em] text-white/40">
-                      Dirección
+                      Address
                     </p>
                     <p className="text-sm font-semibold text-white wrap-break-word">
                       {request.address}
@@ -163,24 +163,24 @@ export default function AdoptionDetails({ token }: { token: string }) {
 
               <article className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <p className="text-xs uppercase tracking-[0.35em] text-white/40">
-                  Información del Hogar
+                  Home Information
                 </p>
                 <div className="mt-4 flex flex-col gap-4">
                   <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                     <p className="text-[11px] uppercase tracking-[0.35em] text-white/40">
-                      Tipo de Vivienda
+                      Home Type
                     </p>
                     <p className="text-sm font-semibold text-white capitalize">
                       {request.homeType === "house"
-                        ? "Casa"
+                        ? "House"
                         : request.homeType === "apartment"
-                          ? "Apartamento"
+                          ? "Apartment"
                           : request.homeType}
                     </p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                     <p className="text-[11px] uppercase tracking-[0.35em] text-white/40">
-                      Quién vive en casa
+                      Who lives at home
                     </p>
                     <p className="text-sm font-semibold text-white">
                       {request.whoLivesInHouse}
@@ -193,12 +193,12 @@ export default function AdoptionDetails({ token }: { token: string }) {
             {/* Right Column */}
             <div className="flex flex-col gap-6 lg:col-span-8">
               {isPetPending ? (
-                <p>Cargando información del animal...</p>
+                <p>Loading animal information...</p>
               ) : isPetError ? (
-                <p>Error al cargar la información del animal.</p>
+                <p>Error loading animal information.</p>
               ) : (
                 <article className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-                  Animal a adoptar
+                  Animal to Adopt
                   <div className="mt-4 flex items-center gap-4">
                     <div className="size-20 rounded-2xl border border-white/20">
                       <Image
@@ -217,15 +217,15 @@ export default function AdoptionDetails({ token }: { token: string }) {
                       </h3>
                       <p className="text-sm text-white/70">
                         {pet?.type === "Dog"
-                          ? "Perro"
+                          ? "Dog"
                           : pet?.type === "Cat"
-                            ? "Gato"
+                            ? "Cat"
                             : pet?.type}{" "}
-                        • {pet?.breed} • {pet?.age} años •{" "}
+                        • {pet?.breed} • {pet?.age} years old •{" "}
                         {pet?.gender === "Female"
-                          ? "Hembra"
+                          ? "Female"
                           : pet?.gender === "Male"
-                            ? "Macho"
+                            ? "Male"
                             : pet?.gender}
                       </p>
                     </div>
@@ -235,16 +235,16 @@ export default function AdoptionDetails({ token }: { token: string }) {
               <article className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
                   <h3 className="text-lg font-semibold text-white">
-                    Detalles de la solicitud
+                    Request Details
                   </h3>
                 </div>
                 <div className="grid gap-6 px-6 py-6 md:grid-cols-2">
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.35em] text-white/40">
-                      Fecha de nacimiento
+                      Date of Birth
                     </p>
                     <p className="mt-1 text-sm font-medium text-white">
-                      {new Date(request.birthdate).toLocaleDateString("es-MX", {
+                      {new Date(request.birthdate).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
@@ -253,7 +253,7 @@ export default function AdoptionDetails({ token }: { token: string }) {
                   </div>
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.35em] text-white/40">
-                      Ocupación
+                      Occupation
                     </p>
                     <p className="mt-1 text-sm font-medium text-white capitalize">
                       {request.occupation}
@@ -261,10 +261,10 @@ export default function AdoptionDetails({ token }: { token: string }) {
                   </div>
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.35em] text-white/40">
-                      Términos Aceptados
+                      Terms Accepted
                     </p>
                     <p className="mt-1 text-sm font-medium text-white">
-                      {request.agreeToTerms ? "✓ Sí" : "✗ No"}
+                      {request.agreeToTerms ? "✓ Yes" : "✗ No"}
                     </p>
                   </div>
                   <div>
@@ -281,13 +281,13 @@ export default function AdoptionDetails({ token }: { token: string }) {
               <article className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 px-5 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <div className="border-b border-white/5 px-6 py-4">
                   <h3 className="text-lg font-semibold text-white">
-                    Cuestionario
+                    Questionnaire
                   </h3>
                 </div>
                 <div className="flex flex-col gap-6 px-6 py-6">
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                     <p className="text-sm font-semibold text-white">
-                      ¿Por qué desea adoptar esta mascota?
+                      Why do you want to adopt this pet?
                     </p>
                     <p className="mt-2 text-sm text-white/70 leading-relaxed">
                       &quot;{request.reasonForAdoption}&quot;
@@ -295,7 +295,7 @@ export default function AdoptionDetails({ token }: { token: string }) {
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                     <p className="text-sm font-semibold text-white">
-                      ¿Cuál es su experiencia con mascotas?
+                      What is your experience with pets?
                     </p>
                     <p className="mt-2 text-sm text-white/70 leading-relaxed">
                       &quot;{request.experienceWithPets}&quot;

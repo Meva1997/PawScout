@@ -6,9 +6,9 @@ import DonationTable from "@/components/admin/donations/DonationTable";
 import DonationModalForm from "@/components/admin/donations/DonationModalForm";
 
 const generalInfo = [
-  { label: "Compensacion en total", value: "$5,430.00" },
-  { label: "Donaciones recientes", value: "$1,250.00" },
-  { label: "Promedio de donaciones", value: "$452.50" },
+  { label: "Total Compensation", value: "$5,430.00" },
+  { label: "Recent Donations", value: "$1,250.00" },
+  { label: "Average Donations", value: "$452.50" },
 ];
 
 export default function Page() {
@@ -36,9 +36,9 @@ function DonationsPageContent() {
     <>
       <section className="my-10 flex flex-col md:flex-row space-y-6 items-center justify-between max-w-6xl mx-auto">
         <article>
-          <h1 className="text-3xl font-bold text-white">Donaciones</h1>
+          <h1 className="text-3xl font-bold text-white">Donations</h1>
           <p className="mt-2 text-white/70">
-            Administra las donaciones recibidas de los usuarios
+            Manage donations received from users
           </p>
         </article>
         <article>
@@ -46,10 +46,10 @@ function DonationsPageContent() {
             className="rounded-2xl bg-[#19e6b3] px-3 py-3 text-sm font-semibold text-[#0c1412] transition hover:bg-[#16caa0]"
             onClick={handleOpenModal}
           >
-            + Agregar Nueva Donación
+            + Add New Donation
           </button>
           <button className="ml-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-            Reporte
+            Report
           </button>
         </article>
       </section>

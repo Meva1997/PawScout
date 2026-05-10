@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import ConfirmModalDelete from "@/components/ui/ConfirmModalDelete";
 
-const tableHeaders = ["Nombre", "Asunto", "Mensaje", "Fecha", "Acciones"];
+const tableHeaders = ["Name", "Subject", "Message", "Date", "Actions"];
 
 type UserMessagesProps = {
   token: string;
@@ -27,29 +27,14 @@ export default function UserMessages({ token }: UserMessagesProps) {
     router.push(`?modal=delete&id=${messageId}`);
   };
 
-  const translateSubject = (subject: string) => {
-    switch (subject) {
-      case "Rescue":
-        return "Rescate";
-      case "Adoption":
-        return "Adopción";
-      case "Volunteering":
-        return "Voluntariado";
-      case "Donations":
-        return "Donaciones";
-      case "Others":
-        return "Otros";
-      default:
-        return subject;
-    }
-  };
+  const translateSubject = (subject: string) => subject;
 
   if (isPending) {
     return <PendingSpinner />;
   }
 
   if (isError) {
-    return <p className="text-red-500">Error al cargar los mensajes.</p>;
+    return <p className="text-red-500">Error loading messages.</p>;
   }
 
   return (
@@ -110,13 +95,13 @@ export default function UserMessages({ token }: UserMessagesProps) {
                           )
                         }
                       >
-                        Detalles
+                        Details
                       </button>
                       <button
                         className="w-full rounded-xl bg-red-500 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-red-600 cursor-pointer"
                         onClick={() => handleDeleteClick(message.id)}
                       >
-                        Eliminar
+                        Delete
                       </button>
                     </div>
                   </td>
@@ -129,8 +114,8 @@ export default function UserMessages({ token }: UserMessagesProps) {
 
       <ConfirmModalDelete
         token={token}
-        entityName="mensaje"
-        entityNamePlural="este mensaje"
+        entityName="message"
+        entityNamePlural="this message"
         deleteFnAction={deleteContactMessage}
         queryKey={["userMessages"]}
       />

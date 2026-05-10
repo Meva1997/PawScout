@@ -46,7 +46,7 @@ export default function LogoSettings({ onMessage }: LogoSettingsProps) {
     if (!validTypes.includes(file.type)) {
       onMessage?.({
         type: "error",
-        text: "Formato de archivo no válido. Usa JPG, PNG, GIF o WebP",
+        text: "Invalid file format. Use JPG, PNG, GIF, or WebP",
       });
       return;
     }
@@ -55,7 +55,7 @@ export default function LogoSettings({ onMessage }: LogoSettingsProps) {
     if (file.size > 5 * 1024 * 1024) {
       onMessage?.({
         type: "error",
-        text: "El archivo es demasiado grande. Máximo 5MB",
+        text: "File is too large. Maximum 5MB.",
       });
       return;
     }
@@ -85,7 +85,7 @@ export default function LogoSettings({ onMessage }: LogoSettingsProps) {
       setLogoPreview(null);
       onMessage?.({
         type: "success",
-        text: result.message || "Logo subido exitosamente",
+        text: result.message || "Logo uploaded successfully",
       });
 
       // Clear success message after 3 seconds
@@ -98,7 +98,7 @@ export default function LogoSettings({ onMessage }: LogoSettingsProps) {
       setLogoPreview(null);
       onMessage?.({
         type: "error",
-        text: result.error || "Error al subir el logo",
+        text: result.error || "Error uploading logo",
       });
     }
 
@@ -115,14 +115,14 @@ export default function LogoSettings({ onMessage }: LogoSettingsProps) {
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div className="relative w-48 h-48 rounded-lg overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center">
-            <div className="animate-pulse text-white/50">Cargando...</div>
+            <div className="animate-pulse text-white/50">Loading...</div>
           </div>
         </div>
         <div className="space-y-2">
-          <p className="text-white text-lg font-medium">Logo del Refugio</p>
+          <p className="text-white text-lg font-medium">Shelter Logo</p>
           <span className="text-white/70 text-sm">
-            Este logo representa la identidad visual del refugio y aparecerá en
-            todas las páginas públicas.
+            This logo represents the shelter&apos;s visual identity and will appear on
+            all public pages.
           </span>
         </div>
       </div>
@@ -138,7 +138,7 @@ export default function LogoSettings({ onMessage }: LogoSettingsProps) {
             <>
               <Image
                 src={logoPreview || logoUrl || ""}
-                alt="Logo del refugio"
+                alt="Shelter logo"
                 fill
                 className="object-contain p-2"
               />
@@ -164,7 +164,7 @@ export default function LogoSettings({ onMessage }: LogoSettingsProps) {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="mt-2 text-xs text-white/50">Sin logo</p>
+              <p className="mt-2 text-xs text-white/50">No logo</p>
             </div>
           )}
         </div>
@@ -187,21 +187,21 @@ export default function LogoSettings({ onMessage }: LogoSettingsProps) {
             className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition cursor-pointer font-medium disabled:opacity-50 disabled:cursor-not-allowed border border-white/10"
           >
             {isUploadingLogo
-              ? "Subiendo..."
+              ? "Uploading..."
               : logoUrl
-                ? "Cambiar logo"
-                : "Subir logo"}
+                ? "Change logo"
+                : "Upload logo"}
           </button>
           <p className="text-xs text-white/50 mt-2">
-            JPG, PNG, GIF o WebP. Máximo 5MB.
+            JPG, PNG, GIF or WebP. Maximum 5MB.
           </p>
         </div>
       </div>
       <div className="space-y-2">
-        <p className="text-white text-lg font-medium">Logo del Refugio</p>
+        <p className="text-white text-lg font-medium">Shelter Logo</p>
         <span className="text-white/70 text-sm">
-          Este logo representa la identidad visual del refugio y aparecerá en
-          todas las páginas públicas.
+          This logo represents the shelter&apos;s visual identity and will appear on
+          all public pages.
         </span>
       </div>
     </div>

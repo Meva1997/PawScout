@@ -13,7 +13,7 @@ export default function NewsSubscribers() {
   if (isError) {
     return (
       <div className="my-6  max-w-7xl mx-auto table-auto rounded-2xl overflow-x-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-2 text-center">
-        <p className="text-white">Error al cargar los suscriptores.</p>
+        <p className="text-white">Error loading subscribers.</p>
       </div>
     );
   }

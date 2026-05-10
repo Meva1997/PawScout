@@ -66,7 +66,7 @@ export default function UserMessageDetail({ token }: UserMessageDetailProps) {
             strokeWidth={2}
           />
         </svg>
-        <p className="text-red-400 text-lg font-medium">Error al cargar</p>
+        <p className="text-red-400 text-lg font-medium">Error Loading</p>
       </div>
     );
   }
@@ -85,7 +85,7 @@ export default function UserMessageDetail({ token }: UserMessageDetailProps) {
           </span>
           <div className="h-8 w-px bg-white/20"></div>
           <div>
-            <p className="text-gray-400 text-sm">ID del mensaje</p>
+            <p className="text-gray-400 text-sm">Message ID</p>
             <p className="text-white font-mono font-bold">#{params.slug}</p>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default function UserMessageDetail({ token }: UserMessageDetailProps) {
               </svg>
             </div>
             <h2 className="text-xl font-bold text-white">
-              Información del Usuario
+              User Information
             </h2>
           </div>
 
@@ -131,7 +131,7 @@ export default function UserMessageDetail({ token }: UserMessageDetailProps) {
                     strokeWidth={2}
                   />
                 </svg>
-                <span>Nombre</span>
+                <span>Name</span>
               </div>
               <p className="font-bold text-white text-lg ml-6">{data?.name}</p>
             </div>
@@ -173,7 +173,7 @@ export default function UserMessageDetail({ token }: UserMessageDetailProps) {
                     strokeWidth={2}
                   />
                 </svg>
-                <span>Fecha de envío</span>
+                <span>Date Sent</span>
               </div>
               <p className="font-semibold text-white text-lg ml-6">
                 {formatDate(data?.date)}
@@ -200,7 +200,7 @@ export default function UserMessageDetail({ token }: UserMessageDetailProps) {
                 />
               </svg>
             </div>
-            <h2 className="text-xl font-bold text-white">Mensaje</h2>
+            <h2 className="text-xl font-bold text-white">Message</h2>
           </div>
 
           <div className="p-5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors min-h-50">

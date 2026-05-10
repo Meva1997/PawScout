@@ -8,10 +8,10 @@ export default async function page() {
   return (
     <>
       <section className="my-8 max-w-6xl mx-auto">
-        <h1 className="font-bold text-2xl text-white">Noticias y mensajes</h1>
+        <h1 className="font-bold text-2xl text-white">News & Messages</h1>
         <p>
-          Aquí puedes gestionar los mensajes recibidos a través del formulario
-          de contacto y ver las suscripciones al boletín de noticias.
+          Here you can manage messages received through the contact form and
+          view newsletter subscriptions.
         </p>
       </section>
 

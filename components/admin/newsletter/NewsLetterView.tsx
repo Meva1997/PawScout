@@ -24,7 +24,7 @@ export default function NewsLetterView({ token }: NewsLetterViewProps) {
             }`}
             onClick={() => setActiveTab("messages")}
           >
-            Mensajes Recibidos
+            Received Messages
           </button>
           <button
             className={`px-4 py-2 rounded-lg cursor-pointer ${
@@ -34,7 +34,7 @@ export default function NewsLetterView({ token }: NewsLetterViewProps) {
             }`}
             onClick={() => setActiveTab("subscribers")}
           >
-            Suscriptores
+            Subscribers
           </button>
         </nav>
       </div>

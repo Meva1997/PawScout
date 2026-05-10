@@ -51,22 +51,22 @@ function VolunteersAdminMain({ token }: VolunteerPageProps) {
   const volunteers: VolunteerSchemaType[] = data?.volunteers || [];
 
   const generalInfo = [
-    { label: "Total de Voluntarios", value: volunteers.length },
+    { label: "Total Volunteers", value: volunteers.length },
     {
-      label: "Voluntarios Activos",
+      label: "Active Volunteers",
       value: volunteers.filter((v) => v.status === "accepted").length,
     },
-    { label: "Nuevos este Mes", value: getVolunteersFromLastMonth(volunteers) },
+    { label: "New This Month", value: getVolunteersFromLastMonth(volunteers) },
   ];
 
   if (isError) {
     return (
       <div className="max-w-6xl mx-auto p-6">
         <h2 className="text-2xl font-bold text-red-500">
-          Error al cargar los voluntarios
+          Error loading volunteers
         </h2>
         <p className="mt-2 text-red-500">
-          Por favor, intenta nuevamente más tarde.
+          Please try again later.
         </p>
       </div>
     );
@@ -76,9 +76,9 @@ function VolunteersAdminMain({ token }: VolunteerPageProps) {
     <>
       <section className="my-10 flex items-center justify-between max-w-6xl mx-auto">
         <article>
-          <h1 className="text-3xl font-bold text-white">Voluntarios</h1>
+          <h1 className="text-3xl font-bold text-white">Volunteers</h1>
           <p className="mt-2 text-white/70">
-            Administra los voluntarios registrados en la plataforma
+            Manage volunteers registered on the platform
           </p>
         </article>
         <article>
@@ -86,7 +86,7 @@ function VolunteersAdminMain({ token }: VolunteerPageProps) {
             className="rounded-2xl bg-[#19e6b3] px-3 py-3 text-sm font-semibold text-[#0c1412] transition hover:bg-[#16caa0] cursor-pointer"
             onClick={handleOpenModal}
           >
-            + Agregar Nuevo Voluntario
+            + Add New Volunteer
           </button>
         </article>
       </section>
@@ -119,7 +119,7 @@ function VolunteersAdminMain({ token }: VolunteerPageProps) {
       <section className="mt-20 max-w-6xl mx-auto rounded-2xl border border-white/10 bg-linear-to-br from-white/5 via-transparent to-[#19e6b3]/10 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
         {isPending ? (
           <div className="text-center text-white font-semibold my-6 animate-pulse">
-            Cargando voluntarios...
+            Loading volunteers...
           </div>
         ) : (
           <VolunteerTable volunteers={volunteers} token={token} />

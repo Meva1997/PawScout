@@ -14,9 +14,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // turbopack: {
-  //   root: __dirname,
-  // },
+  turbopack: {
+    root: __dirname,
+  },
   async rewrites() {
     return [
       { source: "/", destination: "/es-mx/home" },

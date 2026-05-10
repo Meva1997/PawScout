@@ -12,19 +12,19 @@ type DonationRecord = {
 const tableInfo: DonationRecord[] = [
   {
     id: "DNT-00123",
-    donor: "Juan Pérez",
+    donor: "John Smith",
     amount: "$100.00",
     date: "2024-06-15",
-    method: "Tarjeta de Crédito",
-    status: "Completado",
+    method: "Credit Card",
+    status: "Completed",
   },
   {
     id: "DNT-00124",
-    donor: "María López",
+    donor: "Maria Lopez",
     amount: "$250.00",
     date: "2024-06-14",
     method: "PayPal",
-    status: "Pendiente",
+    status: "Pending",
   },
   // More donation records...
 ];
@@ -32,9 +32,9 @@ const tableInfo: DonationRecord[] = [
 export default function DonationTable() {
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "Completado":
+      case "Completed":
         return "bg-green-500/15 text-green-300";
-      case "Pendiente":
+      case "Pending":
         return "bg-yellow-500/15 text-yellow-300";
       default:
         return "bg-white/10 text-white";
@@ -64,19 +64,19 @@ export default function DonationTable() {
             </header>
             <div className="mt-3 space-y-2 text-sm text-white/80">
               <p>
-                <span className="text-white/50">Donante: </span>
+                <span className="text-white/50">Donor: </span>
                 {donation.donor}
               </p>
               <p>
-                <span className="text-white/50">Cantidad: </span>
+                <span className="text-white/50">Amount: </span>
                 {donation.amount}
               </p>
               <p>
-                <span className="text-white/50">Fecha: </span>
+                <span className="text-white/50">Date: </span>
                 {donation.date}
               </p>
               <p>
-                <span className="text-white/50">Método: </span>
+                <span className="text-white/50">Method: </span>
                 {donation.method}
               </p>
             </div>
@@ -91,13 +91,13 @@ export default function DonationTable() {
             <thead>
               <tr>
                 <th className="px-4 pb-4 text-left text-white/70">
-                  ID de Donación
+                  Donation ID
                 </th>
-                <th className="px-4 pb-4 text-left text-white/70">Donante</th>
-                <th className="px-4 pb-4 text-white/70">Cantidad</th>
-                <th className="px-4 pb-4 text-white/70">Fecha</th>
-                <th className="px-4 pb-4 text-white/70">Método de Pago</th>
-                <th className="px-4 pb-4 text-white/70">Estado</th>
+                <th className="px-4 pb-4 text-left text-white/70">Donor</th>
+                <th className="px-4 pb-4 text-white/70">Amount</th>
+                <th className="px-4 pb-4 text-white/70">Date</th>
+                <th className="px-4 pb-4 text-white/70">Payment Method</th>
+                <th className="px-4 pb-4 text-white/70">Status</th>
               </tr>
             </thead>
             <tbody>

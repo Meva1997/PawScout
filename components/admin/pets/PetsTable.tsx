@@ -4,11 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
 const tableHeaders = [
-  "Imagen",
-  "Nombre",
-  "Especie / Edad",
+  "Image",
+  "Name",
+  "Species / Age",
   "Status",
-  "Acciones",
+  "Actions",
 ];
 
 type PetsTableProps = {
@@ -44,7 +44,7 @@ export default function PetsTable({
   if (isError) {
     return (
       <div className="text-center py-10 text-red-500 animate-pulse">
-        Error al cargar los datos de las mascotas.
+        Error loading pet data.
       </div>
     );
   }
@@ -52,7 +52,7 @@ export default function PetsTable({
   if (isLoading) {
     return (
       <div className="text-center py-10 text-white/60 animate-pulse">
-        Cargando datos de las mascotas...
+        Loading pet data...
       </div>
     );
   }
@@ -95,13 +95,13 @@ export default function PetsTable({
                 onClick={() => onEditAnimal(animal)}
                 className="text-[#19e6b3] hover:underline hover:cursor-pointer"
               >
-                Editar
+                Edit
               </button>
               <button
                 onClick={() => onDeleteAnimal(animal)}
                 className="text-red-500 hover:underline hover:cursor-pointer"
               >
-                Eliminar
+                Delete
               </button>
             </div>
           </article>
@@ -154,13 +154,13 @@ export default function PetsTable({
                         onClick={() => onEditAnimal(animal)}
                         className="text-sm text-[#19e6b3] hover:underline hover:cursor-pointer"
                       >
-                        Editar
+                        Edit
                       </button>
                       <button
                         onClick={() => onDeleteAnimal(animal)}
                         className="text-red-500 hover:underline hover:cursor-pointer"
                       >
-                        Eliminar
+                        Delete
                       </button>
                     </div>
                   </td>
