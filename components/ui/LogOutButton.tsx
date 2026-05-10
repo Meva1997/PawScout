@@ -24,7 +24,7 @@ export default function LogOutButton() {
               disabled={isPending}
               className="bg-red-500 text-white px-4 py-2 rounded-2xl hover:bg-red-600 transition cursor-pointer font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isPending ? "Cerrando sesión..." : "Cerrar sesión"}
+              {isPending ? "Logging Out..." : "Log Out"}
             </button>
           </form>
         </div>
