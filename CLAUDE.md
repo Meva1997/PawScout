@@ -85,6 +85,7 @@ Production values are set in the Vercel dashboard (pointing to the Render backen
 │   │       │   ├── form/page.tsx
 │   │       │   └── form/success/page.tsx
 │   │       ├── contact/page.tsx
+│   │       ├── terms-conditions/page.tsx
 │   │       └── (auth)/
 │   │           ├── login/page.tsx + layout.tsx
 │   │           └── register/page.tsx + layout.tsx
@@ -144,6 +145,7 @@ Production values are set in the Vercel dashboard (pointing to the Render backen
 │   └── i18n/                            # translation content (32 files)
 │       ├── home/ | login/ | register/ | contact/
 │       ├── adopt/ | donate/ | volunteer/ | ui/
+│       └── terms-conditions/
 │
 ├── db/
 │   └── dogs.ts                          # DogsDataType — animal data shape

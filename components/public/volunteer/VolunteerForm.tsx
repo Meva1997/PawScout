@@ -19,6 +19,7 @@ import { CalendarIcon, IdentificationIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import { getVolunteerFormContent } from "@/lib/i18n/volunteer/form-volunteer";
 import { volunteerFormAction } from "@/actions/volunteer/volunteer-form-action";
+import Link from "next/link";
 
 const interestIcons: Record<string, React.ReactNode> = {
   animalCare: <HeartIcon className="h-5 w-5" />,
@@ -293,8 +294,10 @@ export default function VolunteerForm() {
             />
             <p className="text-gray-400">
               {content.terms.text}{" "}
-              <span className="text-emerald-600 font-bold">
-                {content.terms.highlight}
+              <span className="text-emerald-600 font-bold hover:underline hover:text-emerald-800">
+                <Link href={`/${params?.lang}/terms-conditions`}>
+                  {content.terms.highlight}
+                </Link>
               </span>
               .
             </p>

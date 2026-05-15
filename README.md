@@ -301,7 +301,8 @@ app/
 │       ├── volunteer/      // Volunteer application
 │       ├── contact/        // Contact form
 │       ├── login/          // Authentication
-│       └── register/       // User registration
+│       ├── register/       // User registration
+│       └── terms-conditions/ // Legal terms & conditions
 │
 └── (admin)/                // Admin route group
     ├── layout.tsx          // Admin layout (Sidebar)
@@ -394,7 +395,8 @@ frontend/
 │   │   ├── login/
 │   │   ├── register/
 │   │   ├── ui/
-│   │   └── volunteer/
+│   │   ├── volunteer/
+│   │   └── terms-conditions/
 │   ├── auth.ts                # Authentication utilities
 │   ├── fonts.ts               # Custom font configuration
 │   └── auth/
