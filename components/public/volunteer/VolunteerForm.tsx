@@ -2,11 +2,38 @@
 
 import { useActionState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { UserIcon, HeartIcon, BookOpenIcon } from "@heroicons/react/20/solid";
+import {
+  UserIcon,
+  HeartIcon,
+  BookOpenIcon,
+  UsersIcon,
+  BanknotesIcon,
+  CalendarDaysIcon,
+  ClipboardDocumentListIcon,
+  SparklesIcon,
+  SunIcon,
+  CloudIcon,
+  MoonIcon,
+} from "@heroicons/react/20/solid";
 import { CalendarIcon, IdentificationIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import { getVolunteerFormContent } from "@/lib/i18n/volunteer/form-volunteer";
 import { volunteerFormAction } from "@/actions/volunteer/volunteer-form-action";
+
+const interestIcons: Record<string, React.ReactNode> = {
+  animalCare: <HeartIcon className="h-5 w-5" />,
+  eventPlanning: <CalendarDaysIcon className="h-5 w-5" />,
+  fundraising: <BanknotesIcon className="h-5 w-5" />,
+  administrativeSupport: <ClipboardDocumentListIcon className="h-5 w-5" />,
+  outreach: <UsersIcon className="h-5 w-5" />,
+  other: <SparklesIcon className="h-5 w-5" />,
+};
+
+const timeIcons: Record<string, React.ReactNode> = {
+  morning: <SunIcon className="h-4 w-4" />,
+  afternoon: <CloudIcon className="h-4 w-4" />,
+  evening: <MoonIcon className="h-4 w-4" />,
+};
 
 export default function VolunteerForm() {
   const router = useRouter();
@@ -112,10 +139,13 @@ export default function VolunteerForm() {
             {content.availability.heading}
           </h3>
           <hr className="mb-6 text-emerald-600" />
-          <p className="text-gray-600 pb-2">{content.availability.daysLabel}</p>
-          <div className="flex gap-4">
+
+          <p className="text-gray-600 pb-3 font-medium">
+            {content.availability.daysLabel}
+          </p>
+          <div className="flex flex-wrap gap-2 mb-8">
             {content.availability.days.map((day) => (
-              <label key={day.value} className="flex items-center">
+              <label key={day.value} className="cursor-pointer">
                 <input
                   type="checkbox"
                   name="availableDays"
@@ -123,32 +153,36 @@ export default function VolunteerForm() {
                   defaultChecked={state.formData?.availableDays?.includes(
                     day.value,
                   )}
-                  className="mr-2"
+                  className="sr-only peer"
                 />
-                {day.label}
+                <span className="inline-flex items-center justify-center px-4 py-2.5 rounded-full border-2 border-gray-200 bg-gray-50 text-gray-500 font-medium text-sm transition-all duration-200 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 peer-checked:text-white hover:border-emerald-300 hover:bg-emerald-50 select-none">
+                  {day.label}
+                </span>
               </label>
             ))}
           </div>
-          <div className="mt-4 mb-8">
-            <p className="text-gray-600 pb-2">
-              {content.availability.preferredLabel}
-            </p>
-            <select
-              name="availability"
-              defaultValue={state.formData?.availability?.[0] || ""}
-              className="border border-gray-300 bg-gray-100 p-2 rounded-full w-full max-w-xs"
-            >
-              <option value="" disabled>
-                {params?.lang === "es-mx"
-                  ? "Selecciona una opción"
-                  : "Select an option"}
-              </option>
-              {content.availability.preferredOptions.map((option) => (
-                <option key={option.value} value={option.value}>
+
+          <p className="text-gray-600 pb-3 font-medium">
+            {content.availability.preferredLabel}
+          </p>
+          <div className="flex flex-wrap gap-3 mb-8">
+            {content.availability.preferredOptions.map((option) => (
+              <label key={option.value} className="cursor-pointer">
+                <input
+                  type="radio"
+                  name="availability"
+                  value={option.value}
+                  defaultChecked={
+                    state.formData?.availability?.[0] === option.value
+                  }
+                  className="sr-only peer"
+                />
+                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-200 bg-gray-50 text-gray-500 font-medium text-sm transition-all duration-200 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 peer-checked:text-white hover:border-emerald-300 hover:bg-emerald-50 select-none">
+                  {timeIcons[option.value]}
                   {option.label}
-                </option>
-              ))}
-            </select>
+                </span>
+              </label>
+            ))}
           </div>
         </section>
         <section>
@@ -159,9 +193,9 @@ export default function VolunteerForm() {
           </h3>
           <hr className="mb-6 text-emerald-600" />
           <p className="text-gray-600 mb-4">{content.interests.intro}</p>
-          <div className="grid md:grid-cols-2">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
             {content.interests.items.map((area) => (
-              <label key={area.value} className="flex items-center mb-4">
+              <label key={area.value} className="cursor-pointer group">
                 <input
                   type="checkbox"
                   name="areasOfInterest"
@@ -169,9 +203,14 @@ export default function VolunteerForm() {
                   defaultChecked={state.formData?.areasOfInterest?.includes(
                     area.value,
                   )}
-                  className="mr-2"
+                  className="sr-only peer"
                 />
-                {area.label}
+                <span className="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 bg-gray-50 text-gray-600 font-medium text-sm transition-all duration-200 peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 hover:border-emerald-300 hover:bg-emerald-50/60 select-none h-full">
+                  <span className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 group-has-[input:checked]:bg-emerald-100 group-has-[input:checked]:text-emerald-600 transition-all duration-200">
+                    {interestIcons[area.value]}
+                  </span>
+                  {area.label}
+                </span>
               </label>
             ))}
           </div>
