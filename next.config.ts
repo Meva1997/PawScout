@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
+  webpack: (config) => {
+    config.resolve.modules = [
+      ...(config.resolve.modules ?? ["node_modules"]),
+      path.resolve(__dirname, "node_modules"),
+    ];
+    return config;
+  },
   experimental: {
     serverActions: {
       bodySizeLimit: "5mb",
@@ -13,9 +21,6 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com",
       },
     ],
-  },
-  turbopack: {
-    root: __dirname,
   },
   async rewrites() {
     return [
