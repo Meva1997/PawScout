@@ -38,6 +38,12 @@ export default function HomeFooter() {
             >
               {content.linkContact.linkHowAdopt}
             </Link>
+            <Link
+              href={`/${params?.lang}/terms-conditions`}
+              className="text-gray-700 text-sm hover:underline hover:text-emerald-600"
+            >
+              {content.linkContact.linkTerms}
+            </Link>
           </article>
           <article className="space-y-4 flex flex-col ">
             <h2 className="font-bold text-black text-xl">

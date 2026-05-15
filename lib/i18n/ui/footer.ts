@@ -5,6 +5,7 @@ type FooterContentKey = HeroContentKey;
 type LinkContact = {
   linkAdopt: string;
   linkHowAdopt: string;
+  linkTerms: string;
   linkHelp: string;
   linkContact: string;
   linkVolunteer: string;
@@ -46,6 +47,7 @@ const footerContent: Record<FooterContentKey, FooterContent> = {
     linkContact: {
       linkAdopt: "Busca mascotas",
       linkHowAdopt: "Como adoptar",
+      linkTerms: "Términos y condiciones",
       linkHelp: "Donaciones",
       linkVolunteer: "Voluntariado",
       linkContact: "Contacto",
@@ -77,6 +79,7 @@ const footerContent: Record<FooterContentKey, FooterContent> = {
     linkContact: {
       linkAdopt: "Find Pets",
       linkHowAdopt: "How to Adopt",
+      linkTerms: "Terms and conditions",
       linkHelp: "Donations",
       linkVolunteer: "Volunteering",
       linkContact: "Contact",
